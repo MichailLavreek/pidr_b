@@ -1,14 +1,21 @@
 <?php
+$production = false;
 
+use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/../vendor/autoload.php';
-if (PHP_VERSION_ID < 70000) {
+if (PHP_VERSION_ID < 70000 && !$production) {
     include_once __DIR__.'/../var/bootstrap.php.cache';
 }
+Debug::enable();
 
-$kernel = new AppKernel('prod', false);
-if (PHP_VERSION_ID < 70000) {
+if ($production) {
+    $kernel = new AppKernel('prod', false);
+} else {
+    $kernel = new AppKernel('dev', true);
+}
+if (PHP_VERSION_ID < 70000 && !$production) {
     $kernel->loadClassCache();
 }
 //$kernel = new AppCache($kernel);
