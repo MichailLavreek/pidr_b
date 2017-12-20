@@ -1,0 +1,23 @@
+{% if app.request.query.get('locale') is null %}
+    <script>
+        window.location.href += '&locale={{ defaultLocale }}';
+    </script>
+{% endif %}
+
+{% set currentLocale = app.request.query.get('locale') %}
+
+<select style="display: none;" id="lang-switch">
+    {% for item in locales %}
+        <option {% if item == currentLocale %} selected {% endif %}>{{ item }}</option>
+    {% endfor %}
+</select>
+<script>
+    let langSwitch = $('#lang-switch');
+    $('.new-form').prepend(langSwitch);
+    $('.edit-form').prepend(langSwitch);
+    langSwitch
+        .css('display', 'block')
+        .change(() => {
+            window.location.href = location.href.replace("locale={{ currentLocale }}", "locale="+langSwitch.val());
+        });
+</script>

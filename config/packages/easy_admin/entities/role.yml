@@ -1,0 +1,17 @@
+
+easy_admin:
+    entities:
+        Role:
+            class: App\Entity\Role
+            label: 'Roles'
+            list:
+                fields:
+                    - id
+                    - name
+                    - systemName
+
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'name', type: 'text' }
+                    - { property: 'systemName', type: 'text' }

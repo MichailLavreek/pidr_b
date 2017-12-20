@@ -1,0 +1,15 @@
+
+easy_admin:
+    entities:
+        Language:
+            class: App\Entity\Language
+            label: 'Language'
+            list:
+                fields:
+                    - iso2
+                    - name
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'iso2', type: 'text' }
+                    - { property: 'name', type: 'text' }

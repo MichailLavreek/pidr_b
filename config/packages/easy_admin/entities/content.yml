@@ -1,0 +1,12 @@
+
+easy_admin:
+    entities:
+        Content:
+            class: App\Entity\Content
+            label: 'Content'
+            list:
+                fields:
+                    - id
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }

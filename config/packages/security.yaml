@@ -1,0 +1,30 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        our_db_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: /cms
+            provider: our_db_provider
+            logout:
+               path:   /cms/logout
+               target: /cms/login
+
+    access_control:
+        - { path: ^/cms/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms, roles: IS_AUTHENTICATED_ANONYMOUSLY }

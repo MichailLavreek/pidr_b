@@ -1,0 +1,20 @@
+
+easy_admin:
+    entities:
+        Structure:
+            class: App\Entity\Structure
+            label: 'Structure'
+            templates:
+                new: 'easy_admin/new-lang.html.twig'
+                edit: 'easy_admin/edit-lang.html.twig'
+            list:
+                fields:
+                    - id
+                    - alias
+                    - name
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+#                    - { type: 'choice' }
+                    - { property: 'alias', type: 'text' }
+                    - parent

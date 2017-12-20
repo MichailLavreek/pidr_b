@@ -1,0 +1,22 @@
+
+easy_admin:
+    entities:
+        User:
+            class: App\Entity\User
+            label: 'Users'
+            list:
+                fields:
+                    - id
+                    - isActive
+                    - role
+                    - username
+
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - isActive
+                    - { property: 'username', type: 'text' }
+                    - { property: 'password', type: 'password' }
+                    - role
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - email

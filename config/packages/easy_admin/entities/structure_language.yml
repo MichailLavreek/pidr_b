@@ -1,0 +1,18 @@
+
+easy_admin:
+    entities:
+        StructureLanguage:
+            class: App\Entity\StructureLanguage
+            label: 'Structure Lang'
+            templates:
+                new: 'easy_admin/new-lang.html.twig'
+                edit: 'easy_admin/edit-lang.html.twig'
+            list:
+                fields:
+                    - id
+                    - name
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+#                    - { type: 'choice' }
+                    - { property: 'name', type: 'text' }

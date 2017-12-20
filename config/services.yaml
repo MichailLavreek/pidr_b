@@ -1,0 +1,32 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'ua'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+
+    App\SiteBundle\:
+        resource: '../src/SiteBundle/*'
+        exclude: '../src/SiteBundle/{Entity,Migrations,Tests}'
+
+    App\SiteBundle\Controller\:
+        resource: '../src/SiteBundle/Controller'
+        tags: ['controller.service_arguments']
+
+    App\CMSBundle\:
+        resource: '../src/CMSBundle/*'
+        exclude: '../src/CMSBundle/{Entity,Migrations,Tests}'
+
+    App\CMSBundle\Controller\:
+        resource: '../src/CMSBundle/Controller'
+        tags: ['controller.service_arguments']
+
+    App\:
+        resource: '../src/*'

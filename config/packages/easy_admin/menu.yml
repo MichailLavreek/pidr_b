@@ -1,0 +1,24 @@
+# This file sets the configuration of the main menu. If your backend is simple,
+# you probably can leave the 'menu' option empty and rely on the default menu
+# created by EasyAdmin.
+#
+# NOTE: this demo application splits the backend configuration into several
+# small files for educational purposes. In your application you can put the
+# entire backend configuration in just one file.
+#
+# The configuration options are explained in detail in the bundle documentation,
+# which is published at https://github.com/javiereguiluz/EasyAdminBundle
+easy_admin:
+    design:
+        menu:
+            - label: 'Admin'
+              children:
+                  - { entity: 'User', icon: 'th-list', label: 'Users' }
+                  - { entity: 'Role', icon: 'th-list', label: 'Roles' }
+            - label: 'Settings'
+              children:
+                  - {entity: 'Language', label: 'Language'}
+            - label: 'Site'
+              children:
+                  - {entity: 'Structure', label: 'Structure'}
+                  - {entity: 'Content', label: 'Content'}

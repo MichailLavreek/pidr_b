@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+    {% include 'block/meta.html.twig' %}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/icon-hover-effects.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <div class="wrapper-page">
+        <div class="screen" id="js_screen">
+            {% include 'block/nav-mobile.html.twig' %}
+
+            {% include 'block/sidebar.html.twig' %}
+
+            {% block main %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
