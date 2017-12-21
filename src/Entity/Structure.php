@@ -23,13 +23,13 @@ class Structure
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="children")
-     * @ORM\JoinColumn(name="parent", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="children", cascade={"remove"})
+     * @ORM\JoinColumn(name="parent", referencedColumnName="id", nullable=true)
      */
     private $parent;
 
     /**
-     * @ORM\Column(type="text", length=200, nullable=true)
+     * @ORM\Column(type="string", length=200, unique=true)
      */
     private $alias;
 
@@ -43,9 +43,49 @@ class Structure
      */
     private $lang;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="StructureType")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param mixed $lang
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
     }
 
     public function getParent() {
@@ -63,6 +103,7 @@ class Structure
 
     public function setParent(Structure $parent) {
         $this->parent = $parent;
+        return $this;
     }
 
     /**
@@ -79,6 +120,7 @@ class Structure
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -95,6 +137,7 @@ class Structure
     public function setAlias($alias)
     {
         $this->alias = $alias;
+        return $this;
     }
 
     /**
@@ -111,6 +154,7 @@ class Structure
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+        return $this;
     }
 
     public function __toString()

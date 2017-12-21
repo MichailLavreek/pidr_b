@@ -8,17 +8,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Util\LegacyFormHelper;
 
-class createStructureEditForm extends AbstractType
+class MergedStructureFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title')
-            ->add('summary', TextareaType::class)
-            ->add('content', TextareaType::class)
-            ->add('authorEmail', EmailType::class)
-            ->add('publishedAt', DateTimeType::class)
-        ;
+        $builder->add('structure', LegacyFormHelper::getType('easyadmin'));
+        $builder->add('structure_lang',  LegacyFormHelper::getType('easyadmin'));
     }
 }

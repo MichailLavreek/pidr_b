@@ -23,42 +23,26 @@
 
         <div class="nav">
             <ul class="nav__list">
-                <li class="nav__item">
-                    <a href="#" class="nav__link">Про нас</a>
-                </li>
-                <li class="nav__item nav__item--submenu">
-                    <a href="#" class="nav__link">Каталог товарів</a>
+                {% for structure in structures %}
+                    <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
+                        <a href="{{ path('structure', {'alias': structure.alias }) }}" class="nav__link">
+                            {{ structure.lang.name }}
+                        </a>
 
-                    <ul class="nav__list--submenu">
-                        <li class="nav__item--submenu">
-                            <a href="#" class="nav__link--submenu">
-                                ламінат
-                            </a>
-                        </li>
-                        <li class="nav__item--submenu">
-                            <a href="#" class="nav__link--submenu">
-                                меблі
-                            </a>
-                        </li>
-                        <li class="nav__item--submenu">
-                            <a href="#" class="nav__link--submenu">
-                                сайдінг
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav__item">
-                    <a href="#" class="nav__link">Графік монтажу</a>
-                </li>
-                <li class="nav__item">
-                    <a href="#" class="nav__link">Акції</a>
-                </li>
-                <li class="nav__item">
-                    <a href="#" class="nav__link">Портфоліо</a>
-                </li>
-                <li class="nav__item">
-                    <a href="#" class="nav__link">Контакти</a>
-                </li>
+                        {% if structure.children is not empty %}
+                            <ul class="nav__list--submenu">
+                                {% for child in structure.children %}
+                                    <li class="nav__item--submenu">
+                                        <a href="{{ path('structure', {'alias': child.alias }) }}" class="nav__link--submenu">
+                                            {{ child.lang.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                    </li>
+                {% endfor %}
             </ul>
         </div>
 

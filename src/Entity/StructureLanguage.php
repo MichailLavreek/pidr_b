@@ -48,6 +48,7 @@ class StructureLanguage
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -64,6 +65,7 @@ class StructureLanguage
     public function setLanguage($language)
     {
         $this->language = $language;
+        return $this;
     }
 
     /**
