@@ -25,7 +25,7 @@ class StructureLanguage implements \ArrayAccess
 
     /**
      * @ORM\ManyToOne(targetEntity="Language")
-     * @ORM\JoinColumn(name="language_iso2", referencedColumnName="iso2")
+     * @ORM\JoinColumn(name="language_iso2", referencedColumnName="iso2", nullable=false)
      */
     private $language;
 

@@ -10,7 +10,7 @@ easy_admin:
                     - structure
             form:
                 fields:
-                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
                     - structure
                     - isActive
                     - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ContentLangEmbeddedForm'}}

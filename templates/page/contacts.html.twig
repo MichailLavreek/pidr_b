@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <form class="info__form">
+                        <form class="info__form" action="{{ path('contacts', {'alias': 'contacts', '_locale': app.request.locale}) }}" method="post">
                             <h3 class="info__form-title">
                                 {{ 'contacts-form-title'|trans }}
                             </h3>

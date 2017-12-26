@@ -17,6 +17,7 @@ easy_admin:
             js:
               - 'system/js/ckeditor/ckeditor.js'
               - 'system/js/ckeditor/ckeditor-init.js'
+              - 'system/js/main.js'
             css:
               - '/system/css/style.css'
 
