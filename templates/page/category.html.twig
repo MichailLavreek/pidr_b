@@ -1,0 +1,22 @@
+{% extends 'layout/content-item.html.twig' %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block main_inner %}
+    <section class="content-wrapper">
+        <div class="content content-cms">
+
+            <h1>{{ structure.lang.name }}</h1>
+
+        </div>
+    </section>
+{% endblock main_inner %}

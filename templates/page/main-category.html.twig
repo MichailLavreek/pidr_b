@@ -1,0 +1,25 @@
+{% extends 'layout/content-item.html.twig' %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/category.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block main_inner %}
+    <section class="content-wrapper">
+        <div class="content content-cms content-category">
+
+            <h1>{{ content.lang.name }}</h1>
+            <section class="category-section">
+                <div class="category">
+                    {{ content.lang.body|raw }}
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock main_inner %}

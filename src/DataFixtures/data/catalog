@@ -1,0 +1,59 @@
+<p>
+                                    Захотілось оновити свою оселю? Тоді ви у правильному місці. Компанія “Підрахуй”
+                                    допоможемо зробити ваш дім затишним.
+                                </p>
+                                <p>
+                                    На сьогодні, у своїх магазинах, ми пропонуємо широкий вибір підлогового покриття,
+                                    меблі під ваше замовлення та якісний сайінг европейських і українських брендів для
+                                    зовнішнього оздоблення вашого будинку.
+                                </p>
+
+                                <div class="category__items category__items--small">
+                                    <a href="/ua/category/laminate" class="category__item-wrapper">
+                                        <div class="category__item">
+                                            <div class="category__image" style="background-image: url('/img/catalog-item-1.jpg');"></div>
+                                            <div class="category__title">
+                                                Ламінат
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/ua/category/furniture" class="category__item-wrapper">
+                                        <div class="category__item">
+                                            <div class="category__image" style="background-image: url('/img/catalog-item-2.jpg');"></div>
+                                            <div class="category__title">
+                                                Меблі
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/ua/category/siding" class="category__item-wrapper">
+                                        <div class="category__item">
+                                            <div class="category__image" style="background-image: url('/img/catalog-item-3.jpg');"></div>
+                                            <div class="category__title">
+                                                Сайдінг
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="category__item-wrapper category__item-wrapper--red">
+                                        <div class="category__item">
+                                            <div class="category__image" style="background-image: url('/img/catalog-item-4.jpg');"></div>
+                                            <div class="category__title">
+                                                Популярне
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <p>
+                                    Не треба чекати і купавати в сліпу! Відвідайте наші магазини у зручний для вас час,
+                                    щоб  подивитись  і  придбати необхідну вам продукцію. Наші консультанти допоможуть вам.
+                                </p>
+                                <p>
+                                    Захотіли щось особливе? “Підрахуй” замовить за найнижчими цінами.
+                                </p>
+                                <p>
+                                    Ми працюємо тільки з перевіриними постачальниками, тому вся наша продукція
+                                    сертифікована і відповідає стандартам якості.
+                                </p>
+                                <p class="--bold">
+                                    Вигідна <a href="#" class="--red">акція</a>: якщо ви купуєте ламінат у нас,  ми пропонуємо вам його безкоштовний монтаж.
+                                </p>

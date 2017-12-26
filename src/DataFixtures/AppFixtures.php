@@ -142,7 +142,8 @@ class AppFixtures extends Fixture
     private function loadContent(ObjectManager $manager)
     {
         $contents = [
-            ['about-us', 'Про нас']
+            ['about-us', 'Про нас'],
+            ['catalog', 'Каталог товарів']
         ];
 
         $structureRepository = $manager->getRepository(Structure::class);

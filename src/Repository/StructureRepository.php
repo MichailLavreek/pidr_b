@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Structure;
 use App\Entity\StructureLanguage;
+use App\Entity\StructureType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class StructureRepository extends ServiceEntityRepository
@@ -29,16 +31,16 @@ class StructureRepository extends ServiceEntityRepository
         return $structures;
     }
 
-    /*
-    public function findBySomething($value)
+    public static function getForProduct(EntityRepository $repository)
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.something = :value')->setParameter('value', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $type = $repository->getEntityManager()->getRepository(StructureType::class)->findBy(['name'=>'Category']);
+        if (empty($type[0])) return [];
+        $type = $type[0];
+
+        return $repository->createQueryBuilder('s')
+            ->leftJoin('s.children', 'sc')
+            ->where('s.type = :type')->setParameter('type', $type)
+            ->andWhere('sc.id IS NULL')
+            ;
     }
-    */
 }

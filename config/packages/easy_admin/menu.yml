@@ -22,4 +22,5 @@ easy_admin:
             - label: 'Site'
               children:
                   - {entity: 'Structure', label: 'Structure'}
-                  - {entity: 'Content', label: 'Content'}
+                  - {entity: 'Content', label: 'Contents'}
+                  - {entity: 'Product', label: 'Products'}

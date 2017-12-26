@@ -42,7 +42,7 @@ class ContentLangEmbeddedForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (empty($_GET['id']) || !is_numeric($_GET['id'])) throw new Exception('To add Lang form, id of root object must be defined');
+        if (empty($_GET['id']) || !is_numeric($_GET['id'])) return;
 
         $languages = $this->em->getRepository(Language::class)->findAll();
 
@@ -74,7 +74,7 @@ class ContentLangEmbeddedForm extends AbstractType
                 }
             ])
             ->add('name', TextType::class, [])
-            ->add('body', CustomCkeditorType::class, [])
+            ->add('body', TextareaType::class, [])
     ;
     }
 

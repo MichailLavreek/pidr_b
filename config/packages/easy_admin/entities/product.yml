@@ -1,0 +1,17 @@
+
+easy_admin:
+    entities:
+        Product:
+            class: App\Entity\Product
+            label: 'Product'
+            list:
+                fields:
+                    - id
+                    - structure
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'structure', type: 'entity', type_options: {query_builder: 'App\Repository\StructureRepository::getForProduct'} }
+                    - isActive
+                    - alias
+                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}
