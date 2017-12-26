@@ -4,16 +4,26 @@ namespace App\SiteBundle\Controller;
 
 use App\Entity\Language;
 use App\Entity\Structure;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Entity\Variable;
+use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManager;
 
 class BaseController extends Controller
 {
     public $responseData = [];
     public $currentLanguage;
-    public $doctrine;
+
+    /**
+     * @var EntityManager $em
+     */
+    public $em;
+
+    /**
+     * @var Request $request
+     */
+    protected $request;
 
     public function __construct()
     {
@@ -22,23 +32,50 @@ class BaseController extends Controller
 
     public function setup(Request $request)
     {
-        $this->doctrine = $this->getDoctrine();
+        $this->request = $request;
+        $this->em = $this->getDoctrine();
 
-        $this->setupLanguage($request);
+        $this->setupLanguage();
+        $this->setupStructure();
+        $this->setupVariables();
+
     }
 
-    public function setupLanguage(Request $request)
+    private function setupLanguage()
     {
-        $languageRepository = $this->doctrine->getRepository(Language::class);
+        $languageRepository = $this->em->getRepository((string) Language::class);
         $languages = $languageRepository->findAll();
 
         $this->responseData['languages'] = $languages;
 
         foreach ($languages as $language) {
-            if ($language->getIso2() === $request->getLocale()) {
+            /**
+             * @var Language $language
+             */
+            if ($language->getIso2() === $this->request->getLocale()) {
                 $this->responseData['currentLanguage'] = $language;
                 break;
             }
         }
+    }
+
+    private function setupStructure()
+    {
+        $structureRepository = $this->em->getRepository(Structure::class);
+        $structures = $structureRepository->findAllWithLang($this->request->getLocale());
+
+        $this->responseData['structures'] = $structures;
+    }
+
+    private function setupVariables()
+    {
+        $variablesRepository = $this->em->getRepository(Variable::class);
+        $variables = $variablesRepository->findAll();
+        $formattedVariables = [];
+        foreach ($variables as $variable) {
+            $formattedVariables[$variable->getName()] = $variable->getValue();
+        }
+
+        $this->responseData['variables'] = $formattedVariables;
     }
 }

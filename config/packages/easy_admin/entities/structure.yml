@@ -11,10 +11,13 @@ easy_admin:
                 fields:
                     - id
                     - alias
-                    - name
+                    - type
+                    - parent
             form:
                 fields:
                     - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
 #                    - { type: 'choice' }
                     - { property: 'alias', type: 'text' }
                     - parent
+                    - type
+                    - { property: 'lang', type: 'collection', type_options: { entry_type: 'App\CMSBundle\Form\StructureLangEmbeddedForm', by_reference: false}}

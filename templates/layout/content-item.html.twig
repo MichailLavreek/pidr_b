@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+    {% include 'block/meta.html.twig' %}
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper-page">
+        <div class="screen" id="js_screen">
+            {% block nav_mobile %}
+                {% include 'block/nav-mobile.html.twig' %}
+            {% endblock nav_mobile %}
+
+            {% block sidebar %}
+                {% include 'block/sidebar.html.twig' %}
+            {% endblock %}
+
+            {% block main_outer %}
+                <div class="main-side">
+                    <div class="wrapper">
+                        {% block main_inner %}
+
+                        {% endblock main_inner %}
+                    </div>
+                </div>
+            {% endblock main_outer %}
+
+        </div>
+    </div>
+{% endblock body %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock javascripts %}

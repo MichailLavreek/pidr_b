@@ -1,0 +1,122 @@
+{% extends 'layout/content-item.html.twig' %}
+
+{% block main_inner %}
+    <section class="content-wrapper">
+        <div class="content content-cms">
+
+            <h1>{{ structure.lang.name }}</h1>
+
+            <section class="contacts-section">
+                <div class="contacts">
+                    <div class="info">
+                        <div class="info__contacts">
+                            <div class="info__contact-block">
+                                <h3 class="info__contact-title">
+                                    {{ 'contacts-address-title'|trans }}:
+                                </h3>
+                                <ul class="info__contact-items info__contact-items--address">
+                                    <li class="info__contact-item">
+                                        {{ 'contacts-address'|trans }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="info__contact-block">
+                                <h3 class="info__contact-title">
+                                    {{ 'contacts-work-title'|trans }}:
+                                </h3>
+                                <ul class="info__contact-items info__contact-items--times">
+                                    <li class="info__contact-item">
+                                        {{ 'mn-fr'|trans }}: 9:00-19:00
+                                    </li>
+                                    <li class="info__contact-item">
+                                        {{ 'st'|trans }}: 9:00-16:00
+                                    </li>
+                                    <li class="info__contact-item">
+                                        {{ 'sn'|trans }}: 10:00-16:00
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="info__contact-block">
+                                <h3 class="info__contact-title">
+                                    {{ 'contacts-phones-title'|trans }}:
+                                </h3>
+                                <ul class="info__contact-items info__contact-items--phones">
+                                    <li class="info__contact-item">
+                                        <a href="tel:+38{{ variables.phone_1 }}">
+                                            +38{{ variables.phone_1 }}
+                                        </a>
+                                    </li>
+                                    <li class="info__contact-item">
+                                        <a href="tel:+38{{ variables.phone_2 }}">
+                                            +38{{ variables.phone_2 }}
+                                        </a>
+                                    </li>
+                                    <li class="info__contact-item">
+                                        <a href="tel:+38{{ variables.phone_3 }}">
+                                            +38{{ variables.phone_3 }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <form class="info__form">
+                            <h3 class="info__form-title">
+                                {{ 'contacts-form-title'|trans }}
+                            </h3>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" placeholder="{{ 'name'|trans }}*">
+                            </div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" placeholder="E-mail*">
+                            </div>
+                            <div class="form-textarea-wrapper">
+                                <textarea class="form-textarea" placeholder="{{ 'message'|trans }}"></textarea>
+                            </div>
+
+
+                            <input type="submit" class="form-submit" value="{{ 'send'|trans }}">
+                        </form>
+
+
+
+                    </div>
+                    <div class="info__map" id="contacts-map"></div>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock main_inner %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/contacts.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+
+    {{ parent() }}
+
+    <script>
+        function initMap() {
+            var center = {lat: 51.508128, lng: 31.326134};
+            var markerPosition = {lat: 51.513198, lng: 31.341437};
+            var map = new google.maps.Map(document.getElementById('contacts-map'), {
+                zoom: 14,
+                center: center,
+                styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#cdcdcd"},{"visibility":"on"}]}]
+            });
+
+            var marker = new google.maps.Marker({
+                position: markerPosition,
+                map: map,
+                icon: '/img/icon-map-marker.png'
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEsYkl3qdb83r6bt5Or9SYd2DIAXslMRk&callback=initMap"></script>
+
+{% endblock javascripts %}

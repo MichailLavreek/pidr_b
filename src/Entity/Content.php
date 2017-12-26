@@ -17,6 +17,71 @@ class Content
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Structure")
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="id", nullable=false)
+     */
+    private $structure;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ContentLanguage", mappedBy="content", cascade={"persist"})
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
+     */
+    private $lang;
+
+    /**
+     * @return mixed
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param mixed $lang
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
+
+    /**
+     * @param mixed $structure
+     */
+    public function setStructure($structure)
+    {
+        $this->structure = $structure;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -32,5 +97,8 @@ class Content
         $this->id = $id;
     }
 
-
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
 }

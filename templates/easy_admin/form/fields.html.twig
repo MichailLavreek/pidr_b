@@ -1,0 +1,19 @@
+{% block custom_ckeditor_widget %}
+
+    <div class="custom-ckeditor-container">
+        <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+    </div>
+
+    <script>
+        if (ClassicEditor) {
+            ClassicEditor
+                .create( document.querySelector( '.custom-ckeditor-container textarea') )
+                .then( editor => {
+                    console.log( editor );
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        }
+    </script>
+{% endblock %}

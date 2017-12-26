@@ -39,7 +39,8 @@ class Structure
     private $isActive = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure")
+     * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure", cascade={"persist"})
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
     private $lang;
 
@@ -79,9 +80,6 @@ class Structure
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
     public function setType($type)
     {
         $this->type = $type;

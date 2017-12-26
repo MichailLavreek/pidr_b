@@ -4,34 +4,28 @@
     <div class="main-side">
         <div class="wrapper">
             <section class="categories hi-icon-wrap hi-icon-effect-8">
-                <a href="#" class="category hi-icon">
-                    <div class="category__content">
-                        <div class="category__icon icon-parquet"></div>
-                        <div class="category__title">
-                            ламінат
+                {% for structure in structuresForHomePage %}
+                    {% if structure.alias == 'laminate' %}
+                        {% set icon = 'icon-parquet' %}
+                    {% elseif structure.alias == 'furniture' %}
+                        {% set icon = 'icon-armchair-silhouette' %}
+                    {% else %}
+                        {% set icon = 'icon-icon' %}
+                    {% endif %}
+
+                    <a href="{{ path('category', {'alias': structure.alias }) }}" class="category hi-icon">
+                        <div class="category__content">
+                            <div class="category__icon {{ icon }}"></div>
+                            <div class="category__title">
+                                {{ structure.lang.name }}
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" class="category hi-icon">
-                    <div class="category__content">
-                        <div class="category__icon icon-armchair-silhouette"></div>
-                        <div class="category__title">
-                            меблі
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="category hi-icon">
-                    <div class="category__content">
-                        <div class="category__icon icon-icon"></div>
-                        <div class="category__title">
-                            сайдінг
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                {% endfor %}
             </section>
 
             <div class="copyrights">
-                Всі права захищені. Підрахуй, 2017
+                {{ 'copyrights'|trans }}, {{ "now"|date('Y') }}
             </div>
         </div>
     </div>

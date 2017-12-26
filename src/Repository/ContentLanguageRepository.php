@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Content;
 use App\Entity\ContentLanguage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -13,16 +14,19 @@ class ContentLanguageRepository extends ServiceEntityRepository
         parent::__construct($registry, ContentLanguage::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function getLang(Content $entity, string $lang)
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.something = :value')->setParameter('value', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $langItem = $this->_getLangItem($entity, $lang);
+        return empty($langItem[0]) ? [] : $langItem[0];
     }
-    */
+
+    private function _getLangItem($entity, $lang)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.content = :id')->setParameter('id', $entity->getId())
+            ->andWhere('s.language = :lang')->setParameter('lang', $lang)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
 }

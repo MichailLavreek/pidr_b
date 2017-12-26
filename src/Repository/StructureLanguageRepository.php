@@ -6,7 +6,10 @@ use App\Entity\Language;
 use App\Entity\Structure;
 use App\Entity\StructureLanguage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr;
+
 
 class StructureLanguageRepository extends ServiceEntityRepository
 {
@@ -18,17 +21,8 @@ class StructureLanguageRepository extends ServiceEntityRepository
     public function getLang(Structure $entity, string $lang)
     {
         $langItem = $this->_getLangItem($entity, $lang);
-        if (!$langItem) {
-            $langItem = new StructureLanguage();
-            $langEntity = $this->getEntityManager()->getRepository(Language::class)->find($lang);
-            $langItem->setStructure($entity);
-            $langItem->setLanguage($langEntity);
-            $this->getEntityManager()->persist($langItem);
-            $this->getEntityManager()->flush();
 
-            $langItem = $this->_getLangItem($entity, $lang);
-        }
-        return $langItem[0];
+        return empty($langItem[0]) ? [] : $langItem[0];
     }
 
     private function _getLangItem($entity, $lang)
@@ -41,5 +35,15 @@ class StructureLanguageRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getResult();
+    }
+
+    public static function getForStructure(EntityRepository $repository)
+    {
+        return $repository->createQueryBuilder('c')
+            ->leftJoin('App:RoleCheckpoint', 'rc', Expr\Join::WITH, 'rc.checkpoint = c.id')
+            ->where('rc.id IS NULL')
+//            ->orWhere('rc.role != :role')->setParameter('role', $roleId)
+            ;
+
     }
 }

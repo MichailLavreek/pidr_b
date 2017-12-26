@@ -16,11 +16,17 @@ class IndexController extends BaseController
     {
         $this->setup($request);
 
-        $doctrine = $this->getDoctrine();
-        $structureRepository = $doctrine->getRepository(Structure::class);
-        $structures = $structureRepository->findAllWithLang($request->getLocale());
+        $structuresForHomePage = [];
 
-        $this->responseData['structures'] = $structures;
+        /**
+         * @var Structure $structure
+         */
+        foreach ($this->responseData['structures'] as $structure) {
+            if (in_array($structure->getAlias(), ['laminate', 'furniture', 'siding'])) {
+                $structuresForHomePage[] = $structure;
+            }
+        }
+        $this->responseData['structuresForHomePage'] = $structuresForHomePage;
 
         return $this->render('page/home.html.twig', $this->responseData);
     }

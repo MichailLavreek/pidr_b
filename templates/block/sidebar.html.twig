@@ -6,7 +6,7 @@
             <ul class="lang__list">
                 {% for language in languages %}
                     <li class="lang__item">
-                        <a href="{{ url(app.request.attributes.get('_route'), {'_locale': language.getIso2()}) }}"
+                        <a href="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': language.iso2})) }}"
                            class="lang__link{% if language.getIso2() == currentLanguage.getIso2() %} lang__link--active{% endif %}">
                             {{ language.getName() }}
                         </a>
@@ -24,41 +24,44 @@
         <div class="nav">
             <ul class="nav__list">
                 {% for structure in structures %}
-                    <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
-                        <a href="{{ path('structure', {'alias': structure.alias }) }}" class="nav__link">
-                            {{ structure.lang.name }}
-                        </a>
+                    {% if structure.parent is empty %}
 
-                        {% if structure.children is not empty %}
-                            <ul class="nav__list--submenu">
-                                {% for child in structure.children %}
-                                    <li class="nav__item--submenu">
-                                        <a href="{{ path('structure', {'alias': child.alias }) }}" class="nav__link--submenu">
-                                            {{ child.lang.name }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                        <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
+                            <a href="{{ path(structure.type|lower, {'alias': structure.alias }) }}" class="nav__link">
+                                {{ structure.lang.name }}
+                            </a>
 
-                    </li>
+                            {% if structure.children is not empty %}
+                                <ul class="nav__list--submenu">
+                                    {% for child in structure.children %}
+                                        <li class="nav__item--submenu">
+                                            <a href="{{ path(child.type|lower, {'alias': child.alias }) }}" class="nav__link--submenu">
+                                                {{ child.lang.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
 
         <div class="contacts">
             <div class="contacts__title">
-                ми на зв’язку:
+                {{ 'sidebar-contacts-label'|trans }}:
             </div>
             <div class="contacts__items contacts__items--phone">
                 <div class="contacts__icon icon-phone-receiver"></div>
-                <a href="telto:#" class="contacts__item">(097)466-8228</a>
-                <a href="telto:#" class="contacts__item">(066)852-1355</a>
-                <a href="telto:#" class="contacts__item">(093)909-3888</a>
+                <a href="telto:{{ variables.phone_1 }}" class="contacts__item">{{ variables.phone_1 }}</a>
+                <a href="telto:{{ variables.phone_2 }}" class="contacts__item">{{ variables.phone_2 }}</a>
+                <a href="telto:{{ variables.phone_3 }}" class="contacts__item">{{ variables.phone_3 }}</a>
             </div>
             <div class="contacts__items contacts__items--email">
                 <div class="contacts__icon icon-close-envelope"></div>
-                <a href="mailto:#" class="contacts__item">info@pidrahui.com.ua</a>
+                <a href="mailto:{{ variables.email }}" class="contacts__item">{{ variables.email }}</a>
             </div>
         </div>
 

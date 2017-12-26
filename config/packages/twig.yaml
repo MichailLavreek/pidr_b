@@ -8,3 +8,6 @@ twig:
           - 'ua'
           - 'ru'
           - 'en'
+
+    form_themes:
+        - 'easy_admin/form/fields.html.twig'

@@ -18,6 +18,7 @@ easy_admin:
             - label: 'Settings'
               children:
                   - {entity: 'Language', label: 'Language'}
+                  - {entity: 'Variable', label: 'Variables'}
             - label: 'Site'
               children:
                   - {entity: 'Structure', label: 'Structure'}

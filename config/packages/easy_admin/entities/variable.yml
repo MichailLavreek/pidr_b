@@ -1,0 +1,16 @@
+
+easy_admin:
+    entities:
+        Variable:
+            class: App\Entity\Variable
+            label: 'Variables'
+            list:
+                fields:
+                    - id
+                    - name
+                    - value
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'name', type: 'text' }
+                    - { property: 'value', type: 'text' }

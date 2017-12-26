@@ -22,9 +22,9 @@
         {{ form(form) }}
     {% endblock entity_form %}
 
-    {% block entity_form_lang %}
-        {{ form(form_lang) }}
-    {% endblock entity_form_lang %}
+    {#{% block entity_form_lang %}#}
+        {#{{ form(form_lang) }}#}
+    {#{% endblock entity_form_lang %}#}
 
     {% block delete_form %}
         {{ include('@EasyAdmin/default/includes/_delete_form.html.twig', {
@@ -58,7 +58,17 @@
             });
         });
     </script>
-    {{ include('easy_admin/block/change-lang.html.twig') }}
+    {#{{ include('easy_admin/block/change-lang.html.twig') }}#}
 
     {{ include('@EasyAdmin/default/includes/_select2_widget.html.twig') }}
+    <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
+
+    <script>
+//        ClassicEditor
+//            .create( document.querySelector( '.field-structure_lang_embedded_form textarea' ) )
+//            .catch( error => {
+//                console.error( error );
+//            } );
+    </script>
+
 {% endblock %}

@@ -14,6 +14,9 @@ easy_admin:
         form_theme:   'vertical'
         color_scheme: 'dark'
         assets:
+            js:
+              - 'system/js/ckeditor/ckeditor.js'
+              - 'system/js/ckeditor/ckeditor-init.js'
             css:
               - '/system/css/style.css'
 
