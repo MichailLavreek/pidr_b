@@ -83,6 +83,9 @@ class AppFixtures extends Fixture
         $manager->persist($typeContacts);
 
         $langUa = $manager->getRepository(Language::class)->find('ua');
+        $langRu = $manager->getRepository(Language::class)->find('ru');
+        $langEn = $manager->getRepository(Language::class)->find('en');
+        $langs = [$langUa, $langRu, $langEn];
 
         $structures = [
             ['about-us', $typePage, 'Про нас'],
@@ -106,11 +109,16 @@ class AppFixtures extends Fixture
                 ->setIsActive(1)
                 ->setType($item[1]);
 
-            $structureLang = new StructureLanguage();
-            $structureLang
-                ->setName($item[2])
-                ->setLanguage($langUa)
-                ->setStructure($structure);
+            foreach ($langs as $lang) {
+                $structureLang = new StructureLanguage();
+                $structureLang
+                    ->setName($item[2])
+                    ->setLanguage($lang)
+                    ->setStructure($structure);
+
+                $manager->persist($structureLang);
+            }
+
 
             if (!empty($item[3])) {
                 foreach ($item[3] as $childItem) {
@@ -121,19 +129,21 @@ class AppFixtures extends Fixture
                         ->setType($childItem[1])
                         ->setParent($structure);
 
-                    $childLang = new StructureLanguage();
-                    $childLang
-                        ->setName($childItem[2])
-                        ->setLanguage($langUa)
-                        ->setStructure($child);
+                    foreach ($langs as $lang) {
+                        $childLang = new StructureLanguage();
+                        $childLang
+                            ->setName($childItem[2])
+                            ->setLanguage($lang)
+                            ->setStructure($child);
+
+                        $manager->persist($childLang);
+                    }
 
                     $manager->persist($child);
-                    $manager->persist($childLang);
                 }
             }
 
             $manager->persist($structure);
-            $manager->persist($structureLang);
 
             $manager->flush();
         }
@@ -149,22 +159,29 @@ class AppFixtures extends Fixture
         $structureRepository = $manager->getRepository(Structure::class);
         $contentRepository = $manager->getRepository(Content::class);
         $languageRepository = $manager->getRepository(Language::class);
-        $languageUa = $languageRepository->find('ua');
+
+        $langUa = $manager->getRepository(Language::class)->find('ua');
+        $langRu = $manager->getRepository(Language::class)->find('ru');
+        $langEn = $manager->getRepository(Language::class)->find('en');
+        $langs = [$langUa, $langRu, $langEn];
 
         foreach ($contents as $item) {
             $structure = $structureRepository->findBy(['alias'=>$item[0]])[0];
             $content = new Content();
             $content->setStructure($structure);
             $content->setIsActive(1);
-            $contentLang = new ContentLanguage();
-            $contentLang->setLanguage($languageUa);
-            $contentLang->setName($item[1]);
-            $body = file_get_contents(__DIR__ . '/data/' . $item[0]);
-            $contentLang->setBody($body);
-            $contentLang->setContent($content);
+
+            foreach ($langs as $lang) {
+                $contentLang = new ContentLanguage();
+                $contentLang->setLanguage($lang);
+                $contentLang->setName($item[1]);
+                $body = file_get_contents(__DIR__ . '/data/' . $item[0]);
+                $contentLang->setBody($body);
+                $contentLang->setContent($content);
+                $manager->persist($contentLang);
+            }
 
             $manager->persist($content);
-            $manager->persist($contentLang);
         }
 
         $manager->flush();

@@ -24,3 +24,4 @@ easy_admin:
                   - {entity: 'Structure', label: 'Structure'}
                   - {entity: 'Content', label: 'Contents'}
                   - {entity: 'Product', label: 'Products'}
+                  - {entity: 'Attribute', label: 'Attributes'}

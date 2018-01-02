@@ -50,6 +50,7 @@ class CategoryController extends BaseController
         if (!empty($structure->getChildren())) {
             $products = $this->em->getRepository(Product::class)->findBy(['structure'=>$structure]);
             if (!empty($products)) {
+                var_dump($products);die;
                 return $this->categoryProductAction($request, $alias, $structure, $products);
             }
         }

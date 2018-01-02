@@ -29,7 +29,7 @@ class Content
 
     /**
      * @ORM\OneToMany(targetEntity="ContentLanguage", mappedBy="content", cascade={"persist"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
+     * @ORM\JoinColumn(referencedColumnName="content_id")
      */
     private $lang;
 
