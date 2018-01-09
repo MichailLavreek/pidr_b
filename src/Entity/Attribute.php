@@ -29,7 +29,7 @@ class Attribute
     private $lang;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes", cascade={"persist"})
      */
     private $products;
 
@@ -39,7 +39,7 @@ class Attribute
     private $values;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attribute")
+     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attribute", cascade={"persist"})
      */
     private $attributeValues;
 
@@ -47,7 +47,34 @@ class Attribute
     {
         $this->products = new ArrayCollection();
         $this->values = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
     }
+
+//    public function getAttribute()
+//    {
+//        return $this->attributeValues;
+//    }
+
+//    public function setAttribute($attribute)
+//    {
+//        $this->attributeValues[] = $attribute;
+//        $attribute->setAttribute($this);
+//        $this->setCode($attribute->getCode());
+//        $this->setLang($attribute->getLang());
+////        $this->setValue($attribute->getValue());
+//        $this->setProducts($attribute->getProducts());
+//        $this->setId($attribute->getId());
+//    }
+
+//    public function getValue()
+//    {
+//        return $this->attributeValues;
+//    }
+//
+//    public function setValue($value)
+//    {
+//        $this->values[] = $value;
+//    }
 
     public function addProduct(Product $product)
     {

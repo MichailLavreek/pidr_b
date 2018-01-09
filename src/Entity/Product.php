@@ -29,7 +29,7 @@ class Product
     private $structure;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products", cascade={"persist"})
      * @ORM\JoinTable(name="products_attributes")
      */
     private $attributes;
@@ -81,6 +81,20 @@ class Product
      * @return mixed
      */
     public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    public function addAttributesValue(ProductAttributeValue $attribute)
+    {
+        $attribute->setProduct($this);
+        $this->attributesValues[] = $attribute;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributesValues()
     {
         return $this->attributes;
     }

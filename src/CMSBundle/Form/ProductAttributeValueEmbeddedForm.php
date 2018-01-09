@@ -50,15 +50,15 @@ class ProductAttributeValueEmbeddedForm extends AbstractType
         if (empty($_GET['id']) || !is_numeric($_GET['id'])) return;
 
         $builder
-//            ->add('product', EntityType::class, [
-//                'class' => Product::class,
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('p')
-//                        ->where('p.id = :id')->setParameter('id', $_GET['id'])
-//                        ;
-//                },
-//                'attr' => array('class' => 'forced-hidden-data-field')
-//            ])
+            ->add('product', EntityType::class, [
+                'class' => Product::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->where('p.id = :id')->setParameter('id', $_GET['id'])
+                        ;
+                },
+                'attr' => array('class' => 'forced-hidden-data-field')
+            ])
             ->add('attribute', EntityType::class, [
                 'class' => Attribute::class
             ])
