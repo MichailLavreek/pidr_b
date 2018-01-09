@@ -4,7 +4,6 @@ namespace App\CMSBundle\Form;
 
 use App\CMSBundle\Form\Type\CustomCkeditorType;
 use App\Entity\Attribute;
-use App\Entity\AttributeValue;
 use App\Entity\Content;
 use App\Entity\ContentLanguage;
 use App\Entity\Language;
@@ -41,7 +40,7 @@ class ProductAttributeValueEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Attribute::class,
+            'data_class' => ProductAttributeValue::class,
         ]);
     }
 
@@ -62,9 +61,7 @@ class ProductAttributeValueEmbeddedForm extends AbstractType
             ->add('attribute', EntityType::class, [
                 'class' => Attribute::class
             ])
-            ->add('value', EntityType::class, [
-                'class' => AttributeValue::class
-            ])
+            ->add('value', TextType::class, [])
     ;
     }
 

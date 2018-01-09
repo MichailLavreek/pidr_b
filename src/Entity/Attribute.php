@@ -29,56 +29,13 @@ class Attribute
     private $lang;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes", cascade={"persist"})
-     */
-    private $products;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="attribute", cascade={"persist"})
-     */
-    private $values;
-
-    /**
      * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attribute", cascade={"persist"})
      */
     private $attributeValues;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
-        $this->values = new ArrayCollection();
-        $this->attributeValues = new ArrayCollection();
-    }
 
-//    public function getAttribute()
-//    {
-//        return $this->attributeValues;
-//    }
-
-//    public function setAttribute($attribute)
-//    {
-//        $this->attributeValues[] = $attribute;
-//        $attribute->setAttribute($this);
-//        $this->setCode($attribute->getCode());
-//        $this->setLang($attribute->getLang());
-////        $this->setValue($attribute->getValue());
-//        $this->setProducts($attribute->getProducts());
-//        $this->setId($attribute->getId());
-//    }
-
-//    public function getValue()
-//    {
-//        return $this->attributeValues;
-//    }
-//
-//    public function setValue($value)
-//    {
-//        $this->values[] = $value;
-//    }
-
-    public function addProduct(Product $product)
-    {
-        $this->products[] = $product;
     }
 
     /**
@@ -87,22 +44,6 @@ class Attribute
     public function getCode()
     {
         return $this->code;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValues()
-    {
-        return $this->values;
-    }
-
-    /**
-     * @param mixed $values
-     */
-    public function setValues($values)
-    {
-        $this->values = $values;
     }
 
     /**
@@ -143,22 +84,6 @@ class Attribute
     public function setLang($lang)
     {
         $this->lang = $lang;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param mixed $products
-     */
-    public function setProducts($products)
-    {
-        $this->products = $products;
     }
 
     public function __toString()

@@ -17,5 +17,5 @@ easy_admin:
                     - code
                     - price
                     - manufacturer
-                    - { property: 'attributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
+                    - { property: 'productAttributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
                     - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}

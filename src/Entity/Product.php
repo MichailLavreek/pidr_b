@@ -29,15 +29,9 @@ class Product
     private $structure;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products", cascade={"persist"})
-     * @ORM\JoinTable(name="products_attributes")
+     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="product", cascade={"all"})
      */
-    private $attributes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="product")
-     */
-    private $attributesValues;
+    private $productAttributesValues;
 
     /**
      * @ORM\Column(type="boolean")
@@ -67,36 +61,21 @@ class Product
 
     public function __construct()
     {
-        $this->attributes = new ArrayCollection();
-        $this->attributesValues = new ArrayCollection();
+        $this->productAttributesValues = new ArrayCollection();
     }
 
-    public function addAttribute(Attribute $attribute)
-    {
-        $attribute->addProduct($this);
-        $this->attributes[] = $attribute;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    public function addAttributesValue(ProductAttributeValue $attribute)
+    public function addProductAttributesValues(ProductAttributeValue $attribute)
     {
         $attribute->setProduct($this);
-        $this->attributesValues[] = $attribute;
+        $this->productAttributesValues[] = $attribute;
     }
 
     /**
      * @return mixed
      */
-    public function getAttributesValues()
+    public function getProductAttributesValues()
     {
-        return $this->attributes;
+        return $this->productAttributesValues;
     }
 
     /**

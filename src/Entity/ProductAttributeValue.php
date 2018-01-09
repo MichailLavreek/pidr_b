@@ -17,7 +17,7 @@ class ProductAttributeValue
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="attributesValues")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productAttributesValues")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
@@ -29,8 +29,7 @@ class ProductAttributeValue
     private $attribute;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AttributeValue", inversedBy="productAttributeValues")
-     * @ORM\JoinColumn(name="value_id", referencedColumnName="id", nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $value;
 

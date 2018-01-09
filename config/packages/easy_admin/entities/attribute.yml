@@ -13,4 +13,3 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
                     - { property: 'code' }
                     - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\AttributeLangEmbeddedForm'}}
-                    - { property: 'values', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\AttributeValuesEmbeddedForm'}}
