@@ -37,9 +37,24 @@ class AdminController extends EasyAdminController
         if (is_numeric($maxResults)) $this->config['list']['max_results'] = +$maxResults;
     }
 
-    protected function preUpdateStructureEntity($entity)
+    protected function prePersistEntity($entity)
     {
-//        var_dump($entity->getLang());die;
+        if (method_exists($entity, 'getLang')) {
+            foreach ($entity->getLang() as $lang) {
+                $this->persistEntity($lang);
+            }
+        }
+
+        parent::preUpdateEntity($entity);
+    }
+
+    protected function preUpdateEntity($entity)
+    {
+        if (method_exists($entity, 'getLang')) {
+            foreach ($entity->getLang() as $lang) {
+                $this->persistEntity($lang);
+            }
+        }
 
         parent::preUpdateEntity($entity);
     }

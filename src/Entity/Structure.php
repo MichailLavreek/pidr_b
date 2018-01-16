@@ -39,7 +39,8 @@ class Structure
     private $isActive = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure", cascade={"all"})
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
     private $lang;
 

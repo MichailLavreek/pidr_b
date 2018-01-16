@@ -43,7 +43,8 @@ class Product
     private $isActive = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductLanguage", mappedBy="product", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ProductLanguage", mappedBy="product", cascade={"all"})
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
     private $lang;
 

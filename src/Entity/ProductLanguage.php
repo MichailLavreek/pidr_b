@@ -19,7 +19,7 @@ class ProductLanguage
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="lang", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="lang", cascade={"all"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -63,6 +63,14 @@ class ProductLanguage
      * @param mixed $product
      */
     public function setProduct($product)
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @param mixed $product
+     */
+    public function setParent($product)
     {
         $this->product = $product;
     }

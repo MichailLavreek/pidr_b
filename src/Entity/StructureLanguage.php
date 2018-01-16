@@ -18,8 +18,8 @@ class StructureLanguage implements \ArrayAccess
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="lang", cascade={"persist"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="lang", cascade={"all"})
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="id", nullable=false)
      */
     private $structure;
 
