@@ -2,6 +2,14 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'ua'
+    app.path.product_images: /uploads/images/products
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_images:
+            uri_prefix:         '%app.path.product_images%'
+            upload_destination: '%kernel.root_dir%/../public/uploads/images/products'
 
 services:
     # default configuration for services in *this* file

@@ -50,17 +50,15 @@ class CategoryController extends BaseController
         if (!empty($structure->getChildren())) {
             $products = $this->em->getRepository(Product::class)->findBy(['structure'=>$structure]);
             if (!empty($products)) {
-//                var_dump($products);die;
-                return $this->categoryProductAction($request, $alias, $structure, $products);
+                return $this->categoryProductAction($request, $alias, $products);
             }
         }
 
         return $this->render('page/category.html.twig', $this->responseData);
     }
 
-    public function categoryProductAction(Request $request, $alias, Structure $structure, $products)
+    public function categoryProductAction(Request $request, $alias, $products)
     {
-        $this->responseData['structure'] = $structure;
         $this->responseData['products'] = $products;
 
         return $this->render('page/product-category.html.twig', $this->responseData);

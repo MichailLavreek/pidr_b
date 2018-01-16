@@ -2,6 +2,8 @@
 <div class="left-side">
     <div class="sidebar" id="js_nav-sidebar">
 
+        {% block filter_navigation %}{% endblock filter_navigation %}
+
         <div class="lang">
             <ul class="lang__list">
                 {% for language in languages %}
@@ -48,6 +50,10 @@
                 {% endfor %}
             </ul>
         </div>
+
+        {% block filter_body %}
+
+        {% endblock filter_body %}
 
         <div class="contacts">
             <div class="contacts__title">

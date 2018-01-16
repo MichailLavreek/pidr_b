@@ -40,7 +40,6 @@ class Structure
 
     /**
      * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure", cascade={"persist"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
     private $lang;
 

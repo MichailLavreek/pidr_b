@@ -20,4 +20,4 @@ easy_admin:
                     - { property: 'alias', type: 'text' }
                     - parent
                     - type
-                    - { property: 'lang', type: 'collection', label: 'Different Language Items', type_options: { entry_type: 'App\CMSBundle\Form\StructureLangEmbeddedForm', by_reference: false}}
+                    - { property: 'lang', type: 'collection', label: 'Different Language Items', type_options: { entry_type: 'App\CMSBundle\Form\StructureLangEmbeddedForm'}}

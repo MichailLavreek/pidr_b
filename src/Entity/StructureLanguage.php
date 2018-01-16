@@ -19,7 +19,7 @@ class StructureLanguage implements \ArrayAccess
 
     /**
      * @ORM\ManyToOne(targetEntity="Structure", inversedBy="lang", cascade={"persist"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="structure_id", referencedColumnName="id")
      */
     private $structure;
 
@@ -150,5 +150,21 @@ class StructureLanguage implements \ArrayAccess
     public function offsetUnset($offset)
     {
         $this->$offset = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

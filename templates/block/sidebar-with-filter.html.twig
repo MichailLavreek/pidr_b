@@ -1,0 +1,271 @@
+
+<div class="left-side">
+    <div class="sidebar" id="js_nav-sidebar">
+
+        {% block filter_navigation %}
+            <div class="menu-tabs">
+                <div id="js_menu-tab-nav" class="menu-tabs__item menu-tabs__item--nav">
+                    <div class="gamb gamb--menu-tabs">
+                        <div class="gamb__lines"></div>
+                        <div class="gamb__lines"></div>
+                        <div class="gamb__lines"></div>
+                    </div>
+                </div>
+                <div id="js_menu-tab-filter" class="menu-tabs__item menu-tabs__item--filter"></div>
+            </div>
+
+            <div class="show-products">
+                <span class="show-products__count">15</span>
+                <span class="show-products__text">показати</span>
+                <span class="show-products__close" id="js_hide-show-products-btn">x</span>
+            </div>
+        {% endblock filter_navigation %}
+
+        <div class="lang">
+            <ul class="lang__list">
+                {% for language in languages %}
+                    <li class="lang__item">
+                        <a href="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': language.iso2})) }}"
+                           class="lang__link{% if language.getIso2() == currentLanguage.getIso2() %} lang__link--active{% endif %}">
+                            {{ language.getName() }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="logo">
+            <a href="/">
+                <img src="/img/logo.png" alt="Підрахуй. У нас купуваты вигідніше">
+            </a>
+        </div>
+
+        <div class="nav">
+            <ul class="nav__list">
+                {% for structure in structures %}
+                    {% if structure.parent is empty %}
+
+                        <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
+                            <a href="{{ path(structure.type|lower, {'alias': structure.alias }) }}" class="nav__link">
+                                {{ structure.lang.name }}
+                            </a>
+
+                            {% if structure.children is not empty %}
+                                <ul class="nav__list--submenu">
+                                    {% for child in structure.children %}
+                                        <li class="nav__item--submenu">
+                                            <a href="{{ path(child.type|lower, {'alias': child.alias }) }}" class="nav__link--submenu">
+                                                {{ child.lang.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% block filter_body %}
+            <div class="filter" style="display: none;" id="js_filter-sidebar">
+                <h3 class="filter__head">Підібрати за фільтрами:</h3>
+                <ul class="filter__list">
+                    <li class="filter__item">
+                        <div class="filter__title">
+                            Клас навантаження
+                        </div>
+                        <div class="filter__buttons">
+                            <div class="filter__column">
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        31
+                                    </div>
+                                </div>
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        32
+                                    </div>
+                                </div>
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        33
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="filter__item">
+                        <div class="filter__title">
+                            ТОВЩИНА, мм
+                        </div>
+                        <div class="filter__buttons">
+                            <div class="filter__column">
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        6
+                                    </div>
+                                </div>
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        7
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter__column">
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        8
+                                    </div>
+                                </div>
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="filter__item">
+                        <div class="filter__title">
+                            Фаска
+                        </div>
+                        <div class="filter__buttons">
+                            <div class="filter__column">
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        без фаски
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        фаска 2V
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        фаска 4V
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="filter__item">
+                        <div class="filter__title">
+                            Виробник
+                        </div>
+                        <div class="filter__buttons">
+                            <div class="filter__column">
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Україна
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Польша
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Бельгія
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter__column">
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Білорусія
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Німеччина
+                                    </div>
+                                </div>
+                                <div class="filter__button filter__button--long">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        Австрія
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="filter__item filter__item--price">
+                        <div class="filter__price-block">
+                            <div class="filter__title">
+                                Ціна
+                            </div>
+                            <div class="filter__slider">
+                                <div class="filter__prices">
+                                    <label class="filter__price-label">
+                                        Від
+                                        <input type="text" class="filter__price filter__price-from" id="js_price-from">
+                                    </label>
+                                    <label class="filter__price-label">
+                                        До
+                                        <input type="text" class="filter__price filter__price-to" id="js_price-to">
+                                    </label>
+                                </div>
+                                <div id="slider-range"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mobile-products-count" id="js_mobile-products-count" style="display: none;">
+                        знайдено хххх товарів
+                    </li>
+                    <li class="filter__item filter__item--control">
+                        <div class="filter__control">
+                            <div class="filter__control-button-wrapper filter__control-button-wrapper--submit">
+                                <div class="filter__submit">
+                                    Підібрати
+                                </div>
+                            </div>
+                            <div class="filter__control-button-wrapper filter__control-button-wrapper--cancel">
+                                <div id="js_filter-reset" class="filter__reset">
+                                    очистити все
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        {% endblock filter_body %}
+
+        <div class="contacts">
+            <div class="contacts__title">
+                {{ 'sidebar-contacts-label'|trans }}:
+            </div>
+            <div class="contacts__items contacts__items--phone">
+                <div class="contacts__icon icon-phone-receiver"></div>
+                <a href="telto:{{ variables.phone_1 }}" class="contacts__item">{{ variables.phone_1 }}</a>
+                <a href="telto:{{ variables.phone_2 }}" class="contacts__item">{{ variables.phone_2 }}</a>
+                <a href="telto:{{ variables.phone_3 }}" class="contacts__item">{{ variables.phone_3 }}</a>
+            </div>
+            <div class="contacts__items contacts__items--email">
+                <div class="contacts__icon icon-close-envelope"></div>
+                <a href="mailto:{{ variables.email }}" class="contacts__item">{{ variables.email }}</a>
+            </div>
+        </div>
+
+    </div>
+</div>
