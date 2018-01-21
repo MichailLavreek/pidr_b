@@ -2,6 +2,7 @@
 
 namespace App\CMSBundle\Controller;
 
+use App\Entity\AttributeLanguage;
 use App\Entity\Role;
 use App\Entity\Structure;
 use App\Entity\StructureLanguage;
@@ -57,6 +58,31 @@ class AdminController extends EasyAdminController
         }
 
         parent::preUpdateEntity($entity);
+    }
+
+    protected function updateEntity($entity)
+    {
+        if (method_exists($entity, 'getLang') && count($entity->getLang()) > 0) {
+            $langs = $this
+                ->em
+                ->getRepository($entity->getLang()[0]->getClassName())
+                ->findBy([$entity->getLang()[0]->getParentPropertyName()=>$entity]);
+
+            $submittedLangs = [];
+
+            foreach ($entity->getLang() as $attr) {
+                $submittedLangs[] = $attr;
+            }
+
+            $removedLangs = array_diff($langs, $submittedLangs);
+
+            foreach ($removedLangs as $lang) {
+                $this->em->remove($lang);
+                $this->em->flush($lang);
+            }
+        }
+
+        $this->em->flush($entity);
     }
 
 //    protected function postInitializeStructureEntity()

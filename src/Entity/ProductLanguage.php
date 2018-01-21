@@ -35,6 +35,16 @@ class ProductLanguage
      */
     private $name;
 
+    public function getParentPropertyName()
+    {
+        return 'product';
+    }
+
+    public function getClassName()
+    {
+        return self::class;
+    }
+
     /**
      * @return mixed
      */
@@ -105,5 +115,10 @@ class ProductLanguage
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ' id: ' . $this->getId();
     }
 }

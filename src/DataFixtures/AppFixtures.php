@@ -2,9 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Attribute;
+use App\Entity\AttributeLanguage;
 use App\Entity\Content;
 use App\Entity\ContentLanguage;
 use App\Entity\Language;
+use App\Entity\Product;
+use App\Entity\ProductAttributeValue;
+use App\Entity\ProductLanguage;
 use App\Entity\Structure;
 use App\Entity\StructureLanguage;
 use App\Entity\StructureType;
@@ -20,6 +25,11 @@ class AppFixtures extends Fixture
     private $encoder;
     private $structures;
 
+    /**
+     * @var ObjectManager $manager
+     */
+    private $manager;
+
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -27,6 +37,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $this->manager = $manager;
+
         $role = new Role();
         $role->setName('Admin');
         $role->setSystemName('ROLE_ADMIN');
@@ -48,6 +60,10 @@ class AppFixtures extends Fixture
         $this->loadStructure($manager);
         $this->loadContent($manager);
         $this->loadVariables($manager);
+
+        $this->loadAttributes();
+
+        $this->loadProducts();
     }
 
     private function loadLanguages(ObjectManager $manager)
@@ -205,5 +221,114 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function loadAttributes()
+    {
+        $attributes = [
+            ['class', ['Клас навантаження', 'Класс сопротивления', 'Class']],
+            ['width', ['Товщина, мм', 'Толщина, мм', 'Width, mm']],
+            ['chamfer', ['Фаска', 'Фаска', 'Chamfer']],
+            ['manufacturer', ['Виробник', 'Производитель', 'Manufacturer']],
+        ];
+
+        $langRepository = $this->manager->getRepository(Language::class);
+        $langUa = $langRepository->find('ua');
+        $langRu = $langRepository->find('ru');
+        $langEn = $langRepository->find('en');
+
+        foreach ($attributes as $attribute) {
+            $newAttribute = new Attribute();
+            $newAttributeLangUa = new AttributeLanguage();
+            $newAttributeLangRu = new AttributeLanguage();
+            $newAttributeLangEn = new AttributeLanguage();
+
+            $newAttributeLangUa->setLanguage($langUa);
+            $newAttributeLangUa->setName($attribute[1][0]);
+            $newAttributeLangUa->setAttribute($newAttribute);
+
+            $newAttributeLangRu->setLanguage($langRu);
+            $newAttributeLangRu->setName($attribute[1][1]);
+            $newAttributeLangRu->setAttribute($newAttribute);
+
+            $newAttributeLangEn->setLanguage($langEn);
+            $newAttributeLangEn->setName($attribute[1][2]);
+            $newAttributeLangEn->setAttribute($newAttribute);
+
+            $newAttribute->setLang($newAttributeLangUa);
+            $newAttribute->setLang($newAttributeLangRu);
+            $newAttribute->setLang($newAttributeLangEn);
+
+            $newAttribute->setCode($attribute[0]);
+
+            $this->manager->persist($newAttribute);
+            $this->manager->persist($newAttributeLangUa);
+            $this->manager->persist($newAttributeLangRu);
+            $this->manager->persist($newAttributeLangEn);
+        }
+
+        $this->manager->flush();
+    }
+
+    public function loadProducts()
+    {
+        $laminateStructure = $this->manager->getRepository(Structure::class)->findOneBy(['alias'=>'laminate']);
+        $langUA = $this->manager->getRepository(Language::class)->find('ua');
+        $langRU = $this->manager->getRepository(Language::class)->find('ru');
+        $langEN = $this->manager->getRepository(Language::class)->find('en');
+
+        $class = $this->manager->getRepository(Attribute::class)->findOneBy(['code'=>'class']);
+        $width = $this->manager->getRepository(Attribute::class)->findOneBy(['code'=>'width']);
+        $chamfer = $this->manager->getRepository(Attribute::class)->findOneBy(['code'=>'chamfer']);
+        $manufacturer = $this->manager->getRepository(Attribute::class)->findOneBy(['code'=>'manufacturer']);
+
+        $attributes = [
+            [$class, [31, 32, 33]],
+            [$width, [7, 8, 10, 12]],
+            [$chamfer, ['none', '2V', '4V']],
+            [$manufacturer, ['Україна', 'Польша', 'Бельгія', 'Білорусія', 'Німеччина', 'Австрія']],
+        ];
+
+        for ($count = 1; $count < 100; $count++) {
+            $product = new Product();
+
+            $productLangUa = new ProductLanguage();
+            $productLangUa->setLanguage($langUA);
+            $productLangUa->setName('Ламiнат - ' . $count);
+            $productLangUa->setParent($product);
+            $product->setLang($productLangUa);
+
+            $productLangRu = new ProductLanguage();
+            $productLangRu->setLanguage($langRU);
+            $productLangRu->setName('Ламинат - ' . $count);
+            $productLangRu->setParent($product);
+
+            $productLangEn = new ProductLanguage();
+            $productLangEn->setLanguage($langEN);
+            $productLangEn->setName('Laminate - ' . $count);
+            $productLangEn->setParent($product);
+
+            $product->setAlias('laminate-' . $count);
+            $product->setImage('product-list-item.jpg');
+            $product->setCode('art-' . $count);
+            $product->setIsActive(true);
+            $product->setPrice(rand(100, 500));
+            $product->setStructure($laminateStructure);
+
+            $this->manager->persist($product);
+            $this->manager->persist($productLangUa);
+            $this->manager->persist($productLangRu);
+            $this->manager->persist($productLangEn);
+
+            foreach ($attributes as $attribute) {
+                $attributeValue = new ProductAttributeValue();
+                $attributeValue->setAttribute($attribute[0]);
+                $attributeValue->setProduct($product);
+                $attributeValue->setValue($attribute[1][array_rand($attribute[1])]);
+                $this->manager->persist($attributeValue);
+            }
+        }
+
+        $this->manager->flush();
     }
 }

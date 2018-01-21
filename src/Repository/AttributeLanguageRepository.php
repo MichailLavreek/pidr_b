@@ -3,14 +3,15 @@
 namespace App\Repository;
 
 use App\Entity\AttributeLanguagae;
+use App\Entity\AttributeLanguage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class AttributeLanguagaeRepository extends ServiceEntityRepository
+class AttributeLanguageRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, AttributeLanguagae::class);
+        parent::__construct($registry, AttributeLanguage::class);
     }
 
     /*

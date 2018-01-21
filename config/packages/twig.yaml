@@ -8,6 +8,7 @@ twig:
           - 'ua'
           - 'ru'
           - 'en'
+        productImagesPath: '%app.path.product_images%'
 
     form_themes:
         - 'easy_admin/form/fields.html.twig'

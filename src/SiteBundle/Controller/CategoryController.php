@@ -25,7 +25,11 @@ class CategoryController extends BaseController
         if (empty($structure[0])) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
         $structure = $structure[0];
 
-        $content = $this->em->getRepository(Content::class)->findWithLang(['structure'=>$structure->getId()], $request->getLocale());
+        $content = $this
+            ->em
+            ->getRepository(Content::class)
+            ->findWithLang(['structure'=>$structure->getId()], $request->getLocale());
+
         if (empty($content)) throw new NotFoundHttpException('Content for alias ' . $alias . ' Not Fond!');
 
         $this->responseData['structure'] = $structure;
@@ -41,26 +45,28 @@ class CategoryController extends BaseController
     {
         $this->setup($request);
 
-        $structure = $this->em->getRepository(Structure::class)->findBy(['alias'=>$alias]);
-        if (empty($structure[0])) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
-        $structure = $structure[0];
+        $structure = $this->em->getRepository(Structure::class)->findOneBy(['alias'=>$alias]);
+        if (empty($structure)) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
 
         $this->responseData['structure'] = $structure;
 
         if (!empty($structure->getChildren())) {
-            $products = $this->em->getRepository(Product::class)->findBy(['structure'=>$structure]);
+            $products = $this
+                ->em
+                ->getRepository(Product::class)
+                ->findProducts(['structure'=>$structure, 'language'=>$this->responseData['currentLanguage']]);
+
             if (!empty($products)) {
-                return $this->categoryProductAction($request, $alias, $products);
+                $this->responseData['products'] = $products;
+                return $this->categoryProductAction($request);
             }
         }
 
         return $this->render('page/category.html.twig', $this->responseData);
     }
 
-    public function categoryProductAction(Request $request, $alias, $products)
+    public function categoryProductAction(Request $request)
     {
-        $this->responseData['products'] = $products;
-
         return $this->render('page/product-category.html.twig', $this->responseData);
     }
 }

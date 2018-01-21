@@ -59,11 +59,6 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $manufacturer;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
@@ -83,6 +78,7 @@ class Product
 
     public function __construct()
     {
+        $this->lang = new ArrayCollection();
         $this->productAttributesValues = new ArrayCollection();
     }
 
@@ -173,22 +169,6 @@ class Product
     /**
      * @return mixed
      */
-    public function getManufacturer()
-    {
-        return $this->manufacturer;
-    }
-
-    /**
-     * @param mixed $manufacturer
-     */
-    public function setManufacturer($manufacturer)
-    {
-        $this->manufacturer = $manufacturer;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
@@ -240,6 +220,14 @@ class Product
     public function getLang()
     {
         return $this->lang;
+    }
+
+    /**
+     * @param mixed $lang
+     */
+    public function addLang($lang)
+    {
+        $this->lang[] = $lang;
     }
 
     /**

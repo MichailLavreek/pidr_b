@@ -3,7 +3,7 @@ framework:
     #default_locale: en
     #csrf_protection: ~
     #http_method_override: true
-
+    validation: { enabled: true }
     # uncomment this entire section to enable sessions
     session: ~
     #    # With this config, PHP's native session handling is used

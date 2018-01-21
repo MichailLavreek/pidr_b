@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AttributeLanguagaeRepository")
+ * @UniqueEntity({"attribute", "language"})
+ * @ORM\Entity(repositoryClass="App\Repository\AttributeLanguageRepository")
  */
 class AttributeLanguage
 {
@@ -32,6 +34,11 @@ class AttributeLanguage
      * @ORM\Column(type="text", length=200)
      */
     private $name;
+
+    public function getParentPropertyName()
+    {
+        return 'attribute';
+    }
 
     /**
      * @return mixed
@@ -97,5 +104,8 @@ class AttributeLanguage
         $this->name = $name;
     }
 
-
+    public function __toString()
+    {
+        return $this->getName() . ' id: ' . $this->getId();
+    }
 }

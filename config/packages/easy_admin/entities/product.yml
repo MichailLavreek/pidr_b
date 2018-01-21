@@ -16,7 +16,6 @@ easy_admin:
                     - alias
                     - code
                     - price
-                    - manufacturer
                     - { property: 'imageFile', type: 'vich_image' }
                     - { property: 'productAttributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
                     - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}

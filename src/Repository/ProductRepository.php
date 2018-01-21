@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\AttributeLanguage;
 use App\Entity\Product;
+use App\Entity\ProductAttributeValue;
+use App\Entity\ProductLanguage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class ProductRepository extends ServiceEntityRepository
@@ -13,16 +17,60 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function findProducts($params)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        $itemsInPage = 12;
+
+        $products = $this
+            ->createQueryBuilder('s')
+            ->where('s.structure = :structure')->setParameter('structure', $params['structure'])
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults($itemsInPage)
+            ;
+        if (!empty($params['page'])) {
+            $products->setFirstResult($params['page'] * $itemsInPage);
+        }
+
+        $products = $products
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        /**
+         * @var Product $product
+         */
+        foreach ($products as $key => $product) {
+            foreach ($product->getLang() as $productLang) {
+                if ($productLang->getLanguage() === $params['language']) {
+                    $productLangCurrent = $productLang;
+                    break;
+                }
+            }
+            if (!empty($productLangCurrent)) {
+                $products[$key]->setLang($productLangCurrent);
+            } else {
+                $products[$key]->setLang(new ProductLanguage());
+            }
+
+            foreach ($product->getProductAttributesValues() as  $attributeValue) {
+                $attributeLang = null;
+                foreach ($attributeValue->getAttribute()->getLang() as $lang) {
+                    if ($lang->getLanguage() === $params['language']) {
+                        $attributeLang = $lang;
+                        break;
+                    }
+                }
+
+                if (!empty($attributeLang)) {
+                    $attributeValue->getAttribute()->setLang($attributeLang);
+                }
+
+//                var_dump($attributeValue->getAttribute()->getLang()->getName());
+            }
+//            var_dump($product->getProductAttributesValues()[0]->getAttribute()->getLang()->getName());
+        }
+
+//        var_dump($products[0]->getProductAttributesValues()[0]->getAttribute()->getLang()->getName());
+
+        return $products;
     }
-    */
 }

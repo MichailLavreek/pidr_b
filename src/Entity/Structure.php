@@ -18,7 +18,7 @@ class Structure
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Structure", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Structure", mappedBy="parent", cascade={"remove"})
      */
     protected $children;
 

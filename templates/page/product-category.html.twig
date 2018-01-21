@@ -56,27 +56,24 @@
 
                         {% for product in products %}
                             <a href="#" class="product">
-                                <div class="product__image"></div>
+                                <div class="product__image" style="background-image: url('{{ productImagesPath ~ '/' ~ product.image }}')"></div>
                                 <div class="product__description">
                                     <h4 class="product__name">
-                                        {#{{ product.lang.name }}#}
+                                        {{ product.lang.name }}
                                     </h4>
                                     <ul class="product__attributes">
-                                        <li class="product__attribute">
-                                            Размер - 605x282x8 мм
-                                        </li>
-                                        <li class="product__attribute">
-                                            Износостойкость - AC4
-                                        </li>
-                                        <li class="product__attribute">
-                                            Класс - 32
-                                        </li>
+                                        {% for attributeValue in product.productAttributesValues %}
+                                            <li class="product__attribute">
+                                                {{ attributeValue.attribute.lang.name }} -
+                                                {{ attributeValue.value }}
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                     <div class="product__code">
-                                        АРТ Л123456
+                                        {{ product.code }}
                                     </div>
                                     <div class="product__price">
-                                        127
+                                        {{ product.price }}
                                     </div>
                                 </div>
                             </a>
