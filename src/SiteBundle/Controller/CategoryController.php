@@ -45,6 +45,9 @@ class CategoryController extends BaseController
     {
         $this->setup($request);
 
+        $page = $request->query->get('page');
+        if (empty($page)) $page = 1;
+
         $structure = $this->em->getRepository(Structure::class)->findOneBy(['alias'=>$alias]);
         if (empty($structure)) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
 
@@ -54,10 +57,13 @@ class CategoryController extends BaseController
             $products = $this
                 ->em
                 ->getRepository(Product::class)
-                ->findProducts(['structure'=>$structure, 'language'=>$this->responseData['currentLanguage']]);
+                ->findProducts(['structure'=>$structure, 'language'=>$this->responseData['currentLanguage'], 'page' => $page]);
 
             if (!empty($products)) {
                 $this->responseData['products'] = $products;
+                $this->responseData['pagination'] = $this->buildPagination($structure, $page);
+                $this->responseData['filter'] = $this->buildFilter($structure);
+
                 return $this->categoryProductAction($request);
             }
         }

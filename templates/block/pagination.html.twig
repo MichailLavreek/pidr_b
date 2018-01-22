@@ -1,0 +1,99 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set alias = app.request.attributes.get('alias') %}
+{% set query = app.request.query.all|merge({'alias': alias}) %}
+
+<div class="pagination">
+    <div class="pagination__wrapper">
+
+        <a href="{% if page > 1 %}{{ path(route, query|merge({'page': page - 1})) }}{% else %}#{% endif %}"
+           class="pagination__item pagination__item--previous{% if page == 1 %} pagination__item--disabled{% endif %}"><</a>
+
+        {% if pages > 4 %}
+            {% if page == 1 or page == pages %}
+                <a href="{{ path(route, query|merge({'page': 1})) }}"
+                   class="pagination__item{% if page == 1 %} pagination__item--current{% endif %}">
+                    1
+                </a>
+                <a href="{{ path(route, query|merge({'page': 2})) }}"
+                   class="pagination__item">
+                    2
+                </a>
+                <a href="{{ path(route, query|merge({'page': 3})) }}"
+                   class="pagination__item">
+                    3
+                </a>
+
+                <a href="#" class="pagination__item pagination__item--disabled">...</a>
+
+                <a href="{{ path(route, query|merge({'page': pages})) }}"
+                   class="pagination__item{% if page == pages %} pagination__item--current{% endif %}">
+                    {{ pages }}
+                </a>
+            {% elseif page == pages - 1 %}
+                <a href="{{ path(route, query|merge({'page': 1})) }}"
+                   class="pagination__item">
+                    1
+                </a>
+                <a href="{{ path(route, query|merge({'page': 2})) }}"
+                   class="pagination__item">
+                    2
+                </a>
+
+                <a href="#" class="pagination__item pagination__item--disabled">...</a>
+
+                <a href="{{ path(route, query|merge({'page': page})) }}"
+                   class="pagination__item pagination__item--current">
+                    {{ page }}
+                </a>
+                <a href="{{ path(route, query|merge({'page': pages})) }}"
+                   class="pagination__item">
+                    {{ pages }}
+                </a>
+            {% else %}
+                {% if page - 1 > 1 %}
+                    <a href="{{ path(route, query|merge({'page': 1})) }}"
+                       class="pagination__item">
+                        1
+                    </a>
+                    {% if page != 3 %}
+                        <a href="#" class="pagination__item pagination__item--disabled">...</a>
+                    {% endif %}
+                {% endif %}
+
+                <a href="{{ path(route, query|merge({'page': page - 1})) }}"
+                   class="pagination__item">
+                    {{ page - 1 }}
+                </a>
+                <a href="{{ path(route, query|merge({'page': page})) }}"
+                   class="pagination__item pagination__item--current">
+                    {{ page }}
+                </a>
+                <a href="{{ path(route, query|merge({'page': page + 1})) }}"
+                   class="pagination__item">
+                    {{ page + 1 }}
+                </a>
+
+                {% if page != pages - 2 %}
+                    <a href="#" class="pagination__item pagination__item--disabled">...</a>
+                {% endif %}
+
+                <a href="{{ path(route, query|merge({'page': pages})) }}"
+                   class="pagination__item">
+                    {{ pages }}
+                </a>
+            {% endif %}
+
+
+        {% else %}
+            {% for i in 1..pages %}
+                <a href="{{ path(route, query|merge({'page': i})) }}"
+                   class="pagination__item{% if page == i %} pagination__item--current{% endif %}">
+                    {{ i }}
+                </a>
+            {% endfor %}
+        {% endif %}
+
+        <a href="{% if page < pages %}{{ path(route, query|merge({'page': page + 1})) }}{% else %}#{% endif %}"
+           class="pagination__item pagination__item--next{% if page == pages %} pagination__item--disabled{% endif %}">></a>
+    </div>
+</div>

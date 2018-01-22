@@ -1,0 +1,82 @@
+<div class="filter" style="display: none;" id="js_filter-sidebar">
+    <h3 class="filter__head">Підібрати за фільтрами:</h3>
+    <ul class="filter__list">
+        {% for attribute in attributes %}
+            <li class="filter__item">
+                <div class="filter__title">
+                    {{ attribute.lang.name }}
+                </div>
+                <div class="filter__buttons">
+                    <div class="filter__column">
+                        {% set i = 0 %}
+                        {% for value in attribute.attributeValues %}
+                            {% if i is even %}
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        {{ value.value|trans }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="filter__column">
+                        {% set i = 0 %}
+                        {% for value in attribute.attributeValues %}
+                            {% if i is odd %}
+                                <div class="filter__button">
+                                    <div class="filter__checkbox"></div>
+                                    <div class="filter__label">
+                                        {{ value.value }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        <li class="filter__item filter__item--price">
+            <div class="filter__price-block">
+                <div class="filter__title">
+                    Ціна
+                </div>
+                <div class="filter__slider">
+                    <div class="filter__prices">
+                        <label class="filter__price-label">
+                            Від
+                            <input type="text" data-min="{{ price.min }}" class="filter__price filter__price-from" id="js_price-from">
+                        </label>
+                        <label class="filter__price-label">
+                            До
+                            <input type="text" data-max="{{ price.max }}" class="filter__price filter__price-to" id="js_price-to">
+                        </label>
+                    </div>
+                    <div id="slider-range"></div>
+                </div>
+            </div>
+        </li>
+        <li class="mobile-products-count" id="js_mobile-products-count" style="display: none;">
+            знайдено хххх товарів
+        </li>
+        <li class="filter__item filter__item--control">
+            <div class="filter__control">
+                <div class="filter__control-button-wrapper filter__control-button-wrapper--submit">
+                    <div class="filter__submit">
+                        Підібрати
+                    </div>
+                </div>
+                <div class="filter__control-button-wrapper filter__control-button-wrapper--cancel">
+                    <div id="js_filter-reset" class="filter__reset">
+                        очистити все
+                    </div>
+                </div>
+
+
+            </div>
+        </li>
+    </ul>
+</div>

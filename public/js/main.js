@@ -214,9 +214,9 @@ function initMain() {
         function initPriceSlider() {
             sliderJq.slider({
                 range: true,
-                min: 0,
-                max: 10000,
-                values: [0, 10000],
+                min: priceFromJq.data('min'),
+                max: priceToJq.data('max'),
+                values: [priceFromJq.data('min'), priceToJq.data('max')],
                 slide: function (event, ui) {
                     showRangeValues();
                 }

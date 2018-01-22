@@ -27,8 +27,8 @@ class ProductRepository extends ServiceEntityRepository
             ->orderBy('s.id', 'ASC')
             ->setMaxResults($itemsInPage)
             ;
-        if (!empty($params['page'])) {
-            $products->setFirstResult($params['page'] * $itemsInPage);
+        if (!empty($params['page']) && $params['page'] !== 1) {
+            $products->setFirstResult(($params['page'] - 1) * $itemsInPage);
         }
 
         $products = $products
@@ -72,5 +72,16 @@ class ProductRepository extends ServiceEntityRepository
 //        var_dump($products[0]->getProductAttributesValues()[0]->getAttribute()->getLang()->getName());
 
         return $products;
+    }
+
+    public function getMinMaxPrice($structure)
+    {
+        $minMax = $this->createQueryBuilder('p')
+            ->select('MIN(p.price) AS min, MAX(p.price) AS max')
+            ->where('p.structure = :structure')->setParameter('structure', $structure)
+            ->getQuery()
+            ->getResult();
+
+        return $minMax[0];
     }
 }

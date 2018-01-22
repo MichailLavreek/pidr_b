@@ -94,19 +94,8 @@
                     </div>
                 </section>
 
-                <div class="pagination">
-                    <div class="pagination__wrapper">
-                        <a href="#" class="pagination__item pagination__item--previous pagination__item--disabled"><</a>
+                {{ pagination|raw }}
 
-                        <a href="#" class="pagination__item pagination__item--current">1</a>
-                        <a href="#" class="pagination__item">2</a>
-                        <a href="#" class="pagination__item">3</a>
-                        <a href="#" class="pagination__item pagination__item--disabled">...</a>
-                        <a href="#" class="pagination__item">10</a>
-
-                        <a href="#" class="pagination__item pagination__item--next">></a>
-                    </div>
-                </div>
             {% endblock products_inner %}
 
         </div>

@@ -38,6 +38,24 @@ class Attribute
     public function __construct()
     {
         $this->lang = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributeValues()
+    {
+        $valueNames = [];
+        $values = [];
+        foreach ($this->attributeValues as $value) {
+            if (!in_array($value->getValue(), $valueNames)) {
+                $valueNames[] = $value->getValue();
+                $values[] = $value;
+            }
+        }
+
+        return $values;
     }
 
     /**

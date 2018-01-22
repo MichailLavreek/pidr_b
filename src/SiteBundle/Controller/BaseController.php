@@ -2,11 +2,14 @@
 
 namespace App\SiteBundle\Controller;
 
+use App\Entity\Attribute;
 use App\Entity\Language;
+use App\Entity\Product;
 use App\Entity\Structure;
 use App\Entity\Variable;
 use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 
@@ -77,5 +80,28 @@ class BaseController extends Controller
         }
 
         $this->responseData['variables'] = $formattedVariables;
+    }
+
+    protected function buildPagination(Structure $structure, $page)
+    {
+        $parameters = [];
+
+        $parameters['count'] = $this->em->getRepository(Structure::class)->countContentItems($structure);
+        $parameters['byPage'] = 12;
+        $parameters['pages'] = ceil($parameters['count'] / $parameters['byPage']);
+        $parameters['page'] = $page;
+
+
+        return $this->render('block/pagination.html.twig', $parameters)->getContent();
+    }
+
+    protected function buildFilter(Structure $structure)
+    {
+        $parameters = [];
+
+        $parameters['attributes'] = $this->em->getRepository(Attribute::class)->getForFilter($structure, $this->responseData['currentLanguage']);
+        $parameters['price'] = $this->em->getRepository(Product::class)->getMinMaxPrice($structure);
+
+        return $this->render('block/filter.html.twig', $parameters)->getContent();
     }
 }
