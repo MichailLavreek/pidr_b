@@ -82,11 +82,11 @@ class BaseController extends Controller
         $this->responseData['variables'] = $formattedVariables;
     }
 
-    protected function buildPagination(Structure $structure, $page)
+    protected function buildPagination(Structure $structure, $page, $query)
     {
         $parameters = [];
 
-        $parameters['count'] = $this->em->getRepository(Structure::class)->countContentItems($structure);
+        $parameters['count'] = $this->em->getRepository(Structure::class)->countContentItems($structure, $query);
         $parameters['byPage'] = 12;
         $parameters['pages'] = ceil($parameters['count'] / $parameters['byPage']);
         $parameters['page'] = $page;
@@ -101,6 +101,7 @@ class BaseController extends Controller
 
         $parameters['attributes'] = $this->em->getRepository(Attribute::class)->getForFilter($structure, $this->responseData['currentLanguage']);
         $parameters['price'] = $this->em->getRepository(Product::class)->getMinMaxPrice($structure);
+        $parameters['query'] = $this->request->query->all();
 
         return $this->render('block/filter.html.twig', $parameters)->getContent();
     }

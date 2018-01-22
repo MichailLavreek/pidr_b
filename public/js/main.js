@@ -141,69 +141,8 @@ function initMain() {
         var sidebar = document.querySelector('.left-side');
         var checkboxes = container.querySelectorAll('.filter__button');
         var resetButton = container.querySelector('#js_filter-reset');
+        var submitButton = container.querySelector('#js_filter-submit');
         var showProductsButton = document.querySelector('.show-products');
-
-        if (navContainer) {
-            switchMenu('filter');
-            navTab.addEventListener('click', function () {
-                switchMenu('nav');
-            });
-            filterTab.addEventListener('click', function () {
-                switchMenu('filter');
-            });
-        }
-
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('click', function () {
-                if (this.classList.contains('active')) {
-                    this.classList.remove('active');
-                } else {
-                    this.classList.add('active');
-                    refreshShowProductsButton(this);
-                }
-            });
-        }
-
-        resetButton.addEventListener('click', function () {
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].classList.contains('active')) {
-                    checkboxes[i].classList.remove('active');
-                }
-            }
-        });
-
-        function switchMenu(element) {
-            switch (element) {
-                case 'filter':
-                    navContainer.style = 'display: none;';
-                    filterContainer.style = 'display: block;';
-                    filterTab.classList.add('active');
-                    navTab.classList.remove('active');
-                    sidebar.classList.add('left-side--filter');
-                    showProductsButton.style = 'display: block;';
-                    break;
-                case 'nav':
-                    navContainer.style = 'display: block;';
-                    filterContainer.style = 'display: none;';
-                    navTab.classList.add('active');
-                    filterTab.classList.remove('active');
-                    sidebar.classList.remove('left-side--filter');
-                    showProductsButton.style = 'display: none;';
-                    break;
-            }
-
-            document.getElementById('js_hide-show-products-btn').addEventListener('click', function () {
-                showProductsButton.style.display = 'none';
-            });
-        }
-
-        function refreshShowProductsButton(button) {
-            var bodyRect = document.body.getBoundingClientRect(),
-                elemRect = button.getBoundingClientRect(),
-                offset   = elemRect.top - bodyRect.top;
-
-            showProductsButton.style = 'display: block; top: ' + (offset - 8) + 'px;';
-        }
 
         var priceFromJs = container.querySelector('#js_price-from');
         var priceFromJq = $(priceFromJs);
@@ -211,14 +150,19 @@ function initMain() {
         var priceToJq = $(priceToJs);
         var sliderJs = container.querySelector('#slider-range');
         var sliderJq = $(sliderJs);
+
         function initPriceSlider() {
+            var updateShowProductButtonTimeout;
+
             sliderJq.slider({
                 range: true,
                 min: priceFromJq.data('min'),
                 max: priceToJq.data('max'),
                 values: [priceFromJq.data('min'), priceToJq.data('max')],
                 slide: function (event, ui) {
+                    clearTimeout(updateShowProductButtonTimeout);
                     showRangeValues();
+                    updateShowProductButtonTimeout = setTimeout(refreshShowProductsButton, 400);
                 }
             });
         }
@@ -241,9 +185,131 @@ function initMain() {
 
         initPriceSlider();
         showRangeValues();
+
+        if (navContainer) {
+            switchMenu('filter');
+            navTab.addEventListener('click', function () {
+                switchMenu('nav');
+            });
+            filterTab.addEventListener('click', function () {
+                switchMenu('filter');
+            });
+
+            $(showProductsButton).find('.show-products__text').on('click', function (e) {
+                var query = buildFilterQuery();
+                if (query) {
+                    window.location.href = query;
+                }
+            });
+        }
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('click', function () {
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                } else {
+                    this.classList.add('active');
+                }
+                refreshShowProductsButton(this);
+            });
+        }
+
+        resetButton.addEventListener('click', function () {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].classList.contains('active')) {
+                    checkboxes[i].classList.remove('active');
+                }
+            }
+
+            window.location.href = buildFilterQuery(true);
+        });
+
+        submitButton.addEventListener('click', function () {
+            var query = buildFilterQuery();
+
+            if (query) {
+                window.location.href = query;
+            }
+        });
+
+        function switchMenu(element) {
+            switch (element) {
+                case 'filter':
+                    navContainer.style = 'display: none;';
+                    filterContainer.style = 'display: block;';
+                    filterTab.classList.add('active');
+                    navTab.classList.remove('active');
+                    sidebar.classList.add('left-side--filter');
+                    if (buildFilterQuery()) {
+                        refreshShowProductsButton();
+                        showProductsButton.style = 'display: block;';
+                    }
+                    break;
+                case 'nav':
+                    navContainer.style = 'display: block;';
+                    filterContainer.style = 'display: none;';
+                    navTab.classList.add('active');
+                    filterTab.classList.remove('active');
+                    sidebar.classList.remove('left-side--filter');
+                    showProductsButton.style = 'display: none;';
+                    break;
+            }
+
+            document.getElementById('js_hide-show-products-btn').addEventListener('click', function () {
+                showProductsButton.style.display = 'none';
+            });
+        }
+
+        function refreshShowProductsButton(button) {
+            button = button || $('.filter__button.active .filter__checkbox').first()[0] || $('.filter__item--price')[0];
+
+            var bodyRect = document.body.getBoundingClientRect(),
+                elemRect = button.getBoundingClientRect(),
+                offset   = elemRect.top - bodyRect.top,
+                query = buildFilterQuery();
+
+            if (query) {
+                $.ajax(query + '&onlyCount=true', {
+                    type: 'post',
+                    complete: (data) => {
+                        var count = JSON.parse(data.responseText).count;
+                        $(showProductsButton).find('.show-products__count').text(count);
+                        $('.mobile-products-count-value').text(count);
+                        showProductsButton.style = 'display: block; top: ' + (offset - 8) + 'px;';
+                    }
+                });
+            } else {
+                showProductsButton.style = 'display: none';
+            }
+        }
     }
 
+    function buildFilterQuery(returnAnyway) {
+        var searchParams = new URLSearchParams();
+        var filterItems = $('.filter__item');
+        var priceFrom = $('#js_price-from');
+        var priceTo = $('#js_price-to');
+        var queryExists = false;
 
+        filterItems.each(function (fi, fItem) {
+            var code = $(fItem).data('code');
+            $(fItem).find('.filter__button.active').each(function (bi, bItem) {
+                var value = $(bItem).data('value');
+                var performedValue = searchParams.has(code) ? searchParams.get(code) + '-' + value : value;
+                queryExists = true;
+                searchParams.set(code, performedValue);
+            })
+        });
+
+        if (+priceFrom.val() !== +priceFrom.data('min') || +priceTo.val() !== +priceTo.data('max')) {
+            searchParams.set('price', priceFrom.val() + '-' + priceTo.val());
+            queryExists = true;
+        }
+
+        var query = window.location.origin + window.location.pathname + '?' + searchParams.toString();
+
+        return (returnAnyway || queryExists) ? query : false;
+    }
 
     /** Product */
     if (typeof $ === 'function') {

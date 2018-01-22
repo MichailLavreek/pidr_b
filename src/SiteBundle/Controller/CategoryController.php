@@ -8,6 +8,7 @@ use App\Entity\Structure;
 use App\SiteBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -45,11 +46,18 @@ class CategoryController extends BaseController
     {
         $this->setup($request);
 
+        $structure = $this->em->getRepository(Structure::class)->findOneBy(['alias'=>$alias]);
+        if (empty($structure)) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
+
+        if($request->isXmlHttpRequest() && $request->query->get('onlyCount')) {
+            $count = $this->em->getRepository(Structure::class)->countContentItems($structure, $request->query->all());
+            return new JsonResponse(array('count' => $count));
+        }
+
         $page = $request->query->get('page');
         if (empty($page)) $page = 1;
 
-        $structure = $this->em->getRepository(Structure::class)->findOneBy(['alias'=>$alias]);
-        if (empty($structure)) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
+
 
         $this->responseData['structure'] = $structure;
 
@@ -57,11 +65,11 @@ class CategoryController extends BaseController
             $products = $this
                 ->em
                 ->getRepository(Product::class)
-                ->findProducts(['structure'=>$structure, 'language'=>$this->responseData['currentLanguage'], 'page' => $page]);
+                ->findProducts(['structure'=>$structure, 'language'=>$this->responseData['currentLanguage'], 'page' => $page, 'query' => $request->query->all()]);
 
             if (!empty($products)) {
                 $this->responseData['products'] = $products;
-                $this->responseData['pagination'] = $this->buildPagination($structure, $page);
+                $this->responseData['pagination'] = $this->buildPagination($structure, $page, $request->query->all());
                 $this->responseData['filter'] = $this->buildFilter($structure);
 
                 return $this->categoryProductAction($request);

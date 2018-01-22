@@ -50,7 +50,7 @@ class StructureRepository extends ServiceEntityRepository
             ;
     }
 
-    public function countContentItems(Structure $structure)
+    public function countContentItems(Structure $structure, $query)
     {
         $categoryType = $this->em->getRepository(StructureType::class)->findOneBy(['name'=>'Category']);
 
@@ -58,7 +58,7 @@ class StructureRepository extends ServiceEntityRepository
             throw new Exception('Wrong structure');
         }
 
-        $count = $this->em->getRepository(Product::class)->count(['structure'=>$structure]);
+        $count = $this->em->getRepository(Product::class)->countProducts($structure, $query);
 
         return $count;
     }

@@ -1,8 +1,8 @@
 <div class="filter" style="display: none;" id="js_filter-sidebar">
-    <h3 class="filter__head">Підібрати за фільтрами:</h3>
+    <h3 class="filter__head">{{ 'Підібрати за фільтрами'|trans }}:</h3>
     <ul class="filter__list">
         {% for attribute in attributes %}
-            <li class="filter__item">
+            <li class="filter__item" data-code="{{ attribute.code }}">
                 <div class="filter__title">
                     {{ attribute.lang.name }}
                 </div>
@@ -11,7 +11,8 @@
                         {% set i = 0 %}
                         {% for value in attribute.attributeValues %}
                             {% if i is even %}
-                                <div class="filter__button">
+                                <div class="filter__button{% if attribute.code in query|keys and value.value in attribute(query, attribute.code) %} active{% endif %}"
+                                     data-value="{{ value.value }}">
                                     <div class="filter__checkbox"></div>
                                     <div class="filter__label">
                                         {{ value.value|trans }}
@@ -26,7 +27,8 @@
                         {% set i = 0 %}
                         {% for value in attribute.attributeValues %}
                             {% if i is odd %}
-                                <div class="filter__button">
+                                <div class="filter__button{% if attribute.code in query|keys and value.value in attribute(query, attribute.code) %} active{% endif %}"
+                                     data-value="{{ value.value }}">
                                     <div class="filter__checkbox"></div>
                                     <div class="filter__label">
                                         {{ value.value }}
@@ -42,7 +44,7 @@
         <li class="filter__item filter__item--price">
             <div class="filter__price-block">
                 <div class="filter__title">
-                    Ціна
+                    {{ 'Ціна'|trans }}
                 </div>
                 <div class="filter__slider">
                     <div class="filter__prices">
@@ -60,12 +62,12 @@
             </div>
         </li>
         <li class="mobile-products-count" id="js_mobile-products-count" style="display: none;">
-            знайдено хххх товарів
+            знайдено <span class="mobile-products-count-value"></span> товарів
         </li>
         <li class="filter__item filter__item--control">
             <div class="filter__control">
                 <div class="filter__control-button-wrapper filter__control-button-wrapper--submit">
-                    <div class="filter__submit">
+                    <div id="js_filter-submit" class="filter__submit">
                         Підібрати
                     </div>
                 </div>
@@ -74,8 +76,6 @@
                         очистити все
                     </div>
                 </div>
-
-
             </div>
         </li>
     </ul>
