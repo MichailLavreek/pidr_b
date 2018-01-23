@@ -57,8 +57,6 @@ class CategoryController extends BaseController
         $page = $request->query->get('page');
         if (empty($page)) $page = 1;
 
-
-
         $this->responseData['structure'] = $structure;
 
         if (!empty($structure->getChildren())) {

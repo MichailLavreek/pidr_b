@@ -9,10 +9,9 @@ use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
- * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks
  */
-class Product
+class Product extends BaseEntity
 {
     /**
      * @ORM\Id
@@ -44,9 +43,8 @@ class Product
 
     /**
      * @ORM\OneToMany(targetEntity="ProductLanguage", mappedBy="product", cascade={"all"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
-    private $lang;
+    protected $lang;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -59,41 +57,15 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
+     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"all"})
      */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
+    private $images;
 
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
      */
     private $updatedAt;
-
-    public function __construct()
-    {
-        $this->lang = new ArrayCollection();
-        $this->productAttributesValues = new ArrayCollection();
-    }
-
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
 
     /**
      *
@@ -105,25 +77,32 @@ class Product
         $this->setUpdatedAt(new \DateTime('now'));
     }
 
-    public function getImageFile()
+    public function __construct()
     {
-        return $this->imageFile;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
+        $this->lang = new ArrayCollection();
+        $this->productAttributesValues = new ArrayCollection();
     }
 
     public function addProductAttributesValues(ProductAttributeValue $attribute)
     {
         $attribute->setProduct($this);
         $this->productAttributesValues[] = $attribute;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 
     /**
@@ -217,10 +196,19 @@ class Product
     /**
      * @return mixed
      */
-    public function getLang()
+    public function getLang($locale = null)
     {
+        if (!empty($locale)) {
+            /** @var ProductLanguage $lang */
+            foreach ($this->lang as $lang) {
+                if ((string) $lang->getLanguage() === $locale) return $lang;
+            }
+            return null;
+        }
+
         return $this->lang;
     }
+
 
     /**
      * @param mixed $lang

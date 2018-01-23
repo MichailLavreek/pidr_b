@@ -42,4 +42,15 @@ class AttributeRepository extends ServiceEntityRepository
 
         return $attributes;
     }
+
+//    public function find($id, $lockMode = null, $lockVersion = null)
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->where('a.id = :id')->setParameter('id', $id)
+//            ->join('a.lang', 'lang')->addSelect('lang')
+//            ->leftJoin('language', 'l', \Doctrine\ORM\Query\Expr\Join::WITH, 'lang.language = l.id')
+//            ->andWhere('l.iso2 = :' . $_SERVER['CURRENT_LANGUAGE'])
+//            ->getFirstResult()
+//            ;
+//    }
 }

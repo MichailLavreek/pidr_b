@@ -57,6 +57,7 @@ class BaseController extends Controller
              */
             if ($language->getIso2() === $this->request->getLocale()) {
                 $this->responseData['currentLanguage'] = $language;
+                $_SERVER['CURRENT_LOCALE'] = $language->getIso2();
                 break;
             }
         }

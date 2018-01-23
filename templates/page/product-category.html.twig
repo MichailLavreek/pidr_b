@@ -39,7 +39,7 @@
             {% block products_inner %}
                 <section class="products">
                     <div class="breadcrumbs">
-                        <a href="#" class="breadcrumbs__link">
+                        <a href="{{ path('home') }}" class="breadcrumbs__link">
                             Головна
                         </a>
                         //
@@ -55,7 +55,7 @@
                     {% block products_list %}
 
                         {% for product in products %}
-                            <a href="#" class="product">
+                            <a href="{{ path('product', {'_locale': currentLanguage.iso2, 'alias': product.alias}) }}" class="product">
                                 <div class="product__image" style="background-image: url('{{ productImagesPath ~ '/' ~ product.image }}')"></div>
                                 <div class="product__description">
                                     <h4 class="product__name">

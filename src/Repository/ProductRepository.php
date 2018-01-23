@@ -159,6 +159,43 @@ class ProductRepository extends ServiceEntityRepository
         return $products;
     }
 
+    public function findProduct($alias, $locale)
+    {
+        $product = $this->createQueryBuilder('p')
+            ->where('p.alias = :alias')->setParameter('alias', $alias)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        foreach ($product->getLang() as $productLang) {
+            if ($productLang->getLanguage()->getIso2() === $locale) {
+                $productLangCurrent = $productLang;
+                break;
+            }
+        }
+        if (!empty($productLangCurrent)) {
+            $product->setLang($productLangCurrent);
+        } else {
+            $product->setLang(new ProductLanguage());
+        }
+
+        foreach ($product->getProductAttributesValues() as  $attributeValue) {
+            $attributeLang = null;
+            foreach ($attributeValue->getAttribute()->getLang() as $lang) {
+                if ($lang->getLanguage()->getIso2() === $locale) {
+                    $attributeLang = $lang;
+                    break;
+                }
+            }
+
+            if (!empty($attributeLang)) {
+                $attributeValue->getAttribute()->setLang($attributeLang);
+            }
+        }
+
+        return $product;
+    }
+
     public function getMinMaxPrice($structure)
     {
         $minMax = $this->createQueryBuilder('p')

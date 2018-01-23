@@ -1,0 +1,124 @@
+{% extends 'layout/content-item.html.twig' %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block main_inner %}
+    <section class="content-wrapper">
+        <div class="content content-cms">
+
+            <h1>{{ product.langCurrent.name }}</h1>
+            <section class="product-inner">
+                <div class="product-content">
+
+
+                    <div class="product-content__top-block">
+                        <div class="product-content__slider">
+                            <div class="slick-slider-for simple-popup-parent">
+
+                                <a href="/img/product-image.jpg" data-popup-title="image 1" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
+                                <a href="/img/product-image.jpg" data-popup-title="image 2" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
+                                <a href="/img/product-image.jpg" data-popup-title="image 3" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
+                                <a href="/img/product-image.jpg" data-popup-title="image 4" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
+                            </div>
+                            <div class="slick-slider-nav">
+                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
+                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
+                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
+                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
+                            </div>
+                            <div class="product-content__register product-content__register--after-slider">
+                                Реєстрація на монтаж
+                            </div>
+                        </div>
+
+                        <div class="product-content__description">
+
+                            <div class="product-content__basics">
+                                <div class="product-content__price">
+                                    {{ product.price }} <pre class="product-content__price-cod">{{ 'грн/м2'|trans }}</pre>
+                                </div>
+                                <div class="product-content__article">
+                                    {{ product.code }}
+                                </div>
+                            </div>
+
+                            <div class="product-content__register">
+                                Реєстрація на монтаж
+                            </div>
+
+
+                            <div class="product-content__delivery">
+                                {{ include('includes/delivery-text.html.twig') }}
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="product-content__tabs-head product-content__tabs-head--mobile-additional-block">
+                        <div class="product-content__tabs-btn" data-id="3">
+                            Доставка і оплата
+                            <div class="product-content__delivery product-content__tabs-content-item" id="js_tabs-element-3">
+                                {{ include('includes/delivery-text.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-content__tabs-block">
+                        <div class="product-content__tabs-head">
+                            <div class="product-content__tabs-btn active" data-id="1">
+                                {{ 'Опис товару'|trans }}
+                            </div>
+                            <div class="product-content__tabs-btn" data-id="2">
+                                {{ 'Характеристики'|trans }}
+                            </div>
+                        </div>
+                        <div class="product-content__tabs-content-block">
+                            <div class="product-content__tabs-content-item active" id="js_tabs-element-1">
+                                {{ product.langCurrent.description|raw }}
+                            </div>
+                            <div class="product-content__tabs-content-item" id="js_tabs-element-2">
+                                <div class="table-simple">
+                                    <!--.table-simple__column-->
+
+                                    {% for attr in product.productAttributesValues %}
+                                        <div class="table-simple__row">
+                                            <div class="table-simple__cell">
+                                                {{ attr.attribute.langCurrent.name }}
+                                            </div>
+                                            <div class="table-simple__cell">
+                                                {{ attr.value }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="product-content__link-to-actions">
+                        Вигідні пропозиції
+                    </a>
+
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock main_inner %}

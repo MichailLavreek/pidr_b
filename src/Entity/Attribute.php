@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"App\EventListener\AttributeEntityListener"})
  * @ORM\Entity(repositoryClass="App\Repository\AttributeRepository")
  */
-class Attribute
+class Attribute extends BaseEntity
 {
     /**
      * @ORM\Id
@@ -28,7 +28,7 @@ class Attribute
      * @ORM\OneToMany(targetEntity="AttributeLanguage", mappedBy="attribute", cascade={"all"})
      * @ORM\JoinColumn(referencedColumnName="attribute_id")
      */
-    private $lang;
+    protected $lang;
 
     /**
      * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attribute", cascade={"all"})

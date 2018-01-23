@@ -7,6 +7,7 @@ use App\Entity\Content;
 use App\Entity\ContentLanguage;
 use App\Entity\Language;
 use App\Entity\Product;
+use App\Entity\ProductImage;
 use App\Entity\ProductLanguage;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,8 +26,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Util\LegacyFormHelper;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class ProductLangEmbeddedForm extends AbstractType
+class ProductImageEmbeddedForm extends AbstractType
 {
     private $em;
 
@@ -38,26 +40,12 @@ class ProductLangEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ProductLanguage::class,
+            'data_class' => ProductImage::class,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (empty($_GET['id']) || !is_numeric($_GET['id'])) return;
-
-        $languages = $this->em->getRepository(Language::class)->findAll();
-
-        if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-            $product = $this->em->getRepository(Product::class)->find($_GET['id']);
-            if (!empty($product)) {
-                $builder
-                    ->add('product', HiddenType::class, array(
-                        'data' => $product,
-                    ));
-            }
-        }
-
         $builder
             ->add('product', EntityType::class, [
                 'class' => Product::class,
@@ -68,15 +56,7 @@ class ProductLangEmbeddedForm extends AbstractType
                 },
                 'attr' => array('class' => 'forced-hidden-data-field')
             ])
-            ->add('language', ChoiceType::class, [
-                'choices' => $languages,
-                'choice_label' => function($language, $key, $index) {
-                    /** @var Language $language */
-                    return $language->getName();
-                }
-            ])
-            ->add('name', TextType::class, [])
-            ->add('description', TextAreaType::class, [])
+            ->add('imageFile', VichImageType::class, [])
     ;
     }
 

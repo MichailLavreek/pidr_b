@@ -3,6 +3,7 @@
 namespace App\CMSBundle\Controller;
 
 use App\Entity\AttributeLanguage;
+use App\Entity\ProductImage;
 use App\Entity\Role;
 use App\Entity\Structure;
 use App\Entity\StructureLanguage;
@@ -79,6 +80,26 @@ class AdminController extends EasyAdminController
             foreach ($removedLangs as $lang) {
                 $this->em->remove($lang);
                 $this->em->flush($lang);
+            }
+        }
+        if (method_exists($entity, 'getImages') && count($entity->getImages()) > 0) {
+
+            $images = $this
+                ->em
+                ->getRepository(ProductImage::class)
+                ->findBy(['product'=>$entity->getId()]);
+
+            $submittedImages = [];
+
+            foreach ($entity->getImages() as $image) {
+                $submittedImages[] = $image;
+            }
+
+            $removedImages = array_diff($images, $submittedImages);
+//            var_dump($removedImages);
+            foreach ($removedImages as $image) {
+                $this->em->remove($image);
+                $this->em->flush($image);
             }
         }
 
