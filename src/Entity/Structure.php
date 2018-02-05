@@ -8,14 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StructureRepository")
  */
-class Structure
+class Structure extends BaseEntity
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\OneToMany(targetEntity="Structure", mappedBy="parent", cascade={"remove"})
@@ -26,29 +26,28 @@ class Structure
      * @ORM\ManyToOne(targetEntity="Structure", inversedBy="children", cascade={"remove"})
      * @ORM\JoinColumn(name="parent", referencedColumnName="id", nullable=true)
      */
-    private $parent;
+    protected $parent;
 
     /**
      * @ORM\Column(type="string", length=200, unique=true)
      */
-    private $alias;
+    protected $alias;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive = true;
+    protected $isActive = true;
 
     /**
      * @ORM\OneToMany(targetEntity="StructureLanguage", mappedBy="structure", cascade={"all"})
-     * @ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")
      */
-    private $lang;
+    protected $lang;
 
     /**
      * @ORM\ManyToOne(targetEntity="StructureType")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
-    private $type;
+    protected $type;
 
     public function __construct()
     {
@@ -129,9 +128,6 @@ class Structure
         return $this->alias;
     }
 
-    /**
-     * @param mixed $alias
-     */
     public function setAlias($alias)
     {
         $this->alias = $alias;
@@ -146,9 +142,6 @@ class Structure
         return $this->isActive;
     }
 
-    /**
-     * @param mixed $isActive
-     */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
@@ -157,7 +150,7 @@ class Structure
 
     public function __toString()
     {
-        return $this->getAlias();
+        return (string) $this->getAlias();
     }
 
 }

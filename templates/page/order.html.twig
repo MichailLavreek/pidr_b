@@ -1,0 +1,168 @@
+{% extends 'layout/content-item.html.twig' %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+{% endblock %}
+
+{% block main_inner %}
+    <section class="content-wrapper">
+        <div class="content content-cms">
+
+            <h1>{{ structure.langCurrent.name }}</h1>
+
+            <div class="popup-order">
+                <h2 class="popup-order__title">
+                    Реєстрація на монтаж
+                </h2>
+
+                <div class="popup-order__description">
+                    <p class="popup-order__description-text">
+                        Щодня ми приймаємо по декілька заявок на монтаж ламінату,
+                        тому для вашої зручності ми розробили спеціальну форму попередньої реєстрації.
+                    </p>
+                    <p class="popup-order__description-text">
+                        Будьласка, оберіть зручну для вас дату та зареєструйтесь на чергу монтажу у цей день,
+                        натиснувши на форму із написом ВІЛЬНА. Якщо черга заброньована, ви не можете обрати її
+                        до тих пір, поки вона не змінить статус на ВІЛЬНА.
+                    </p>
+                    <p class="popup-order__description-text">
+                        Ми просимо вас вказати адресу монтажу і приблизну площу приміщення. Це потрібно нам
+                        для визначення логістиних даних на день.
+                    </p>
+                    <p class="popup-order__description-text popup-order__description-text--uppercase">
+                        ТМ “ПІДРАХУЙ” ГАРАНТУЄ, ЩО НЕ БУДЕ ПЕРЕДАВАТИ ДАНІ ТРЕТІМ ОСОБАМ ТА ВИКОРИСТОВУВАТИ Ї
+                        У ЦІЛЯХ НЕ ПОВ’ЯЗАНИХ З ДІЯЛЬНІСТЮ ПІДПРИЄМСТВА.
+                    </p>
+                </div>
+
+                <form action="">
+
+                    <div class="popup-order__date popup-order__item popup-order__item--big-margin-bottom">
+                        <h3 class="popup-order__item-title popup-order__item-title--date">
+                            Натисніть на дату та оберіть чергу монтажу:
+                        </h3>
+                        <div class="popup-order__date-picker">
+
+                            <div id="datepicker" class="popup-order__date-picker-widget"></div>
+
+                            <div class="popup-order__date-picker-right">
+
+                                <div class="popup-order__date-picker-legend" id="js_date-picker-legend" style="">
+                                    <ul class="popup-order__legend-list">
+                                        <li class="popup-order__legend-item popup-order__legend-item">
+                                            <span class="popup-order__legend-item-square popup-order__legend-item-square--hold"></span>
+                                            <span class="popup-order__legend-item-text">
+                                                        всі черги на монтаж зайняті
+                                                    </span>
+                                        </li>
+                                        <li class="popup-order__legend-item popup-order__legend-item--half-hold">
+                                            <span class="popup-order__legend-item-square popup-order__legend-item-square--half-hold"></span>
+                                            <span class="popup-order__legend-item-text">
+                                                        ще є вільні черги або бронювання черг не підтвержене
+                                                    </span>
+                                        </li>
+                                        <li class="popup-order__legend-item  popup-order__legend-item--free">
+                                            <span class="popup-order__legend-item-square popup-order__legend-item-square--free"></span>
+                                            <span class="popup-order__legend-item-text">
+                                                        усі черги вільні
+                                                    </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="popup-order__queues" id="js_date-picker-queues" style="display: none;">
+                                    <div class="popup-order__queues-header">
+                                                    <span class="popup-order__queues-header-text">
+                                                        Черги на монтаж
+                                                        <span class="popup-order__queues-header-text--bold" id="js_queues-header-date">
+                                                            07 вересня 2017 року:
+                                                        </span>
+                                                    </span>
+                                        <div id="js_queues-close" class="popup-order__queues-header-close icon-close-circular-button-of-a-cross">закрити</div>
+                                    </div>
+                                    <div class="popup-order__queues-body">
+                                        <ul class="popup-order__queues-items">
+
+                                            <li class="popup-order__queues-item">
+                                                            <span class="popup-order__queues-item-text">
+                                                                1 черга
+                                                            </span>
+                                                <div class="popup-order__queues-item-button popup-order__queues-item-button--hold">
+                                                    зайнята
+                                                </div>
+                                            </li>
+
+                                            <li class="popup-order__queues-item">
+                                                            <span class="popup-order__queues-item-text">
+                                                                2 черга
+                                                            </span>
+                                                <div class="popup-order__queues-item-button popup-order__queues-item-button--half-hold">
+                                                    заброньована
+                                                </div>
+                                            </li>
+
+                                            <li class="popup-order__queues-item">
+                                                            <span class="popup-order__queues-item-text">
+                                                                3 черга
+                                                            </span>
+                                                <div class="popup-order__queues-item-button popup-order__queues-item-button--free">
+                                                    вільна
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="popup-order__item popup-order__item--form">
+                        <h3 class="popup-order__item-title">
+                            Введіть ваші дані:
+                        </h3>
+
+                        <div class="form-input-wrapper">
+                            <input type="text" class="form-input" placeholder="І’мя*">
+                        </div>
+                        <div class="form-input-wrapper">
+                            <input type="text" class="form-input" placeholder="Телефон*">
+                        </div>
+                        <div class="form-input-wrapper">
+                            <input type="text" class="form-input" placeholder="Адреса монтажу*">
+                        </div>
+
+                        <div class="form-input-wrapper-multiple">
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" placeholder="Площа приміщення">
+                            </div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" placeholder="Який ламінат обрали?">
+                            </div>
+                        </div>
+
+                        <div class="form-input-wrapper form-input-wrapper--checkbox">
+                            <input type="checkbox" id="required-checkbox" required>
+                            <label for="required-checkbox">я погоджуюсь на використання моїх персональних даних</label>
+                        </div>
+                    </div>
+
+                    <input type="submit" class="form-submit form-submit--static form-submit--order" value="Відправити">
+
+                </form>
+            </div>
+
+
+        </div>
+    </section>
+{% endblock main_inner %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock javascripts %}

@@ -13,31 +13,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ContactsController extends BaseController
+class OrderController extends BaseController
 {
     /**
-     * @Route("/{_locale}/feedback/{alias}", name="contacts", requirements={"_locale"="ua|en|ru"}, methods={"get"})
+     * @Route("/{_locale}/order", name="order-montage", requirements={"_locale"="ua|en|ru"}, methods={"get"})
      */
-    public function indexAction(Request $request, $alias)
+    public function indexAction(Request $request)
     {
         $this->setup($request);
 
-        $structure = $this->em->getRepository(Structure::class)->findBy(['alias'=>$alias]);
+        $this->responseData['structure'] = $this
+            ->getDoctrine()
+            ->getRepository(Structure::class)
+            ->findOneBy(['alias' => 'montage']);
 
-        if (empty($structure[0])) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
-        $structure = $structure[0];
-        /**
-         * @var Structure $structure
-         */
-        if ($structure->getType() != 'Contacts') throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
-
-        $this->responseData['structure'] = $structure;
-
-        return $this->render('page/contacts.html.twig', $this->responseData);
+        return $this->render('page/order.html.twig', $this->responseData);
     }
 
     /**
-     * @Route("/{_locale}/feedback/{alias}", name="contacts-post", requirements={"_locale"="ua|en|ru"}, methods={"post"})
+     * @Route("/{_locale}/order", name="order-montage-post", requirements={"_locale"="ua|en|ru"}, methods={"post"})
      */
     public function postAction(Request $request)
     {

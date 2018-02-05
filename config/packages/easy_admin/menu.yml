@@ -19,9 +19,13 @@ easy_admin:
               children:
                   - {entity: 'Language', label: 'Language'}
                   - {entity: 'Variable', label: 'Variables'}
+                  - {entity: 'StructureType', label: 'Structure Types'}
             - label: 'Site'
               children:
                   - {entity: 'Structure', label: 'Structure'}
                   - {entity: 'Content', label: 'Contents'}
                   - {entity: 'Product', label: 'Products'}
                   - {entity: 'Attribute', label: 'Attributes'}
+            - label: 'Feedback'
+              children:
+                  - {entity: 'Feedback', label: 'Feedbacks'}

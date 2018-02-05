@@ -22,21 +22,6 @@ class StructureRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-    public function findAllWithLang($locale)
-    {
-        $structures = $this->createQueryBuilder('s')
-            ->getQuery()
-            ->getResult();
-
-        foreach ($structures as $key => $structure) {
-            $structureLang = $this->getEntityManager()->getRepository(StructureLanguage::class)
-                ->getLang($structure, $locale);
-            $structures[$key]->setLang($structureLang);
-        }
-
-        return $structures;
-    }
-
     public static function getForProduct(EntityRepository $repository)
     {
         $type = $repository->getEntityManager()->getRepository(StructureType::class)->findBy(['name'=>'Category']);

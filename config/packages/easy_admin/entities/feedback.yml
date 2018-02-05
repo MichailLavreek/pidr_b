@@ -1,0 +1,22 @@
+
+easy_admin:
+    entities:
+        Feedback:
+            class: App\Entity\Feedback
+            label: 'Feedbacks'
+            list:
+                actions: ['-new', '-edit', 'show']
+                fields:
+                    - createdAt
+                    - name
+                    - email
+                    - ip
+            form:
+                actions: ['-edit', 'show']
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - createdAt
+                    - name
+                    - email
+                    - ip
+                    - message

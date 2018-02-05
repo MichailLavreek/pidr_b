@@ -30,7 +30,7 @@
 
                         <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
                             <a href="{{ path(structure.type|lower, {'alias': structure.alias }) }}" class="nav__link">
-                                {{ structure.lang.name }}
+                                {{ structure.langCurrent.name }}
                             </a>
 
                             {% if structure.children is not empty %}
@@ -38,7 +38,7 @@
                                     {% for child in structure.children %}
                                         <li class="nav__item--submenu">
                                             <a href="{{ path(child.type|lower, {'alias': child.alias }) }}" class="nav__link--submenu">
-                                                {{ child.lang.name }}
+                                                {{ child.langCurrent.name }}
                                             </a>
                                         </li>
                                     {% endfor %}
@@ -46,6 +46,7 @@
                             {% endif %}
 
                         </li>
+
                     {% endif %}
                 {% endfor %}
             </ul>

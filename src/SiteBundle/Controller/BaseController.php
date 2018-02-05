@@ -46,7 +46,7 @@ class BaseController extends Controller
 
     private function setupLanguage()
     {
-        $languageRepository = $this->em->getRepository((string) Language::class);
+        $languageRepository = $this->em->getRepository(Language::class);
         $languages = $languageRepository->findAll();
 
         $this->responseData['languages'] = $languages;
@@ -66,7 +66,7 @@ class BaseController extends Controller
     private function setupStructure()
     {
         $structureRepository = $this->em->getRepository(Structure::class);
-        $structures = $structureRepository->findAllWithLang($this->request->getLocale());
+        $structures = $structureRepository->findAll();
 
         $this->responseData['structures'] = $structures;
     }

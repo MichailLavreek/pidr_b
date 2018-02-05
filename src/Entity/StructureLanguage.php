@@ -60,6 +60,17 @@ class StructureLanguage implements \ArrayAccess
         return $this->language;
     }
 
+
+    public function getClassName()
+    {
+        return self::class;
+    }
+
+    public function getParentPropertyName()
+    {
+        return 'structure';
+    }
+
     /**
      * @param mixed $language
      */

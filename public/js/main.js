@@ -380,11 +380,15 @@ function initMain() {
         }
         setupTabs();
 
-        $('.product-content__register').magnificPopup({
-            items: {
-                type: 'ajax',
-                src: 'popup-order.html'
-            }
+        // $('.product-content__register').magnificPopup({
+        //     items: {
+        //         type: 'ajax',
+        //         src: 'popup-order.html'
+        //     }
+        // });
+
+        $('.product-content__register').on('click', function (e) {
+            window.location.href = this.dataset.href;
         });
 
         $('.simple-popup').magnificPopup({

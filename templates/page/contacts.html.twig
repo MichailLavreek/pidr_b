@@ -60,18 +60,18 @@
                             </div>
                         </div>
 
-                        <form class="info__form" action="{{ path('contacts', {'alias': 'contacts', '_locale': app.request.locale}) }}" method="post">
+                        <form class="info__form" id="js_contacts-form" action="{{ path('contacts', {'alias': 'contacts', '_locale': app.request.locale}) }}" method="post">
                             <h3 class="info__form-title">
                                 {{ 'contacts-form-title'|trans }}
                             </h3>
                             <div class="form-input-wrapper">
-                                <input type="text" class="form-input" placeholder="{{ 'name'|trans }}*">
+                                <input type="text" id="js_input-name" required class="form-input" placeholder="{{ 'name'|trans }}*">
                             </div>
                             <div class="form-input-wrapper">
-                                <input type="text" class="form-input" placeholder="E-mail*">
+                                <input type="text" id="js_input-email" required class="form-input" placeholder="E-mail*">
                             </div>
                             <div class="form-textarea-wrapper">
-                                <textarea class="form-textarea" placeholder="{{ 'message'|trans }}"></textarea>
+                                <textarea class="form-textarea" id="js_input-message" placeholder="{{ 'message'|trans }}"></textarea>
                             </div>
 
 
@@ -91,12 +91,15 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ asset('css/contacts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+
+    <script src="{{ asset('js/contacts-form.js') }}"></script>
 
     {{ parent() }}
 
