@@ -62,6 +62,7 @@ class StructureLangEmbeddedForm extends AbstractType
                 }
             ])
             ->add('name', TextType::class, [])
+            ->add('description', TextareaType::class, [])
     ;
     }
 

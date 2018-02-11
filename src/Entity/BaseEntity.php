@@ -9,11 +9,12 @@ abstract class BaseEntity
      */
     public function getLangCurrent()
     {
-        $locale = $_SERVER['CURRENT_LOCALE'];
-
-        if (!empty($locale) && property_exists($this, 'lang')) {
+        $locale = !empty($_SERVER['CURRENT_LOCALE']) ? $_SERVER['CURRENT_LOCALE'] : 'ua';
+        if (!empty($locale) && property_exists($this, 'lang') && count($this->lang) > 0) {
             foreach ($this->lang as $lang) {
-                if ($lang->getLanguage()->getIso2() === $locale) return $lang;
+                if ($lang->getLanguage()->getIso2() === $locale) {
+                    return $lang;
+                }
             }
         }
 

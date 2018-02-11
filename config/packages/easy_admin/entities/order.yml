@@ -1,0 +1,29 @@
+
+easy_admin:
+    entities:
+        Order:
+            class: App\Entity\Order
+            label: 'Orders'
+            list:
+                actions: ['-new', 'show']
+                fields:
+                    - createdAt
+                    - status
+                    - clientAddress
+                    - orderDate
+                    - orderQueue
+            form:
+                actions: ['-edit', 'show']
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'status', type: 'choice', type_options: { choices: { 'New': 'new', 'Accepted': 'accepted', 'Rejected': 'rejected' } } }
+                    - { property: 'createdAt', type: 'datetime', type_options: { disabled: true } }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'productPrice', type_options: { disabled: true }  }
+                    - { property: 'language', type_options: { disabled: true }  }
+                    - clientName
+                    - clientPhone
+                    - clientAddress
+                    - quadrature
+                    - orderDate
+                    - orderQueue

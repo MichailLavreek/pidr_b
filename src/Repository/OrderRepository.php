@@ -13,16 +13,13 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    /*
-    public function findBySomething($value)
+
+    public function findActiveOrders()
     {
         return $this->createQueryBuilder('o')
-            ->where('o.something = :value')->setParameter('value', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('o.orderDate > CURRENT_DATE()')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 }

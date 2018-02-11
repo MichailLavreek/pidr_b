@@ -31,14 +31,35 @@ class StructureLanguage implements \ArrayAccess
 
 
     /**
-     * @ORM\Column(type="text", length=200, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=false)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
 
     public function __construct()
     {
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     public function getName()

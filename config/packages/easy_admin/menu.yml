@@ -28,4 +28,5 @@ easy_admin:
                   - {entity: 'Attribute', label: 'Attributes'}
             - label: 'Feedback'
               children:
+                  - {entity: 'Order', label: 'Orders'}
                   - {entity: 'Feedback', label: 'Feedbacks'}

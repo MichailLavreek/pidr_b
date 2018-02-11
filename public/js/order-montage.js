@@ -59,6 +59,8 @@
     var queuesHeaderDate = $('#js_queues-header-date');
     var locale = 'uk'; //TODO: брать с бэкенда
 
+    var selectedDateInstance = null;
+
     function performDayCell(date, dates) {
         var isSelectable = true;
         var additionalClass = '';
@@ -98,6 +100,8 @@
 
 
     function onSelectCallback(instance, dates) {
+        selectedDateInstance = instance;
+
         legend.css('display', 'none');
         queues.css('display', 'block');
 
@@ -139,8 +143,13 @@
         });
 
         var queueButtons = $('.popup-order__queues-item-button');
+
         queueButtons.click(function (e) {
             var item = $(this);
+            if (item.hasClass('popup-order__queues-item-button--hold') || item.hasClass('popup-order__queues-item-button--half-hold')) {
+                return;
+            }
+
             var selectedItem = $('.popup-order__queues-item-button.active');
             if (!item.hasClass('active')) {
                 selectedItem.text($.datepicker.regional[locale].customQueues['free']).removeClass('active');
@@ -149,11 +158,12 @@
                 item.text($.datepicker.regional[locale].customQueues['free']).removeClass('active');
             }
         });
+
+
     }
 
-    $.ajax('urlToServer', {
+    $.ajax('/order/getDatesForCalendar', {
         type: 'GET',
-        data: {someParam: 'some value'},
 
         complete: function (data) {
             var dates = (data.status === 404) ? fakeDates : JSON.parse(data.responseText);
@@ -170,6 +180,61 @@
 
             setupEvents();
         }
+    });
+
+    /** Обработка сабмита формы заказа монтажа */
+    var form = $('#js_order-submit-handler');
+
+    form.on('submit', (e) => {
+        e.preventDefault();
+
+        if (!$('#required-checkbox').is(":checked")) {
+            return;
+        }
+
+        var name = $('#js_input-name');
+        var phone = $('#js_input-phone');
+        var address = $('#js_input-address');
+        var quadrature = $('#js_input-quadrature');
+        var product = $('#js_input-product');
+        var productId = $('#js_input-product-id');
+
+        var date = selectedDateInstance;
+        var dateString = date.selectedYear + '-' + (1 + date.selectedMonth) + '-' + date.selectedDay;
+        var selectedQueue = $('.popup-order__queues-item-button--free.active').data('queue');
+
+        var data = {
+            'name': name.val(),
+            'phone': phone.val(),
+            'address': address.val(),
+            'quadrature': quadrature.val(),
+            'product': product.val(),
+            'productId': productId.val(),
+            'orderDate': dateString,
+            'orderQueue': selectedQueue,
+        };
+
+        $.ajax(form.attr('action'), {
+            method: 'post',
+            data: data,
+
+            complete: function (res) {
+                console.log(res);
+                var state = JSON.parse(res.responseText);
+
+                if (state.success) {
+                    name.val('');
+                    phone.val('');
+                    address.val('');
+                    quadrature.val('');
+                    product.val('');
+                    productId.val('');
+                    form.fadeOut(300);
+                }
+            }
+        });
+
+        console.log(data);
     });
 
 })();

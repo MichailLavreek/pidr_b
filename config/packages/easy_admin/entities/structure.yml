@@ -10,6 +10,7 @@ easy_admin:
             list:
                 fields:
                     - id
+                    - { property: 'langCurrent.name', label: 'Name' }
                     - alias
                     - type
                     - parent
