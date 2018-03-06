@@ -23,6 +23,12 @@ class Content
     private $structure;
 
     /**
+     * @ORM\OneToOne(targetEntity="Meta", cascade={"all"})
+     * @ORM\JoinColumn(name="meta_id", referencedColumnName="id", nullable=true)
+     */
+    private $meta;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isActive = true;
@@ -39,6 +45,22 @@ class Content
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param mixed $meta
+     */
+    public function setMeta($meta): void
+    {
+        $this->meta = $meta;
     }
 
     /**

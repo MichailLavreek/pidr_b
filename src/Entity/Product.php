@@ -32,6 +32,12 @@ class Product extends BaseEntity
     private $structure;
 
     /**
+     * @ORM\OneToOne(targetEntity="Meta", cascade={"all"})
+     * @ORM\JoinColumn(name="meta_id", referencedColumnName="id", nullable=true)
+     */
+    private $meta;
+
+    /**
      * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="product", cascade={"all"})
      */
     private $productAttributesValues;
@@ -87,6 +93,22 @@ class Product extends BaseEntity
     {
         $attribute->setProduct($this);
         $this->productAttributesValues[] = $attribute;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param mixed $meta
+     */
+    public function setMeta($meta): void
+    {
+        $this->meta = $meta;
     }
 
     /**

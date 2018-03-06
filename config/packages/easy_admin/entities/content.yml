@@ -14,3 +14,5 @@ easy_admin:
                     - structure
                     - isActive
                     - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ContentLangEmbeddedForm'}}
+                    - { property: 'meta', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ContentMetaEmbeddedForm'}}
+#                    - { property: 'meta', type: 'collection' }

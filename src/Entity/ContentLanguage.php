@@ -104,6 +104,36 @@ class ContentLanguage
         $this->body = $body;
     }
 
+    public function getParentPropertyName()
+    {
+        return 'content';
+    }
+
+    public function getClassName()
+    {
+        return self::class;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ' id: ' . $this->getId();
+    }
 //    public function __toString()
 //    {
 //        return $this->getName();
