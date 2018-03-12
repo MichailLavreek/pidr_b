@@ -9,6 +9,7 @@ twig:
           - 'ru'
           - 'en'
         productImagesPath: '%app.path.product_images%'
+        meta: {title: '', description: '', keywords: ''}
 
     form_themes:
         - 'easy_admin/form/fields.html.twig'

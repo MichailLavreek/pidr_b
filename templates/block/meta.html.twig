@@ -6,5 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <title>Home</title>
+    <title>{{ meta.title|default('Home') }}</title>
+
+    <meta name="description" content="{{ meta.description|striptags|escape|default('') }}">
+    <meta name="Keywords" content="{{ meta.keywords|striptags|escape|default('') }}">
 {% endblock %}

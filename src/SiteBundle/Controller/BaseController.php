@@ -4,6 +4,8 @@ namespace App\SiteBundle\Controller;
 
 use App\Entity\Attribute;
 use App\Entity\Language;
+use App\Entity\Meta;
+use App\Entity\MetaLanguage;
 use App\Entity\Product;
 use App\Entity\Structure;
 use App\Entity\Variable;
@@ -41,7 +43,6 @@ class BaseController extends Controller
         $this->setupLanguage();
         $this->setupStructure();
         $this->setupVariables();
-
     }
 
     private function setupLanguage()
@@ -81,6 +82,35 @@ class BaseController extends Controller
         }
 
         $this->responseData['variables'] = $formattedVariables;
+    }
+
+    protected function setupMeta($entity)
+    {
+        if (empty($entity)) return;
+
+        if (method_exists($entity, 'getMeta')) {
+            $meta = $entity->getMeta()->getLangCurrent();
+        }
+
+        $entityLang = $entity->getLangCurrent();
+
+        if (empty($meta)) {
+            $meta = new MetaLanguage();
+        }
+
+        if (empty($meta->getTitle())) {
+            if (method_exists($entityLang, 'getName')) {
+                $meta->setTitle($entityLang->getName());
+            }
+        }
+
+        if (empty($meta->getDescription())) {
+            if (method_exists($entityLang, 'getBody')) {
+                $meta->setDescription(substr(strip_tags($entityLang->getBody()), 0, 500));
+            }
+        }
+
+        $this->get('twig')->addGlobal('meta', $meta);
     }
 
     protected function buildPagination(Structure $structure, $page, $query)

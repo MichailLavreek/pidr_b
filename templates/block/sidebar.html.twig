@@ -18,9 +18,12 @@
         </div>
 
         <div class="logo">
-            <a href="/">
-                <img src="/img/logo.png" alt="Підрахуй. У нас купуваты вигідніше">
+            <a href="{{ url('home', {'_locale': app.request.attributes.get('_locale')}) }}">
+                <img src="/img/logo.png" alt="Підрахуй. У нас купувати вигідніше!">
             </a>
+            {% if app.request.attributes.get('_route') == 'home' %}
+                <h1 style="display: none">Підрахуй. У нас купувати вигідніше!</h1>
+            {% endif %}
         </div>
 
         <div class="nav">

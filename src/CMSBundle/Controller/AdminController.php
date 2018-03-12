@@ -164,6 +164,28 @@ class AdminController extends EasyAdminController
                 $this->em->flush($lang);
             }
         }
+
+        if (method_exists($entity, 'getMeta') && !empty($entity->getMeta())) {
+            $metaLang = $entity->getMeta()->getLang();
+            $submittedLang = [];
+            $metaLangArray = [];
+
+            foreach ($metaLang as $attr) {
+                $this->em->persist($attr);
+                $this->em->flush($attr);
+
+                $submittedLang[] = $attr;
+                $metaLangArray[] = $attr;
+            }
+
+            $removedLang = array_diff($metaLangArray, $submittedLang);
+
+            foreach ($removedLang as $lang) {
+                $this->em->remove($lang);
+                $this->em->flush($lang);
+            }
+        }
+
         if (method_exists($entity, 'getImages') && count($entity->getImages()) > 0) {
 
             $images = $this
@@ -178,7 +200,6 @@ class AdminController extends EasyAdminController
             }
 
             $removedImages = array_diff($images, $submittedImages);
-//            var_dump($removedImages);
             foreach ($removedImages as $image) {
                 $this->em->remove($image);
                 $this->em->flush($image);

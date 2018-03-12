@@ -30,6 +30,12 @@ class OrderController extends BaseController
             ->getRepository(Structure::class)
             ->findOneBy(['alias' => 'order']);
 
+        $this->responseData['content'] = $this
+            ->getDoctrine()
+            ->getRepository(Content::class)
+            ->findOneBy(['structure' => $this->responseData['structure']->getId()]);
+
+        $this->setupMeta($this->responseData['structure']);
         return $this->render('page/order.html.twig', $this->responseData);
     }
 

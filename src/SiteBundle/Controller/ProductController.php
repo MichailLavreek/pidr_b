@@ -30,6 +30,7 @@ class ProductController extends BaseController
         if (empty($product)) throw new NotFoundHttpException('Product not Fond!');
 
         $this->responseData['product'] = $product;
+        $this->setupMeta($product);
 
         return $this->render('page/product.html.twig', $this->responseData);
     }

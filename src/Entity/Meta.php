@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MetaRepository")
@@ -20,6 +22,11 @@ class Meta extends BaseEntity
      * @ORM\OneToMany(targetEntity="MetaLanguage", mappedBy="meta", cascade={"all"})
      */
     protected $lang;
+
+    public function __construct()
+    {
+        $this->lang = new ArrayCollection();
+    }
 
     /**
      * @return mixed

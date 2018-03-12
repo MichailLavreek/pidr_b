@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
  */
-class Content
+class Content extends BaseEntity
 {
     /**
      * @ORM\Id
@@ -37,7 +38,12 @@ class Content
      * @ORM\OneToMany(targetEntity="ContentLanguage", mappedBy="content", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="content_id")
      */
-    private $lang;
+    protected $lang;
+
+    public function __construct()
+    {
+        $this->lang = new ArrayCollection();
+    }
 
     /**
      * @return mixed

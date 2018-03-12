@@ -24,11 +24,14 @@ class PageController extends BaseController
         if (empty($structure[0])) throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
         $structure = $structure[0];
 
-        $content = $this->em->getRepository(Content::class)->findWithLang(['structure'=>$structure->getId()], $request->getLocale());
+//        $content = $this->em->getRepository(Content::class)->findWithLang(['structure'=>$structure->getId()], $request->getLocale());
+        $content = $this->em->getRepository(Content::class)->findOneBy(['structure'=>$structure->getId()]);
         if (empty($content)) throw new NotFoundHttpException('Content for alias ' . $alias . ' Not Fond!');
 
         $this->responseData['structure'] = $structure;
         $this->responseData['content'] = $content;
+
+        $this->setupMeta($content);
 
         return $this->render('page/content-item.html.twig', $this->responseData);
     }

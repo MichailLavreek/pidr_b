@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CMSBundle\Form;
+namespace App\CMSBundle\Form\Type;
 
 use App\CMSBundle\Form\Type\CustomCkeditorType;
 use App\Entity\Content;
@@ -15,6 +15,7 @@ use JavierEguiluz\Bundle\EasyAdminBundle\Form\Type\Configurator\IvoryCKEditorTyp
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -26,7 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Util\LegacyFormHelper;
 
-class ContentMetaEmbeddedForm extends AbstractType
+class ContentMetaType extends AbstractType
 {
     private $em;
 
@@ -38,40 +39,36 @@ class ContentMetaEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => MetaLanguage::class,
+            'data_class' => Meta::class,
+            'compound' => true,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if (empty($_GET['id']) || !is_numeric($_GET['id'])) return;
-
-        $languages = $this->em->getRepository(Language::class)->findAll();
+        /** @var Content $content */
         $content = $this->em->getRepository(Content::class)->find($_GET['id']);
         $meta = $content->getMeta();
-
-        if (empty($meta)) {
-            return;
-        }
-
-        $mqb = $this->em->getRepository(Meta::class)->createQueryBuilder('m')->where('m.id = :id')->setParameter('id', $meta->getId());
+        $metaLang = $content->getLang();
 
         $builder
-            ->add('language', ChoiceType::class, [
-                'choices' => $languages,
-                'choice_label' => function($language, $key, $index) {
-                    /** @var Language $language */
-                    return $language->getName();
-                }
-            ])
-            ->add('title', TextType::class, [])
-            ->add('description', TextareaType::class, [])
-            ->add('keywords', TextType::class, [])
-    ;
+            ->add('lang', CollectionType::class, [
+                'entry_type' => ContentMetaLangType::class,
+//                'entry_options' => [
+//                    'data' => $metaLang,
+//                    'class' => MetaLanguage::class
+//                ],
+            ]);
     }
 
     public function onPostSetData(FormEvent $event)
     {
 
     }
+
+//    public function getParent()
+//    {
+//        return HiddenType::class;
+//    }
 }
