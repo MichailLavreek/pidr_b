@@ -1,0 +1,130 @@
+.screen {
+    @include mq(false, 970) {
+        background: url("/img/home-bg.jpg") no-repeat center;
+        background-size: cover;
+    }
+
+    @include mq(970) {
+        background: url("/img/home-bg-sm.jpg") no-repeat center;
+        background-size: cover;
+    }
+}
+
+.copyrights {
+    position: absolute;
+    left: 48%;
+    bottom: 40px;
+    font-size: 14px;
+    color: #363232;
+
+    @include mq(970) {
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+}
+
+.categories {
+    margin: auto 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    @include mq(750) {
+        flex-direction: column;
+        align-items: center;
+        margin: 75px 0 165px 0;
+        padding: 0;
+    }
+
+    @include mq(false, 970) {
+        justify-content: flex-end;
+    }
+
+    .category {
+        text-decoration: none;
+        width: 232px;
+        height: 232px;
+
+        @include mq(false, 970) {
+            margin: 0 48px;
+        }
+
+        border-radius: 50%;
+        border: 1px solid #fff;
+
+        background: rgba(54, 50, 50, .8);
+
+        display: flex;
+        flex-direction: column;
+
+        &__content {
+            margin: 57px auto 0;
+
+            @include mq(1400) {
+                margin: 50px auto 0;
+            }
+
+        }
+
+        &__icon {
+            text-align: center;
+            font-size: 70px;
+            color: #fff;
+
+            @include mq(750,750) {
+                font-size: 60px;
+            }
+        }
+
+        &__title {
+            font-family: 'GothamPro', sans-serif;
+            font-size: 24px;
+            color: #fff;
+            margin-top: 17px;
+            text-align: center;
+
+            @include mq(970, 750) {
+                font-size: 18px;
+                margin-top: 20px;
+            }
+        }
+
+        @include mq(970, 800) {
+            margin: 0 30px;
+            width: 200px;
+            height: 200px;
+        }
+
+        @include mq(1120, 970) {
+            margin: 0 20px;
+            width: 160px;
+            height: 160px;
+
+            &__content {
+                margin: 30px auto 0;
+            }
+        }
+
+        @include mq(1400, 1120) {
+            margin: 0 30px;
+            width: 200px;
+            height: 200px;
+        }
+
+
+        @include mq(800, 750) {
+            width: 192px;
+            height: 192px;
+
+            &__content {
+                margin: 40px auto 0;
+            }
+        }
+
+    }
+
+    @include mq(750) {
+
+    }
+}

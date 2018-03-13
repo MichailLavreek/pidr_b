@@ -1,0 +1,43 @@
+body {
+    min-height: 100%;
+}
+
+.wrapper-page {
+    width: 100%;
+    min-height: 100%;
+}
+
+.screen {
+    min-width: 320px;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    background: #fff;
+
+    &.blur:before {
+        @include mq(970) {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 99;
+            background: rgba(54, 50, 50, .8);
+        }
+    }
+}
+
+.main-side {
+    min-height: 100%;
+
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+    }
+}

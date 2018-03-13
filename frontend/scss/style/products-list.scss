@@ -1,0 +1,216 @@
+
+.content {
+    @include mq(970) {
+        margin-top: 20px;
+        padding-top: 0;
+    }
+
+    & h1 {
+        @include mq(970) {
+            width: 100%;
+            margin: 0 auto 22px;
+        }
+        @include mq(480) {
+            font-size: 36px;
+        }
+    }
+}
+
+.products {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    position: relative;
+
+    @include mq(970) {
+        justify-content: space-around;
+    }
+}
+
+.product {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    width: 31%;
+    border: solid 1px #363232;
+    border-radius: 10px;
+    background-color: #f9f7f7;
+    margin-bottom: 30px;
+    max-width: 293px;
+    position: relative;
+
+    //&:before {
+    //    content: '';
+    //    position: absolute;
+    //    width: 20px;
+    //    height: 14px;
+    //    right: 13px;
+    //    bottom: 13px;
+    //    background: url("/img/arrow-right.png") no-repeat center;
+    //}
+
+    &__price {
+        font-family: GothamProBold, sans-serif;
+        font-size: 24px;
+        position: absolute;
+        width: 52px;
+        height: 32px;
+        right: 0;
+        bottom: 5px;
+    }
+    
+    &--action {
+        .product__price {
+            color: #e64c5e;
+        }
+
+        .product__action {
+            position: absolute;
+            width: 81px;
+            height: 80px;
+            top: 9px;
+            right: 5px;
+            background: url('/img/action-product.png') no-repeat center;
+            font-family: GothamProBold, sans-serif;
+            font-size: 16px;
+            color: #e64c5e;
+            padding: 25px 0 0 16px;
+            box-sizing: border-box;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 175px;
+        background: url("/img/product-list-item.jpg") no-repeat center;
+        background-size: cover;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+    }
+
+    &__description {
+        padding: 0 8px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    &__name {
+        font-family: GothamProMedium, sans-serif;
+        font-size: 16px;
+        line-height: 28px;
+        margin: 3px 0 3px;
+        min-height: 56px;
+    }
+
+    &__attributes {
+        padding: 0 0 0 26px;
+        margin-bottom: 33px;
+    }
+
+    &__attribute {
+        font-size: 14px;
+        line-height: 20px;
+        position: relative;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 8px;
+            width: 5px;
+            height: 5px;
+            background-color: #363232;
+            border-radius: 50%;
+        }
+    }
+
+    &__code {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #737070;
+    }
+
+    @include mq(1100) {
+        width: 43%;
+    }
+
+    @include mq(750) {
+        width: 43%;
+    }
+
+    @include mq(550) {
+        width: 293px;
+    }
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 55px;
+
+    @include mq(970) {
+        margin-bottom: 184px;
+    }
+
+    &__wrapper {
+
+    }
+
+    &__item {
+        font-family: GothamProBlack, sans-serif;
+        font-size: 24px;
+        color: #bab9b9;
+        text-decoration: none;
+        margin: 0 11px;
+        transition: all .2s;
+
+        @include mq(400) {
+            font-size: 20px;
+        }
+
+        &--current {
+            color: #363232;
+        }
+
+        &:hover {
+            color: #363232;
+        }
+
+        &--disabled {
+            cursor: default;
+        }
+
+        &--disabled:hover {
+            color: #bab9b9;
+        }
+    }
+}
+
+.copyrights {
+    margin: 0 0 20px 0;
+    padding: 0;
+    background: none;
+    color: #363232;
+    font-family: GothamProRegular, sans-serif;
+    
+    @include mq(970) {
+        background: #f1f0f0;
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 49px;
+        box-sizing: border-box;
+        padding-top: 17px;
+    }
+}

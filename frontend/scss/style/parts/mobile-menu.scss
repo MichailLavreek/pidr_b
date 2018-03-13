@@ -1,0 +1,301 @@
+.nav-mobile {
+    display: none;
+
+    &.active {
+        z-index: 101;
+    }
+
+    @include mq(970) {
+        display: block;
+        width: 800px;
+        position: relative;
+        margin: 0 auto;
+        z-index: 2;
+    }
+
+
+    @include mq(800) {
+        width: 100%;
+    }
+
+    @include mq(650) {
+        position: relative;
+        margin: 0 auto;
+    }
+
+
+    &__title {
+        @include mq(970) {
+            display: block;
+
+            box-sizing: border-box;
+            height: 76px;
+            padding: 16px 24px 0;
+
+            background-color: #fff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 0 30px 0 rgba(0,0,0, .2);
+
+            margin-bottom: 12px;
+        }
+    }
+
+    &__button {
+        display: none;
+
+        @include mq(970) {
+            display: block;
+            padding: 10px;
+            position: absolute;
+            right: 20px;
+            top: 14px;
+            width: 27px;
+            height: 26px;
+            background: url("/img/gamb-icon.png") no-repeat center;
+            transition: background .2s;
+        }
+    }
+
+    &.active &__button {
+        @include mq(970) {
+            background: url("/img/gamb-icon-close.png") no-repeat center;
+        }
+    }
+
+    &__content {
+        display: none;
+    }
+
+    &.active &__content {
+        @include mq(970) {
+            display: block;
+        }
+    }
+
+    .lang {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 17px 30px;
+        margin-bottom: 12px;
+
+        & .lang__list {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            @include mq(750) {
+                justify-content: flex-start;
+            }
+        }
+
+        & .lang__item {
+            @include mq(750) {
+                margin-right: 50px;
+            }
+        }
+
+        & .lang__link {
+            font-size: 11px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #363232;
+
+            &--active {
+                font-family: GothamProMedium, sans-serif;
+                color: #e64c5e;
+            }
+        }
+    }
+
+    .nav__list--submenu {
+        padding: 22px 0 0 35px;
+
+        & li {
+            margin-bottom: 12px;
+            position: relative;
+
+            &:before {
+                position: absolute;
+                display: block;
+                content: '';
+                width: 5px;
+                height: 5px;
+                background-color: #363232;
+                border-radius: 50%;
+                left: -15px;
+                top: 8px;
+            }
+        }
+
+        & a {
+            color: #363232;
+        }
+    }
+
+    .nav__item {
+        padding: 17px 30px;
+        margin-bottom: 12px;
+        background-color: #fff;
+        border-radius: 10px;
+        position: relative;
+
+
+        &--submenu a.nav__link:after {
+            content: '';
+            margin-left: 7px;
+            display: block;
+            position: absolute;
+            right: 26px;
+            top: 24px;
+
+            @include triangle(6, down, #887b78);
+        }
+    }
+
+    .nav__item a {
+        padding: 10px 20px 10px 0;
+
+        text-decoration: none;
+    }
+
+    .nav__link {
+        padding: 15px 20px 15px 0;
+        font-size: 18px;
+        color: #363232;
+    }
+
+    .contacts {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 17px 30px;
+        margin-bottom: 12px;
+
+        a {
+            display: block;
+        }
+
+        &__title {
+            font-family: GothamProBlack, sans-serif;
+            font-size: 18px;
+            text-transform: uppercase;
+            color: #363232;
+            margin-bottom: 23px;
+        }
+
+        &__items {
+            padding-left: 35px;
+            position: relative;
+        }
+
+        &__item {
+            font-size: 16px;
+            color: #363232;
+            text-decoration: none;
+            margin-bottom: 13px;
+        }
+
+        &__icon {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            font-size: 16px;
+            color: #363232;
+        }
+    }
+}
+
+.gamb {
+    &__lines {
+        width: 28px;
+        height: 5px;
+        background-color: #363232;
+        border-radius: 3px;
+        margin-bottom: 3px;
+    }
+}
+
+.filter-mobile {
+    display: none;
+
+    &.active {
+        @include mq(970) {
+            padding: 16px 20px 75px;
+        }
+
+        @include mq(650) {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    @include mq(970) {
+        display: block;
+        box-shadow: 0 0 30px 0 rgba(60,56,56,.4);
+        cursor: pointer;
+        font-size: 24px;
+        text-transform: uppercase;
+        color: #d5d1d1;
+        width: 100%;
+        padding: 16px 20px;
+        box-sizing: border-box;
+        margin: 0 auto 34px;
+        height: 61px;
+        background: #3c3838;
+        border-radius: 10px;
+        position: relative;
+
+        * {
+            text-transform: none;
+        }
+
+        .filter__title {
+            text-transform: uppercase;
+        }
+
+        .filter__price-label {
+            font-size: 16px;
+            text-transform: lowercase;
+        }
+    }
+
+    &__close-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 22px;
+        height: 20px;
+        background: url('/img/icon-filter.png') no-repeat center;
+    }
+
+    &__content {
+        display: none;
+    }
+
+    &.active {
+        z-index: 101;
+
+        @include mq(970) {
+            height: auto;
+            cursor: default;
+
+            .filter-mobile__close-btn {
+                cursor: pointer;
+                width: 95px;
+                height: 24px;
+                background: url('/img/icon-close-filter.png') no-repeat center;
+            }
+        }
+
+        .filter-mobile__content {
+            display: block;
+        }
+    }
+
+    .mobile-products-count {
+        font-size: 14px;
+        color: #ffffff;
+        text-align: center;
+    }
+}

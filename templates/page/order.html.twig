@@ -12,11 +12,11 @@
 
             <div class="popup-order">
                 <h2 class="popup-order__title">
-                    Реєстрація на монтаж
+                    {{ content.langCurrent.name }}
                 </h2>
 
                 <div class="popup-order__description">
-                    {{ structure.langCurrent.description|raw }}
+                    {{ content.langCurrent.body|raw }}
                 </div>
 
                 <form id="js_order-submit-handler"
@@ -24,7 +24,7 @@
 
                     <div class="popup-order__date popup-order__item popup-order__item--big-margin-bottom">
                         <h3 class="popup-order__item-title popup-order__item-title--date">
-                            Натисніть на дату та оберіть чергу монтажу:
+                            {{ 'Натисніть на дату та оберіть чергу монтажу'|trans }}:
                         </h3>
                         <div class="popup-order__date-picker">
 
@@ -32,24 +32,24 @@
 
                             <div class="popup-order__date-picker-right">
 
-                                <div class="popup-order__date-picker-legend" id="js_date-picker-legend" style="">
+                                <div class="popup-order__date-picker-legend" id="js_date-picker-legend">
                                     <ul class="popup-order__legend-list">
                                         <li class="popup-order__legend-item popup-order__legend-item">
                                             <span class="popup-order__legend-item-square popup-order__legend-item-square--hold"></span>
                                             <span class="popup-order__legend-item-text">
-                                                        всі черги на монтаж зайняті
+                                                        {{ 'всі черги на монтаж зайняті'|trans }}
                                                     </span>
                                         </li>
                                         <li class="popup-order__legend-item popup-order__legend-item--half-hold">
                                             <span class="popup-order__legend-item-square popup-order__legend-item-square--half-hold"></span>
                                             <span class="popup-order__legend-item-text">
-                                                        ще є вільні черги або бронювання черг не підтвержене
+                                                        {{ 'ще є вільні черги або бронювання черг не підтвержене'|trans }}
                                                     </span>
                                         </li>
                                         <li class="popup-order__legend-item  popup-order__legend-item--free">
                                             <span class="popup-order__legend-item-square popup-order__legend-item-square--free"></span>
                                             <span class="popup-order__legend-item-text">
-                                                        усі черги вільні
+                                                        {{ 'усі черги вільні'|trans }}
                                                     </span>
                                         </li>
                                     </ul>
@@ -58,11 +58,9 @@
                                 <div class="popup-order__queues" id="js_date-picker-queues" style="display: none;">
                                     <div class="popup-order__queues-header">
                                         <span class="popup-order__queues-header-text">
-                                            Черги на монтаж
+                                            {{ 'Черги на монтаж'|trans }}
                                             <span class="popup-order__queues-header-text--bold"
-                                                  id="js_queues-header-date">
-                                                07 вересня 2017 року:
-                                            </span>
+                                                  id="js_queues-header-date"></span>
                                         </span>
                                         <div id="js_queues-close"
                                              class="popup-order__queues-header-close icon-close-circular-button-of-a-cross">
@@ -74,32 +72,26 @@
 
                                             <li class="popup-order__queues-item" data-queue="1">
                                                             <span class="popup-order__queues-item-text">
-                                                                1 черга
+                                                                1 {{ 'черга'|trans }}
                                                             </span>
                                                 <div class="popup-order__queues-item-button popup-order__queues-item-button--hold"
-                                                     data-queue="1">
-                                                    зайнята
-                                                </div>
+                                                     data-queue="1"></div>
                                             </li>
 
                                             <li class="popup-order__queues-item" data-queue="2">
                                                             <span class="popup-order__queues-item-text">
-                                                                2 черга
+                                                                2 {{ 'черга'|trans }}
                                                             </span>
                                                 <div class="popup-order__queues-item-button popup-order__queues-item-button--half-hold"
-                                                     data-queue="2">
-                                                    заброньована
-                                                </div>
+                                                     data-queue="2"></div>
                                             </li>
 
                                             <li class="popup-order__queues-item" data-queue="3">
                                                             <span class="popup-order__queues-item-text">
-                                                                3 черга
+                                                                3 {{ 'черга'|trans }}
                                                             </span>
                                                 <div class="popup-order__queues-item-button popup-order__queues-item-button--free"
-                                                     data-queue="3">
-                                                    вільна
-                                                </div>
+                                                     data-queue="3"></div>
                                             </li>
 
                                         </ul>
@@ -113,35 +105,35 @@
 
                     <div class="popup-order__item popup-order__item--form">
                         <h3 class="popup-order__item-title">
-                            Введіть ваші дані:
+                            {{ 'Введіть ваші дані'|trans }}:
                         </h3>
 
                         <div class="form-input-wrapper">
-                            <input type="text" id="js_input-name" class="form-input" name="name" placeholder="І’мя*">
+                            <input type="text" id="js_input-name" class="form-input" name="name" placeholder="{{ 'І’мя'|trans }}*" required>
                         </div>
                         <div class="form-input-wrapper">
-                            <input type="text" id="js_input-phone" class="form-input" name="phone" placeholder="Телефон*">
+                            <input type="text" id="js_input-phone" class="form-input" name="phone" placeholder="{{ 'Телефон'|trans }}*" required>
                         </div>
                         <div class="form-input-wrapper">
-                            <input type="text" id="js_input-address" class="form-input" name="address" placeholder="Адреса монтажу*">
+                            <input type="text" id="js_input-address" class="form-input" name="address" placeholder="{{ 'Адреса монтажу'|trans }}*" required>
                         </div>
 
                         <div class="form-input-wrapper-multiple">
                             <div class="form-input-wrapper">
-                                <input type="text" id="js_input-quadrature" class="form-input" name="area" placeholder="Площа приміщення">
+                                <input type="text" id="js_input-quadrature" class="form-input" name="area" placeholder="{{ 'Площа приміщення'|trans }}">
                             </div>
                             <div class="form-input-wrapper">
-                                <input type="text" id="js_input-productText" class="form-input" name="product" placeholder="Який ламінат обрали?">
+                                <input type="text" id="js_input-productText" class="form-input" name="product" placeholder="{{ 'Який ламінат обрали?'|trans }}">
                             </div>
                         </div>
 
                         <div class="form-input-wrapper form-input-wrapper--checkbox">
                             <input type="checkbox" name="agreed" id="required-checkbox">
-                            <label for="required-checkbox">я погоджуюсь на використання моїх персональних даних</label>
+                            <label for="required-checkbox">{{ 'я погоджуюсь на використання моїх персональних даних'|trans }}</label>
                         </div>
                     </div>
 
-                    <input type="submit" class="form-submit form-submit--static form-submit--order" value="Відправити">
+                    <input type="submit" class="form-submit form-submit--static form-submit--order" value="{{ 'Відправити'|trans }}">
                 </form>
             </div>
 

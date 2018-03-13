@@ -1,13 +1,30 @@
 copyrights: All rights reserved. Підрахуй
 sidebar-contacts-label: we are in touch
 contacts-address-title: Our address
-contacts-address: ul. Zahisnikiv Ukraini 17a, 1st on top
+contacts-address: ul. Zahitnikiv Ukraini 17a, 1st on top
 contacts-work-title: mode of operation
 mn-fr: Mon-Fri
 st: Sat
 sn: Sun
 contacts-phones-title: Our phones
-contacts-form-title: НWrite to us
+contacts-form-title: Write to us
 name: Name
 message: Message
 send: Send
+
+
+'Натисніть на дату та оберіть чергу монтажу': 'Click on the date and select the installation queue'
+'всі черги на монтаж зайняті': 'all queues for installation are busy'
+'ще є вільні черги або бронювання черг не підтвержене': 'there are still free queues or queues are not confirmed'
+'усі черги вільні': 'all queues are free'
+'черга': 'queue'
+'Черги на монтаж': 'Queues for installation'
+'Введіть ваші дані': 'Enter your data'
+
+'я погоджуюсь на використання моїх персональних даних': 'I agree to use my personal data'
+'Відправити': 'Send'
+'Який ламінат обрали?': 'Which laminate is selected?'
+'Площа приміщення': 'The area of ​​the premises'
+'Адреса монтажу': 'Installation address'
+'Телефон': 'Phone'
+'І’мя': 'Name'

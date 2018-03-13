@@ -1,0 +1,48 @@
+// Media query mixin
+@mixin mq($max, $min: false) {
+    @if ($max) {
+        $max: $max + 'px';
+        @if ($min) {
+            $min: ($min + 1px);
+            @media only screen and (max-width: $max) and (min-width: $min) {
+                @content;
+            }
+        } @else {
+            @media only screen and (max-width: $max) {
+                @content;
+            }
+        }
+    } @else {
+        $min: ($min + 1px);
+        @media only screen and (min-width: $min) {
+            @content;
+        }
+    }
+
+}
+
+@mixin triangle($width, $direction, $color){
+    width: 0;
+    height: 0;
+    $width: $width + px;
+    @if $direction == up {
+        border-left: $width solid transparent;
+        border-right: $width solid transparent;
+        border-bottom: $width solid $color;
+    }
+    @if $direction == down {
+        border-left: $width solid transparent;
+        border-right: $width solid transparent;
+        border-top: $width solid $color;
+    }
+    @if $direction == left {
+        border-top: $width solid transparent;
+        border-bottom: $width solid transparent;
+        border-right: $width solid $color;
+    }
+    @if $direction == right {
+        border-top: $width solid transparent;
+        border-bottom: $width solid transparent;
+        border-left: $width solid $color;
+    }
+}

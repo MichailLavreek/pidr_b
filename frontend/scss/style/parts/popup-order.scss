@@ -1,0 +1,452 @@
+.mfp-container {
+    @include mq(650) {
+        padding: 0;
+    }
+}
+
+
+.popup-order {
+    position: relative;
+    box-sizing: border-box;
+    color: #333333;
+
+    .submit-success {
+        font-size: 24px;
+        color: green;
+        margin-top: 40px;
+    }
+
+    & &__title {
+        font-family: GothamProMedium, sans-serif;
+        font-size: 60px;
+        margin-bottom: 20px;
+
+        @include mq(480) {
+            font-size: 48px;
+        }
+    }
+
+    &__description {
+        margin-bottom: 55px;
+    }
+
+    &__description-text {
+        font-size: 18px;
+
+        &--uppercase {
+
+        }
+    }
+
+    &__title-bottom {
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 20px;
+    }
+
+    &__item {
+
+        &--big-margin-bottom {
+            margin-bottom: 50px;
+        }
+
+        &--form {
+            text-align: center;
+            width: 84%;
+            margin-left: auto;
+            margin-right: auto;
+
+            .error-message {
+                color: red;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &__item-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+
+        &--date {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    }
+
+    &__date-picker {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        @include mq(1430, 970) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @include mq(960) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__date-picker-widget {
+        width: 340px;
+        background: #f6f6f6;
+        border-top: solid 1px #bbbbbb;
+
+        @include mq(1430, 970) {
+            width: 370px;
+            margin-bottom: 40px;
+        }
+
+        @include mq(960) {
+            width: 370px;
+            margin-bottom: 40px;
+        }
+
+        @include mq(420) {
+            width: 300px;
+        }
+
+        .ui-datepicker-inline {
+            height: 100%;
+        }
+
+
+
+        .ui-datepicker-header {
+            background: #363232;
+            color: #e0e0e0;
+            height: 50px;
+            position: relative;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .ui-datepicker-prev, .ui-datepicker-next {
+            height: 50px;
+            width: 40px;
+            font-size: 0;
+            position: absolute;
+            top: 0;
+            cursor: pointer;
+        }
+
+        .ui-datepicker-prev {
+            left: 0;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 18px;
+                left: 12px;
+                @include triangle(7, left, #e0e0e0);
+            }
+        }
+
+        .ui-datepicker-next {
+            right: 0;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 18px;
+                right: 14px;
+                @include triangle(7, right, #e0e0e0);
+            }
+        }
+
+        .ui-datepicker-title {
+            padding-top: 15px;
+        }
+
+        .ui-datepicker-calendar {
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            border-collapse: collapse;
+
+            * {
+                font-size: 16px;
+                color: #333333;
+                text-decoration: none;
+            }
+
+            thead tr {
+                height: 26px;
+            }
+
+            tbody tr {
+                height: 38px;
+                cursor: pointer;
+            }
+
+            .ui-datepicker-unselectable {
+                cursor: default;
+            }
+
+            .ui-datepicker-other-month * {
+                color: #bbbbbb;
+            }
+
+
+            th, td {
+                border: solid 1px #bbbbbb;
+                border-collapse: collapse;
+            }
+
+            .hold-day:not(.ui-datepicker-other-month) {
+                background-color: #e64c5e;
+            }
+
+            .half-hold-day:not(.ui-datepicker-other-month) {
+                background-color: #ffbdc5;
+                box-shadow: inset 0 0 0 1px #363232;
+            }
+
+            .past-days {
+
+                span {
+                    color: #bbbbbb;
+                }
+            }
+        }
+
+
+    }
+
+    &__date-picker-right {
+        margin-left: 35px;
+        width: calc(100% - 340px - 35px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @include mq(1430, 970) {
+            width: 370px;
+            margin-left: 0;
+        }
+
+        @include mq(960) {
+            width: 370px;
+            margin-left: 0;
+        }
+
+        @include mq(420) {
+            width: 300px;
+        }
+    }
+
+    &__date-picker-legend {
+    }
+
+    &__legend-item:not(:last-child) {
+        margin-bottom: 40px;
+    }
+
+    &__legend-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__legend-item-square {
+        flex-basis: 25px;
+        height: 25px;
+        display: block;
+        margin-right: 20px;
+
+        &--hold {
+            background-color: #e64c5e;
+        }
+
+        &--half-hold {
+            background-color: #ffbdc5;
+            box-shadow: inset 0 0 0 1px #363232;
+        }
+
+        &--free {
+            background-color: #eaeaea;
+            box-shadow: inset 0 0 0 1px #bbbbbb;
+        }
+    }
+
+    &__legend-item-text {
+        display: block;
+        flex-basis: calc(100% - 25px);
+    }
+
+    &__legend-item-square--hold:before {
+        background-color: #e64c5e;
+    }
+
+
+    &__queues {
+        max-width: 440px;
+        height: 100%;
+
+        @include mq(1430, 970) {
+            height: 275px;
+            position: relative;
+        }
+
+        @include mq(960) {
+            height: 275px;
+            position: relative;
+        }
+
+        @include mq(420) {
+            height: auto;
+        }
+    }
+
+    &__queues-header {
+        background: #363232;
+        height: 52px;
+        box-sizing: border-box;
+        border: solid 1px #bbbbbb;
+        padding: 15px;
+        position: relative;
+
+        @include mq(1430, 970) {
+            padding: 15px 5px;
+            position: static;
+        }
+
+        @include mq(960) {
+            padding: 15px 5px;
+            position: static;
+        }
+
+        @include mq(420) {
+            height: 75px;
+        }
+    }
+
+    &__queues-header-text {
+        color: #fff;
+        font-size: 16px;
+
+        &--bold {
+            font-size: 18px;
+            font-family: GothamProBold, sans-serif;
+        }
+    }
+
+    &__queues-header-close {
+        box-sizing: border-box;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: #959191;
+        cursor: pointer;
+        font-size: 0;
+        transition: all .2s;
+
+        &:hover {
+            color: #e64c5e;
+        }
+
+        &:before {
+            font-family: icomoon !important;
+            content: "\e90d";
+            font-size: 22px;
+
+            @include mq(1430, 970) {
+                font-size: 0;
+            }
+
+            @include mq(960) {
+                font-size: 0;
+            }
+        }
+
+        @include mq(1430, 970) {
+            font-size: 14px;
+            color: #333333;
+            bottom: 16px;
+            right: 26px;
+            top: auto;
+        }
+
+        @include mq(960) {
+            font-size: 14px;
+            color: #333333;
+            bottom: 16px;
+            right: 26px;
+            top: auto;
+        }
+    }
+
+    
+    &__queues-body {
+        background: #f6f6f6;
+        height: calc(100% - 52px);
+        border: solid 1px #bbbbbb;
+        border-top: none;
+        box-sizing: border-box;
+        padding: 15px 40px 0;
+
+        @include mq(1430, 970) {
+            padding: 15px 18px 0 10px;
+        }
+
+        @include mq(960) {
+            padding: 15px 18px 0 10px;
+        }
+
+        @include mq(420) {
+            height: 215px;
+        }
+    }
+
+    &__queues-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 2px;
+    }
+
+    &__queues-item-text {
+        width: 70px;
+    }
+
+    &__queues-item-button {
+        width: calc(100% - 70px);
+        height: 53px;
+        text-align: center;
+        vertical-align: super;
+        box-sizing: border-box;
+        padding-top: 16px;
+        font-size: 18px;
+        text-transform: uppercase;
+
+        &--hold {
+            background: #e64c5e;
+            color: #fff;
+        }
+        &--half-hold {
+            background: #ffbdc5;
+            color: #333333;
+            box-shadow: inset 0 0 0 1px #363232;
+        }
+        &--free {
+            background: #f6f6f6;
+            color: #333333;
+            box-shadow: inset 0 0 0 1px #363232;
+            cursor: pointer;
+        }
+        
+        &.active {
+            background: #28b074;
+        }
+    }
+
+    .form-input-wrapper {
+        margin-top: 0;
+    }
+}

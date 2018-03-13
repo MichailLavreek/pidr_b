@@ -1,0 +1,113 @@
+.screen {
+    position: relative;
+
+    @include mq(false, 970) {
+        background: url("/img/not-found-page-bg.jpg") no-repeat center;
+        background-size: cover;
+    }
+
+    @include mq(970) {
+        background: url("/img/not-found-page-bg--970.jpg") no-repeat center;
+        background-size: cover;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 358px;
+        background: #363232;
+        opacity: .57;
+
+        @include mq(970) {
+            left: 0;
+        }
+    }
+
+}
+
+.copyrights {
+    position: absolute;
+    left: 48%;
+    bottom: 40px;
+    font-size: 14px;
+    color: #363232;
+
+    @include mq(970) {
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+}
+
+.main-side--404 {
+    .wrapper {
+        margin: 0 auto 0 358px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-end;
+
+        @include mq(970) {
+            margin-left: 0;
+            align-items: center;
+        }
+    }
+}
+
+.error {
+    max-width: 720px;
+    margin: auto 100px auto 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+
+    font-family: GothamProRegular, sans-serif;
+    color: #fff;
+
+    @include mq(970) {
+        margin: 0;
+    }
+
+    &__text, &__title {
+        margin-bottom: 60px;
+        font-size: 36px;
+
+        @include mq(750) {
+            font-size: 24px;
+            padding: 0 10px;
+            margin-bottom: 100px;
+            line-height: 1.5;
+        }
+    }
+
+    &__title {
+        margin-top: 20px;
+        font-family: GothamProBold, sans-serif;
+        font-size: 36px;
+    }
+
+    &__title-big {
+        font-size: 100px;
+        line-height: 30px;
+    }
+
+    &__text {
+
+        &--bold {
+            font-family: GothamProBlackItalic, sans-serif;
+        }
+
+        a {
+            font-family: GothamProBold, sans-serif;
+            color: #fff;
+            text-decoration: none;
+            border-bottom: solid 1px #d2d1d2;
+        }
+    }
+}

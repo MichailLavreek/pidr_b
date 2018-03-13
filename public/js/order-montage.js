@@ -1,63 +1,11 @@
 (function () {
 
-    var fakeDates = { //if month/day not in the data, this means its free
-        '2017': {
-            '11': { //month
-                '17': { //day
-                    '1': 'hold', //queue (free or hold)
-                    '2': 'free',
-                    '3': 'free'
-                },
-                '18': {
-                    '1': 'half-hold',
-                    '2': 'free',
-                    '3': 'free'
-                },
-                '19': {
-                    '1': 'hold',
-                    '2': 'hold',
-                    '3': 'hold'
-                },
-                '20': {
-                    '1': 'hold',
-                    '2': 'hold',
-                    '3': 'half-hold'
-                },
-            },
-            '12': {
-                '1': {
-                    '1': 'hold',
-                    '2': 'hold',
-                    '3': 'hold'
-                },
-                '2': {
-                    '1': 'free',
-                    '2': 'half-hold',
-                    '3': 'hold'
-                },
-                '18': {
-                    '1': 'free',
-                    '2': 'hold',
-                    '3': 'hold'
-                },
-                '22': {
-                    '1': 'hold',
-                    '2': 'hold',
-                    '3': 'hold'
-                },
-                '31': {
-                    '1': 'free',
-                    '2': 'free',
-                    '3': 'half-hold'
-                }
-            }
-        }
-    };
-
     var legend = $('#js_date-picker-legend');
     var queues = $('#js_date-picker-queues');
     var queuesHeaderDate = $('#js_queues-header-date');
-    var locale = 'uk'; //TODO: брать с бэкенда
+    var locale = document.documentElement.lang;
+    if (locale === 'ua') locale = 'uk'; // в библиотеке "ua" локаль проходит как uk
+    $.datepicker.setDefaults($.datepicker.regional[locale]);
 
     var selectedDateInstance = null;
 
@@ -188,7 +136,15 @@
     form.on('submit', (e) => {
         e.preventDefault();
 
-        if (!$('#required-checkbox').is(":checked")) {
+        var agreedCheckbox = $('#required-checkbox');
+        console.log(!agreedCheckbox.is(":checked"));
+        if (!agreedCheckbox.is(":checked")) {
+            agreedCheckbox.parent().addClass('error');
+            agreedCheckbox.change(function() {
+                if(this.checked) {
+                    agreedCheckbox.parent().removeClass('error');
+                }
+            });
             return;
         }
 
@@ -200,6 +156,22 @@
         var productId = $('#js_input-product-id');
 
         var date = selectedDateInstance;
+
+        if (!date) {
+            var messages = {
+                uk: 'Необхідно вибрати бажану дату монтажу!',
+                ru: 'Необходимо выбрать желаемую дату монтажа!',
+                en: 'You must select the desired installation date!',
+            };
+
+            console.log(locale, messages[locale], messages);
+            var message = messages[locale];
+            $('.popup-order__item--form').append($('<h4 class="error-message">'+message+'</h4>'));
+            return;
+        } else {
+            $('.popup-order__item--form .error-message').remove();
+        }
+
         var dateString = date.selectedYear + '-' + (1 + date.selectedMonth) + '-' + date.selectedDay;
         var selectedQueue = $('.popup-order__queues-item-button--free.active').data('queue');
 
@@ -230,11 +202,21 @@
                     product.val('');
                     productId.val('');
                     form.fadeOut(300);
+
+                    var successMessages = {
+                        uk: 'Ваше повідомлення успішно відправлено. Ми зв\'яжемось з Вами!',
+                        ru: 'Ваше сообщение успешно отправлено. Мы свяжемся с вами!',
+                        en: 'Your message has been sent successfully. We will contact you!',
+                    };
+
+                    var successMessage = successMessages[locale];
+
+                    $('.popup-order').append($('<h4 class="submit-success">'+successMessage+'</h4>'));
                 }
             }
         });
 
-        console.log(data);
+        // console.log(data);
     });
 
 })();

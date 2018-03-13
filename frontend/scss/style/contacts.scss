@@ -1,0 +1,117 @@
+
+.contacts {
+    position: relative;
+}
+
+.info {
+    margin: 40px 0 125px;
+    background: #f9f7f7;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    @include mq(750) {
+        background: none;
+        flex-direction: column;
+        margin-bottom: 70px;
+    }
+
+    @include mq(480) {
+        margin-bottom: 100px;
+    }
+
+    &__contacts {
+        box-sizing: border-box;
+        flex-basis: 45%;
+        padding: 40px 0 45px 30px;
+
+        @include mq(750) {
+            background: #f9f7f7;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            padding: 40px 23px 45px 23px;
+        }
+    }
+
+    &__contact-block:not(:last-child) {
+        margin-bottom: 50px;
+    }
+    
+    &__contact-title {
+        font-size: 24px;
+        font-family: GothamProMedium, sans-serif;
+        color: #333333;
+        margin-bottom: 20px;
+    }
+    
+    &__contact-items {
+        padding-left: 65px;
+        position: relative;
+
+        &:after {
+            font-family: icomoon !important;
+            font-size: 41px;
+            color: #e64c5e;
+            position: absolute;
+            left: 0;
+            top: calc(50% - 25px);
+        }
+
+        &--address:after {
+            content: "\e910";
+        }
+
+        &--times:after {
+            content: "\e90f";
+        }
+
+        &--phones:after {
+            content: "\e905";
+            font-size: 35px;
+            left: 10px;
+            top: calc(50% - 20px);
+        }
+    }
+
+    &__contact-item, &__contact-item a {
+        color: #1b2934;
+        font-size: 18px;
+        line-height: 34px;
+        text-decoration: none;
+    }
+
+
+
+    &__form {
+        box-sizing: border-box;
+        flex-basis: 55%;
+        width: 100%;
+        padding: 28px 45px 45px 30px;
+        position: relative;
+
+        @include mq(750) {
+            background: #f9f7f7;
+            border-radius: 10px;
+            padding: 28px 23px 45px 23px;
+        }
+    }
+
+    &__form-title {
+        font-size: 36px;
+        color: #e64c52;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &__map {
+        width: 100%;
+        height: 550px;
+        border-radius: 10px;
+        margin-bottom: 60px;
+
+        @include mq(480) {
+            display: none;
+        }
+    }
+}
