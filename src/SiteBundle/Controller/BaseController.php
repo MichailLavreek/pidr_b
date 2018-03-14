@@ -88,7 +88,7 @@ class BaseController extends Controller
     {
         if (empty($entity)) return;
 
-        if (method_exists($entity, 'getMeta')) {
+        if (method_exists($entity, 'getMeta') && !empty($entity->getMeta())) {
             $meta = $entity->getMeta()->getLangCurrent();
         }
 

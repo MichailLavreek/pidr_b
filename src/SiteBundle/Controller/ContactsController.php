@@ -32,7 +32,9 @@ class ContactsController extends BaseController
         if ($structure->getType() != 'Contacts') throw new NotFoundHttpException('Structure for alias ' . $alias . ' Not Fond!');
 
         $this->responseData['structure'] = $structure;
+//        $this->responseData['content'] = $this->em->getRepository(Content::class)->findBy(['structure'=>$structure]);
 
+        $this->setupMeta($structure);
         return $this->render('page/contacts.html.twig', $this->responseData);
     }
 
