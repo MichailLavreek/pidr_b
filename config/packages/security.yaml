@@ -2,6 +2,7 @@ security:
     encoders:
         App\Entity\User:
             algorithm: bcrypt
+            cost: 10
 
     providers:
         our_db_provider:
@@ -27,4 +28,4 @@ security:
 
     access_control:
         - { path: ^/cms/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/cms, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms, roles: IS_AUTHENTICATED_FULLY }

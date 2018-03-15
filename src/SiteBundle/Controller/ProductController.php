@@ -32,6 +32,7 @@ class ProductController extends BaseController
         $this->responseData['product'] = $product;
         $this->setupMeta($product);
 
+//        dump($product->getImages()[1]);die;
         return $this->render('page/product.html.twig', $this->responseData);
     }
 }

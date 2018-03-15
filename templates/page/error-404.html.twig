@@ -1,0 +1,32 @@
+{% extends 'layout/error.html.twig' %}
+
+{% block main %}
+    <div class="main-side main-side--404">
+        <div class="wrapper">
+
+            <section class="error">
+                <h3 class="error__text">
+                    {{ 'Щось пішло не так. Здається ти потрапив туди, де нема жодної сторінки з нашого сайту.'|trans }}
+                </h3>
+
+                <h2 class="error__title">
+                    <span class="error__title-big">404</span><br>
+                    {{ 'помилка'|trans }}
+                </h2>
+
+                <h3 class="error__text">
+                    {{ 'Спробуй ще раз.'|trans }} <br>
+                    {{ 'Або повернись на'|trans }} <a href="{{ path('home', {'_locale': app.request.attributes.get('_locale')}) }}">{{ 'головну сторінку'|trans }}</a>
+                </h3>
+                <h3 class="error__text error__text--bold">
+                    {{ 'Дякуємо, що обираєш ТМ “Підрахуй”'|trans }}<br>
+                    {{ 'З нами купувати вигідніше!'|trans }}
+                </h3>
+            </section>
+
+            <div class="copyrights">
+                {{ 'copyrights'|trans }}, {{ "now"|date('Y') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

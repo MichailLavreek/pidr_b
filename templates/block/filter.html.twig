@@ -31,7 +31,7 @@
                                      data-value="{{ value.value }}">
                                     <div class="filter__checkbox"></div>
                                     <div class="filter__label">
-                                        {{ value.value }}
+                                        {{ value.value|trans }}
                                     </div>
                                 </div>
                             {% endif %}
@@ -49,11 +49,11 @@
                 <div class="filter__slider">
                     <div class="filter__prices">
                         <label class="filter__price-label">
-                            Від
+                            {{ 'Від'|trans }}
                             <input type="text" data-min="{{ price.min }}" class="filter__price filter__price-from" id="js_price-from">
                         </label>
                         <label class="filter__price-label">
-                            До
+                            {{ 'До'|trans }}
                             <input type="text" data-max="{{ price.max }}" class="filter__price filter__price-to" id="js_price-to">
                         </label>
                     </div>
@@ -62,18 +62,18 @@
             </div>
         </li>
         <li class="mobile-products-count" id="js_mobile-products-count" style="display: none;">
-            знайдено <span class="mobile-products-count-value"></span> товарів
+            {{ 'знайдено'|trans }} <span class="mobile-products-count-value"></span> {{ 'товарів'|trans }}
         </li>
         <li class="filter__item filter__item--control">
             <div class="filter__control">
                 <div class="filter__control-button-wrapper filter__control-button-wrapper--submit">
                     <div id="js_filter-submit" class="filter__submit">
-                        Підібрати
+                        {{ 'Підібрати'|trans }}
                     </div>
                 </div>
                 <div class="filter__control-button-wrapper filter__control-button-wrapper--cancel">
                     <div id="js_filter-reset" class="filter__reset">
-                        очистити все
+                        {{ 'очистити все'|trans }}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,6 @@
 twig:
+    exception_controller: App\SiteBundle\Controller\ExceptionController::showException
+
     paths: ['%kernel.project_dir%/templates']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'

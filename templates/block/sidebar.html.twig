@@ -8,7 +8,7 @@
             <ul class="lang__list">
                 {% for language in languages %}
                     <li class="lang__item">
-                        <a href="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': language.iso2})) }}"
+                        <a href="{{ url(app.request.attributes.get('_route')|default('home'), app.request.attributes.get('_route_params')|default({})|merge({'_locale': language.iso2})) }}"
                            class="lang__link{% if language.getIso2() == currentLanguage.getIso2() %} lang__link--active{% endif %}">
                             {{ language.getName() }}
                         </a>

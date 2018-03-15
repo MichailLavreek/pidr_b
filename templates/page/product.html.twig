@@ -25,24 +25,20 @@
             <section class="product-inner">
                 <div class="product-content">
 
-
                     <div class="product-content__top-block">
                         <div class="product-content__slider">
                             <div class="slick-slider-for simple-popup-parent">
-
-                                <a href="/img/product-image.jpg" data-popup-title="image 1" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
-                                <a href="/img/product-image.jpg" data-popup-title="image 2" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
-                                <a href="/img/product-image.jpg" data-popup-title="image 3" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
-                                <a href="/img/product-image.jpg" data-popup-title="image 4" class="slick-slide simple-popup" style="background: url('/img/product-image.jpg') no-repeat center;"></a>
+                                {% for image in product.images %}
+                                    <a href="{{ vich_uploader_asset(image, 'imageFile') }}" data-popup-title="product image - {{ loop.index }}" class="slick-slide simple-popup" style="background: url('{{ vich_uploader_asset(image, 'imageFile') }}') no-repeat center;"></a>
+                                {% endfor %}
                             </div>
                             <div class="slick-slider-nav">
-                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
-                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
-                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
-                                <div class="slick-slide slick-slide--small" style="background: url('/img/product-image.jpg') no-repeat center;"></div>
+                                {% for image in product.images %}
+                                    <div class="slick-slide slick-slide--small" style="background: url('{{ vich_uploader_asset(image, 'imageFile') }}') no-repeat center;"></div>
+                                {% endfor %}
                             </div>
                             <div class="product-content__register product-content__register--after-slider" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
-                                Реєстрація на монтаж
+                                {{ 'Реєстрація на монтаж'|trans }}
                             </div>
                         </div>
 
@@ -58,7 +54,7 @@
                             </div>
 
                             <div class="product-content__register" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
-                                Реєстрація на монтаж
+                                {{ 'Реєстрація на монтаж'|trans }}
                             </div>
 
 
@@ -73,7 +69,7 @@
 
                     <div class="product-content__tabs-head product-content__tabs-head--mobile-additional-block">
                         <div class="product-content__tabs-btn" data-id="3">
-                            Доставка і оплата
+                            {{ 'Доставка і оплата'|trans }}
                             <div class="product-content__delivery product-content__tabs-content-item" id="js_tabs-element-3">
                                 {{ include('includes/delivery-text.html.twig') }}
                             </div>
@@ -103,7 +99,7 @@
                                                 {{ attr.attribute.langCurrent.name }}
                                             </div>
                                             <div class="table-simple__cell">
-                                                {{ attr.value }}
+                                                {{ attr.value|trans }}
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -114,7 +110,7 @@
                     </div>
 
                     <a href="#" class="product-content__link-to-actions">
-                        Вигідні пропозиції
+                        {{ 'Вигідні пропозиції'|trans }}
                     </a>
 
                 </div>
