@@ -2,11 +2,13 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/category.css') }}">
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
 
     {{ parent() }}
@@ -19,9 +21,97 @@
             <h1>{{ content.lang.name }}</h1>
             <section class="category-section">
                 <div class="category">
+                    <div class="category__items">
+                        <a href="{{ path('category', {'_locale': app.request.attributes.get('_locale'), 'alias': 'sofas'}) }}" class="category__item-wrapper">
+                            <div class="category__item">
+                                <div class="category__image" style="background-image: url('/img/design-meb-1.jpg');"></div>
+                                <div class="category__title">
+                                    {{ 'Дивани'|trans }}
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('category', {'_locale': app.request.attributes.get('_locale'), 'alias': 'beds'}) }}" class="category__item-wrapper">
+                            <div class="category__item">
+                                <div class="category__image" style="background-image: url('/img/design-meb-2.jpg');"></div>
+                                <div class="category__title">
+                                    {{ 'Ліжка'|trans }}
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('category', {'_locale': app.request.attributes.get('_locale'), 'alias': 'mattresses'}) }}" class="category__item-wrapper">
+                            <div class="category__item">
+                                <div class="category__image" style="background-image: url('/img/design-meb-3.jpg');"></div>
+                                <div class="category__title">
+                                    {{ 'Матраци'|trans }}
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('category', {'_locale': app.request.attributes.get('_locale'), 'alias': 'wardrobes'}) }}" class="category__item-wrapper">
+                            <div class="category__item">
+                                <div class="category__image" style="background-image: url('/img/design-meb-4.jpg');"></div>
+                                <div class="category__title">
+                                    {{ 'Шафи-купе'|trans }}
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="category__item-wrapper category__item-wrapper--big">
+                            <div class="category__item category__slider">
+                                <div class="category__slider" id="js_category-slider">
+
+                                    <a href="/uploads/images/banners/image-0-02-04.jpg" class="category__slider-item simple-popup"
+                                         style="background-image: url('/uploads/images/banners/image-0-02-04.jpg');">
+                                        <div class="category__slider-item-text">
+                                            <div class="category__slider-item-title">
+
+                                            </div>
+                                            <div class="category__slider-item-description"></div>
+                                        </div>
+                                        <span class="category__slider-item-arrow"></span>
+                                    </a>
+
+                                    <a href="/uploads/images/banners/image-0-02-05.jpg" class="category__slider-item simple-popup"
+                                         style="background-image: url('/uploads/images/banners/image-0-02-05.jpg');">
+                                        <div class="category__slider-item-text">
+                                            <div class="category__slider-item-title">
+
+                                            </div>
+                                            <div class="category__slider-item-description"></div>
+                                        </div>
+                                        <span class="category__slider-item-arrow"></span>
+                                    </a>
+
+                                    <a href="/uploads/images/banners/IMG-1c.jpg" class="category__slider-item simple-popup"
+                                         style="background-image: url('/uploads/images/banners/IMG-1c.jpg');">
+                                        <div class="category__slider-item-text">
+                                            <div class="category__slider-item-title">
+
+                                            </div>
+                                            <div class="category__slider-item-description"></div>
+                                        </div>
+                                        <span class="category__slider-item-arrow"></span>
+                                    </a>
+
+                                    <a href="/uploads/images/banners/IMG-3c.jpg" class="category__slider-item simple-popup"
+                                         style="background-image: url('/uploads/images/banners/IMG-3c.jpg');">
+                                        <div class="category__slider-item-text">
+                                            <div class="category__slider-item-title">
+
+                                            </div>
+                                            <div class="category__slider-item-description"></div>
+                                        </div>
+                                        <span class="category__slider-item-arrow"></span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {{ content.lang.body|raw }}
                 </div>
             </section>
         </div>
     </section>
+
 {% endblock main_inner %}

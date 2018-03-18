@@ -108,4 +108,9 @@ class AttributeLanguage
     {
         return $this->getName() . ' id: ' . $this->getId();
     }
+
+    public function getClassName()
+    {
+        return self::class;
+    }
 }

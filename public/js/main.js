@@ -391,18 +391,20 @@ function initMain() {
             window.location.href = this.dataset.href;
         });
 
-        $('.simple-popup').magnificPopup({
-            type: 'image',
-            image: {
-                titleSrc: function (item) {
-                    return item.el.data().popupTitle;
+        var popupItems = $('.simple-popup');
+        if (popupItems && $.magnificPopup) {
+            $('.simple-popup').magnificPopup({
+                type: 'image',
+                image: {
+                    titleSrc: function (item) {
+                        return item.el.data().popupTitle;
+                    }
+                },
+                gallery: {
+                    enabled: true
                 }
-            },
-            gallery: {
-                enabled: true
-            }
-        });
-
+            });
+        }
 
         /** Category */
         var categorySlider = $('#js_category-slider');
@@ -412,6 +414,12 @@ function initMain() {
                 arrows: false,
                 infinite: false,
                 dots: true
+            });
+
+            $('.category__slider-item-arrow').on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                categorySlider.slick('slickNext');
             });
         }
     }

@@ -54,7 +54,7 @@
                                         {% for attributeValue in product.productAttributesValues %}
                                             <li class="product__attribute">
                                                 {{ attributeValue.attribute.lang.name }} -
-                                                {{ attributeValue.value }}
+                                                {{ attributeValue.value|trans }}
                                             </li>
                                         {% endfor %}
                                     </ul>

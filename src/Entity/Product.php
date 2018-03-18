@@ -53,7 +53,7 @@ class Product extends BaseEntity
     protected $lang;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $code;
 

@@ -78,18 +78,23 @@
 
                     <div class="product-content__tabs-block">
                         <div class="product-content__tabs-head">
-                            <div class="product-content__tabs-btn active" data-id="1">
-                                {{ 'Опис товару'|trans }}
-                            </div>
-                            <div class="product-content__tabs-btn" data-id="2">
+                            {% if product.langCurrent.description is not empty %}
+                                <div class="product-content__tabs-btn active" data-id="1">
+                                    {{ 'Опис товару'|trans }}
+                                </div>
+                            {% endif %}
+                            <div class="product-content__tabs-btn{% if product.langCurrent.description is empty %} active{% endif %}" data-id="2">
                                 {{ 'Характеристики'|trans }}
                             </div>
                         </div>
                         <div class="product-content__tabs-content-block">
-                            <div class="product-content__tabs-content-item active" id="js_tabs-element-1">
-                                {{ product.langCurrent.description|raw }}
-                            </div>
-                            <div class="product-content__tabs-content-item" id="js_tabs-element-2">
+                            {% if product.langCurrent.description is not empty %}
+                                <div class="product-content__tabs-content-item active" id="js_tabs-element-1">
+                                    {{ product.langCurrent.description|raw }}
+                                </div>
+                            {% endif %}
+
+                            <div class="product-content__tabs-content-item{% if product.langCurrent.description is empty %} active{% endif %}" id="js_tabs-element-2">
                                 <div class="table-simple">
                                     <!--.table-simple__column-->
 

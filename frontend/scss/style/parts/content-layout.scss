@@ -264,6 +264,7 @@
 
         img {
             width: 100%;
+            height: 205px;
             border-radius: 10px;
             border: solid 1px #363232;
         }
@@ -293,13 +294,13 @@
     }
 }
 
-.copyrights {
-    margin: 0 0 20px 0;
-    padding: 0;
-    background: none;
-    color: #363232;
-    font-family: GothamProRegular, sans-serif;
-}
+//.copyrights {
+//    margin: 0 0 20px 0;
+//    padding: 0;
+//    background: none;
+//    color: #363232;
+//    font-family: GothamProRegular, sans-serif;
+//}
 
 .breadcrumbs {
     text-align: right;
@@ -573,4 +574,14 @@
 
 .--red {
     color: #e64c52;
+}
+
+.mfp-img {
+    position: relative;
+    z-index: 100;
+}
+
+.mfp-zoom-out-cur .category {
+  position: relative;
+  z-index: 1;
 }
