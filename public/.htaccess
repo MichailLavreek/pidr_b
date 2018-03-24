@@ -11,12 +11,6 @@ DirectoryIndex index.php
 # when compiling LESS/Sass/CoffeScript assets.
 # Options FollowSymlinks
 
-# Disabling MultiViews prevents unwanted negotiation, e.g. "/index" should not resolve
-# to the front controller "/index.php" but be rewritten to "/index.php/index".
-<IfModule mod_negotiation.c>
-    Options -MultiViews
-</IfModule>
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -34,19 +28,6 @@ DirectoryIndex index.php
     RewriteCond %{HTTP:Authorization} .
     RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Redirect to URI without front controller to prevent duplicate content
-    # (with and without `/index.php`). Only do this redirect on the initial
-    # rewrite by Apache and not on subsequent cycles. Otherwise we would get an
-    # endless redirect loop (request -> rewrite to front controller ->
-    # redirect -> request -> ...).
-    # So in case you get a "too many redirects" error or you always get redirected
-    # to the start page because your Apache does not expose the REDIRECT_STATUS
-    # environment variable, you have 2 choices:
-    # - disable this feature by commenting the following 2 lines or
-    # - use Apache >= 2.3.9 and replace all L flags by END flags and remove the
-    #   following RewriteCond (best solution)
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
 
     # If the requested filename exists, simply serve it.
     # We only want to let Apache serve files and not directories.
@@ -66,3 +47,14 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+Redirect 301 /index.php/onas /ua/about-us
+Redirect 301 /index.php/stati/52-sovetu /ua/about-us
+Redirect 301 /index.php/stati/51-sochetaniecvetov /ua/about-us
+Redirect 301 /index.php/stati/50-sovetupovibory /ua/about-us
+Redirect 301 /index.php/stati /ua/about-us
+Redirect 301 /index.php/video /ua/about-us
+Redirect 301 /index.php/akcii /ua/actions
+Redirect 301 /index.php/2012-07-19-12-34-13 /ua/actions
+Redirect 301 /index.php/portfolio /ua/portfolio
+Redirect 301 /index.php/kontakti /ua/feedback/contacts
