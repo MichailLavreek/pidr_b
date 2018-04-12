@@ -16,6 +16,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdminController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -23,15 +24,36 @@ use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Util\LegacyFormHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Error\Error;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminController extends EasyAdminController
 {
     protected $formLang;
+
+    /**
+     * @Route("/cms/check-auth", name="check-auth")
+     */
+    public function checkAuthAction(Request $request)
+    {
+        return new Response('true');
+    }
+
     /**
      * @Route("/cms", name="easyadmin")
      */
     public function indexAction(Request $request)
     {
+//        $_SESSION['ELFINDER_ACCESS'] = 'true';
+//        setcookie('ELFINDER_ACCESS', 'true', strtotime('now + 30 minutes'), '/', null, true, true);
+//        $response = new Response();
+//        $response->headers->setCookie($cookie);
+//        $session = $request->getSession();
+//        $session->set('ELFINDER_ACCESS', 'true');
+
+
+//        dump($request->cookies->all());
+//        dump($request->getSession()->all());
+
         $request->setLocale('en');
         $this->formLang = $request->get('locale') ? $request->get('locale') : $request->getDefaultLocale();
         return parent::indexAction($request);

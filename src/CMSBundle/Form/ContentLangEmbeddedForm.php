@@ -74,7 +74,7 @@ class ContentLangEmbeddedForm extends AbstractType
                 }
             ])
             ->add('name', TextType::class, [])
-            ->add('body', TextareaType::class, [])
+            ->add('body', TextareaType::class, ['attr' => ['class' => 'ckeditor']])
     ;
     }
 

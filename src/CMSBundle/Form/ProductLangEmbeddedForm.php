@@ -76,7 +76,7 @@ class ProductLangEmbeddedForm extends AbstractType
                 }
             ])
             ->add('name', TextType::class, [])
-            ->add('description', TextAreaType::class, [])
+            ->add('description', TextAreaType::class, ['attr' => ['class' => 'ckeditor']])
     ;
     }
 

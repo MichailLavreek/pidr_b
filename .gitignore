@@ -9,6 +9,7 @@ node_modules
 /var/
 /vendor/
 /public/uploads/
+/public/img/common/content
 
 ###< symfony/framework-bundle ###
 

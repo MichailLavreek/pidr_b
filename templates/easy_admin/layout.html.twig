@@ -152,7 +152,13 @@
         {% endblock wrapper %}
         </div>
 
-        {% block body_javascript %}{% endblock body_javascript %}
+        {% block body_javascript %}
+            <script type="text/javascript">//<![CDATA[
+                window.CKEDITOR_BASEPATH='/js/ckeditor/';
+                //]]></script>
+            <script type="text/javascript" src="/js/ckeditor/ckeditor.js?t=B8DJ5M4"></script>
+
+        {% endblock body_javascript %}
 
         {% for js_asset in easyadmin_config('design.assets.js') %}
             <script src="{{ asset(js_asset) }}"></script>
