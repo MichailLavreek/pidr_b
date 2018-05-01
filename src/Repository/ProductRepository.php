@@ -16,7 +16,7 @@ class ProductRepository extends ServiceEntityRepository
 {
     //TODO: проверять програмно
     public $validFilterQueryParameters = [
-        'class', 'width', 'manufacturer', 'chamfer'
+        'class', 'width', 'manufacturer', 'chamfer', '3d-structure'
     ];
 
     public function __construct(RegistryInterface $registry)
@@ -31,35 +31,54 @@ class ProductRepository extends ServiceEntityRepository
             ->where('p.structure = :structure')->setParameter('structure', $structure);
 
         if (!empty($query)) {
-            $isJoinsSets = false;
+            $attributesResults = [];
+
             foreach ($query as $key => $param) {
                 if ($key === 'price') {
                     $products = $products
                         ->andWhere('p.price >= :priceFrom')->setParameter('priceFrom', explode('-', $param)[0])
                         ->andWhere('p.price <= :priceTo')->setParameter('priceTo', explode('-', $param)[1]);
+                    continue;
                 }
 
                 if (in_array($key, $this->validFilterQueryParameters)) {
-                    $uniqueCodeName = 'code' . $key;
-                    $uniqueValueName = 'value' . $key;
+                    $uniqueCodeName = 'code' . str_replace('-', '', $key);
+                    $uniqueValueName = 'value' . str_replace('-', '', $key);
 
-                    if (!$isJoinsSets) {
-                        $products = $products
-                            ->leftJoin(ProductAttributeValue::class, 'av', \Doctrine\ORM\Query\Expr\Join::WITH, 'av.product = p.id')
-                            ->leftJoin(Attribute::class, 'a', \Doctrine\ORM\Query\Expr\Join::WITH, 'a.id = av.attribute')
-                        ;
-                        $isJoinsSets = true;
-                    }
-                    $products = $products
+                    $result = $this->createQueryBuilder('p')
+                        ->select('p.id')
+                        ->where('p.structure = :structure')->setParameter('structure', $structure)
+                        ->leftJoin(ProductAttributeValue::class, 'av', \Doctrine\ORM\Query\Expr\Join::WITH, 'av.product = p.id')
+                        ->leftJoin(Attribute::class, 'a', \Doctrine\ORM\Query\Expr\Join::WITH, 'a.id = av.attribute')
                         ->andWhere('a.code = :'.$uniqueCodeName)->setParameter($uniqueCodeName, $key);
+
                     if (strpos($param, '-') !== false) {
                         $paramMultiple = explode('-', $param);
-                        $products = $products->andWhere('av.value IN (:'.$uniqueValueName.')')->setParameter($uniqueValueName, $paramMultiple);
+                        $result = $result->andWhere('av.value IN (:'.$uniqueValueName.')')->setParameter($uniqueValueName, $paramMultiple);
                     } else {
-                        $products = $products->andWhere('av.value = :'.$uniqueValueName)->setParameter($uniqueValueName, $param);
+                        $result = $result->andWhere('av.value = :'.$uniqueValueName)->setParameter($uniqueValueName, $param);
                     }
-                    break;
+
+                    $attributesResults[] = $result->getQuery()->getResult();
                 }
+            }
+        }
+
+        if (!empty($attributesResults)) {
+            $attributesResults = array_map(function ($arr) {
+                return array_map(function ($item) {
+                    return $item['id'];
+                }, $arr);
+            }, $attributesResults);
+
+            if (count($attributesResults) > 1) {
+                $filteredByAttributesProductIds = array_intersect(...$attributesResults);
+            } else {
+                $filteredByAttributesProductIds = $attributesResults[0];
+            }
+
+            if (!empty($filteredByAttributesProductIds)) {
+                $products->andWhere('p.id IN(:filteredProductIds)')->setParameter('filteredProductIds', $filteredByAttributesProductIds);
             }
         }
 
@@ -73,39 +92,39 @@ class ProductRepository extends ServiceEntityRepository
     public function findProducts($params)
     {
         $itemsInPage = 12;
-
         $products = $this->createQueryBuilder('p')
             ->where('p.structure = :structure')->setParameter('structure', $params['structure']);
 
         if (!empty($params['query'])) {
-            $isJoinsSets = false;
+            $attributesResults = [];
+
             foreach ($params['query'] as $key => $param) {
                 if ($key === 'price') {
                     $products = $products
                         ->andWhere('p.price >= :priceFrom')->setParameter('priceFrom', explode('-', $param)[0])
                         ->andWhere('p.price <= :priceTo')->setParameter('priceTo', explode('-', $param)[1]);
+                    continue;
                 }
 
                 if (in_array($key, $this->validFilterQueryParameters)) {
-                    $uniqueCodeName = 'code' . $key;
-                    $uniqueValueName = 'value' . $key;
+                    $uniqueCodeName = 'code' . str_replace('-', '', $key);
+                    $uniqueValueName = 'value' . str_replace('-', '', $key);
 
-                    if (!$isJoinsSets) {
-                        $products = $products
-                            ->leftJoin(ProductAttributeValue::class, 'av', \Doctrine\ORM\Query\Expr\Join::WITH, 'av.product = p.id')
-                            ->leftJoin(Attribute::class, 'a', \Doctrine\ORM\Query\Expr\Join::WITH, 'a.id = av.attribute')
-                        ;
-                        $isJoinsSets = true;
-                    }
-                    $products = $products
+                    $result = $this->createQueryBuilder('p')
+                        ->select('p.id')
+                        ->where('p.structure = :structure')->setParameter('structure', $params['structure'])
+                        ->leftJoin(ProductAttributeValue::class, 'av', \Doctrine\ORM\Query\Expr\Join::WITH, 'av.product = p.id')
+                        ->leftJoin(Attribute::class, 'a', \Doctrine\ORM\Query\Expr\Join::WITH, 'a.id = av.attribute')
                         ->andWhere('a.code = :'.$uniqueCodeName)->setParameter($uniqueCodeName, $key);
+
                     if (strpos($param, '-') !== false) {
                         $paramMultiple = explode('-', $param);
-                        $products = $products->andWhere('av.value IN (:'.$uniqueValueName.')')->setParameter($uniqueValueName, $paramMultiple);
+                        $result = $result->andWhere('av.value IN (:'.$uniqueValueName.')')->setParameter($uniqueValueName, $paramMultiple);
                     } else {
-                        $products = $products->andWhere('av.value = :'.$uniqueValueName)->setParameter($uniqueValueName, $param);
+                        $result = $result->andWhere('av.value = :'.$uniqueValueName)->setParameter($uniqueValueName, $param);
                     }
-                    break;
+
+                    $attributesResults[] = $result->getQuery()->getResult();
                 }
             }
         }
@@ -114,10 +133,29 @@ class ProductRepository extends ServiceEntityRepository
             $products->setFirstResult(($params['page'] - 1) * $itemsInPage);
         }
 
+        if (!empty($attributesResults)) {
+            $attributesResults = array_map(function ($arr) {
+                return array_map(function ($item) {
+                    return $item['id'];
+                }, $arr);
+            }, $attributesResults);
+
+            if (count($attributesResults) > 1) {
+                $filteredByAttributesProductIds = array_intersect(...$attributesResults);
+            } else {
+                $filteredByAttributesProductIds = $attributesResults[0];
+            }
+
+            if (!empty($filteredByAttributesProductIds)) {
+                $products->andWhere('p.id IN(:filteredProductIds)')->setParameter('filteredProductIds', $filteredByAttributesProductIds);
+            }
+        }
+
         $products = $products
             ->orderBy('p.id', 'DESC')
             ->setMaxResults($itemsInPage)
             ->getQuery()
+//        dump($products);die;
             ->getResult();
 
         /**
@@ -148,13 +186,8 @@ class ProductRepository extends ServiceEntityRepository
                 if (!empty($attributeLang)) {
                     $attributeValue->getAttribute()->setLang($attributeLang);
                 }
-
-//                var_dump($attributeValue->getAttribute()->getLang()->getName());
             }
-//            var_dump($product->getProductAttributesValues()[0]->getAttribute()->getLang()->getName());
         }
-
-//        var_dump($products[0]->getProductAttributesValues()[0]->getAttribute()->getLang()->getName());
 
         return $products;
     }

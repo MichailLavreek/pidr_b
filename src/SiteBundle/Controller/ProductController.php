@@ -18,7 +18,7 @@ class ProductController extends BaseController
     /**
      * @Route("/{_locale}/product/{alias}", name="product", defaults={"_locale"="ua"}, requirements={"_locale"="ua|en|ru"})
      */
-    public function mainCategoryAction(Request $request, $alias)
+    public function productAction(Request $request, $alias)
     {
         $this->setup($request);
 
@@ -32,7 +32,6 @@ class ProductController extends BaseController
         $this->responseData['product'] = $product;
         $this->setupMeta($product);
 
-//        dump($product->getImages()[1]);die;
         return $this->render('page/product.html.twig', $this->responseData);
     }
 }
