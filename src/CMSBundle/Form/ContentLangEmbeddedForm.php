@@ -67,14 +67,15 @@ class ContentLangEmbeddedForm extends AbstractType
                 'attr' => array('class' => 'forced-hidden-data-field')
             ])
             ->add('language', ChoiceType::class, [
+                'label' => 'Язык',
                 'choices' => $languages,
                 'choice_label' => function($language, $key, $index) {
                     /** @var Language $language */
                     return $language->getName();
                 }
             ])
-            ->add('name', TextType::class, [])
-            ->add('body', TextareaType::class, ['attr' => ['class' => 'ckeditor']])
+            ->add('name', TextType::class, ['label' => 'Название'])
+            ->add('body', TextareaType::class, ['label' => 'Контент страницы','attr' => ['class' => 'ckeditor']])
     ;
     }
 

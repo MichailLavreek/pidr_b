@@ -10,15 +10,23 @@ easy_admin:
             list:
                 fields:
                     - id
-                    - { property: 'langCurrent.name', label: 'Name' }
-                    - alias
-                    - type
-                    - parent
-            form:
+                    - { property: 'langCurrent.name', label: 'Название' }
+                    - { property: 'parent.langCurrent.name', label: 'Родительская структура'}
+                    - { property: 'type', label: 'Тип структуры' }
+            new:
+                title: 'Создание новой структуры'
                 fields:
-                    - { type: 'group', css_class: 'col-sm-5', label: 'Basic information', icon: 'pencil' }
-#                    - { type: 'choice' }
-                    - { property: 'alias', type: 'text' }
-                    - parent
-                    - type
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
+                    - { property: 'alias', alias: 'Алиас', type: 'text' }
+                    - { property: 'parent', label: 'Установить родительскую структуру' }
+                    - { property: 'type', label: 'Тип структуры' }
+
+            edit:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
+                    - { property: 'alias', alias: 'Алиас', type: 'text' }
+                    - { property: 'parent', label: 'Установить родительскую структуру' }
+                    - { property: 'type', label: 'Тип структуры' }
+
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Языковые версии', icon: 'pencil' }
                     - { property: 'lang', type: 'collection', label: 'Different Language Items', type_options: { entry_type: 'App\CMSBundle\Form\StructureLangEmbeddedForm'}}

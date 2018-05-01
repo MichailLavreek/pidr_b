@@ -2,29 +2,17 @@
 
 namespace App\CMSBundle\Controller;
 
-use App\Entity\AttributeLanguage;
 use App\Entity\Content;
 use App\Entity\Language;
 use App\Entity\Meta;
 use App\Entity\MetaLanguage;
 use App\Entity\Product;
 use App\Entity\ProductImage;
-use App\Entity\Role;
 use App\Entity\Structure;
-use App\Entity\StructureLanguage;
-use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdminController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
-use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Util\LegacyFormHelper;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Error\Error;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminController extends EasyAdminController
 {
@@ -70,7 +58,7 @@ class AdminController extends EasyAdminController
 
     protected function prePersistEntity($entity)
     {
-        if (method_exists($entity, 'getLang')) {
+        if (method_exists($entity, 'getLang') && is_iterable($entity->getLang())) {
             foreach ($entity->getLang() as $lang) {
                 $this->persistEntity($lang);
             }
@@ -208,7 +196,26 @@ class AdminController extends EasyAdminController
             }
         }
 
-        if (method_exists($entity, 'getImages') && count($entity->getImages()) > 0) {
+//        if (method_exists($entity, 'getImages')) {
+//            dump('getimages', $entity->getImages());
+//            dump('getimagesc', count($entity->getImages()));
+//
+//            $images = $this
+//                ->em
+//                ->getRepository(ProductImage::class)
+//                ->findBy(['product'=>$entity->getId()]);
+//            dump('images', $images);
+//            $submittedImages = [];
+//            foreach ($entity->getImages() as $image) {
+//                $submittedImages[] = $image;
+//            }
+//
+//            $removedImages = array_diff($images, $submittedImages);
+//            dump('rimages', $removedImages);
+//            die;
+//        }
+
+        if (method_exists($entity, 'getImages')) {
 
             $images = $this
                 ->em
@@ -231,6 +238,24 @@ class AdminController extends EasyAdminController
         $this->em->flush($entity);
     }
 
+    /** @var Structure $entity */
+    protected function preRemoveStructureEntity($entity)
+    {
+        $contents = $this->em->getRepository(Content::class)->findBy(['structure' => $entity->getId()]);
+        if (!empty($contents)) {
+            /** @var Content $content */
+            foreach ($contents as $content) {
+                $this->em->remove($content);
+            }
+        }
 
+        $products = $this->em->getRepository(Product::class)->findBy(['structure' => $entity->getId()]);
+        if (!empty($products)) {
+            /** @var Product $product */
+            foreach ($products as $product) {
+                $this->em->remove($product);
+            }
+        }
+    }
 }
 

@@ -3,16 +3,26 @@ easy_admin:
     entities:
         Content:
             class: App\Entity\Content
-            label: 'Content'
+            title: 'Контент'
             list:
                 fields:
                     - id
-                    - structure
-            form:
+                    - { property: 'langCurrent.name', label: 'Название' }
+                    - { property: 'structure.langCurrent.name', label: 'Привязано к структуре' }
+
+            new:
                 fields:
-                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
-                    - structure
-                    - isActive
-                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ContentLangEmbeddedForm'}}
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
+                    - { property: 'structure', label: 'Привязано к структуре' }
+
+
+            edit:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
+                    - { property: 'structure', label: 'Привязано к структуре' }
+
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Языковые версии', icon: 'pencil' }
+                    - { property: 'lang', label: 'Языковые версии', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ContentLangEmbeddedForm'}}
+
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Мета-теги', icon: 'pencil' }
                     - { property: 'meta', type: 'App\CMSBundle\Form\Type\ContentMetaType'}
-#                    - { property: 'meta' }

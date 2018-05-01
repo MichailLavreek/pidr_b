@@ -55,14 +55,15 @@ class StructureLangEmbeddedForm extends AbstractType
                 'attr' => array('class' => 'forced-hidden-data-field')
             ])
             ->add('language', ChoiceType::class, [
+                'label' => 'Язык',
                 'choices' => $languages,
                 'choice_label' => function($language, $key, $index) {
                     /** @var Language $language */
                     return $language->getName();
                 }
             ])
-            ->add('name', TextType::class, [])
-            ->add('description', TextareaType::class, [])
+            ->add('name', TextType::class, ['label' => 'Название'])
+//            ->add('description', TextareaType::class, [])
     ;
     }
 

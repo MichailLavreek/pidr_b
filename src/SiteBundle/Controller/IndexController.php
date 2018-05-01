@@ -28,6 +28,7 @@ class IndexController extends BaseController
         }
         $this->responseData['structuresForHomePage'] = $structuresForHomePage;
 
+//        dump($this->responseData);die;
         return $this->render('page/home.html.twig', $this->responseData);
     }
 }

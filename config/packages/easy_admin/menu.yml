@@ -11,22 +11,22 @@
 easy_admin:
     design:
         menu:
-            - label: 'Admin'
+            - label: 'Система управления'
               children:
-                  - { entity: 'User', icon: 'th-list', label: 'Users' }
-                  - { entity: 'Role', icon: 'th-list', label: 'Roles' }
-            - label: 'Settings'
+                  - { entity: 'User', icon: 'th-list', label: 'Пользователи' }
+                  - { entity: 'Role', icon: 'th-list', label: 'Роли' }
+            - label: 'Настройки системы'
               children:
-                  - {entity: 'Language', label: 'Language'}
-                  - {entity: 'Variable', label: 'Variables'}
-                  - {entity: 'StructureType', label: 'Structure Types'}
-            - label: 'Site'
+                  - {entity: 'Language', label: 'Языки сайта'}
+                  - {entity: 'Variable', label: 'Переменные сайта'}
+                  - {entity: 'StructureType', label: 'Типы элементов структур'}
+            - label: 'Управление контентом'
               children:
-                  - {entity: 'Structure', label: 'Structure'}
-                  - {entity: 'Content', label: 'Contents'}
-                  - {entity: 'Product', label: 'Products'}
-                  - {entity: 'Attribute', label: 'Attributes'}
-            - label: 'Feedback'
+                  - {entity: 'Structure', label: 'Структура'}
+                  - {entity: 'Content', label: 'Контент элементов структур'}
+                  - {entity: 'Product', label: 'Продукты'}
+                  - {entity: 'Attribute', label: 'Атрибуты продуктов'}
+            - label: 'Обратная связь'
               children:
-                  - {entity: 'Order', label: 'Orders'}
-                  - {entity: 'Feedback', label: 'Feedbacks'}
+                  - {entity: 'Order', label: 'Заказ монтажа'}
+                  - {entity: 'Feedback', label: 'Форма с контактов'}

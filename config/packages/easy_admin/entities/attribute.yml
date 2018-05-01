@@ -3,13 +3,21 @@ easy_admin:
     entities:
         Attribute:
             class: App\Entity\Attribute
-            label: 'Attribute'
             list:
+                title: 'Аттрибуты продуктов'
                 fields:
                     - id
-                    - code
-            form:
+                    - { property: 'code', label: 'Уникальный код'}
+            new:
+                title: 'Создание аттрибута'
                 fields:
-                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
-                    - { property: 'code' }
-                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\AttributeLangEmbeddedForm'}}
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основная часть' }
+                    - { property: 'code', label: 'Уникальный код' }
+            edit:
+                title: 'Редактирование аттрибута'
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8' }
+                    - { property: 'code', label: 'Уникальный код' }
+
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Языки' }
+                    - { property: 'lang', label: 'Языковые версии', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\AttributeLangEmbeddedForm'}}

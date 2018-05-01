@@ -46,7 +46,7 @@
         <div class="nav">
             <ul class="nav__list">
                 {% for structure in structures %}
-                    {% if structure.parent is empty %}
+                    {% if structure.parent is empty and structure.langCurrent is not empty %}
 
                         <li class="nav__item{% if structure.children is not empty %} nav__item--submenu{% endif %}">
                             <a href="{{ path(structure.type|lower, {'alias': structure.alias }) }}" class="nav__link">
@@ -56,11 +56,13 @@
                             {% if structure.children is not empty %}
                                 <ul class="nav__list--submenu">
                                     {% for child in structure.children %}
-                                        <li class="nav__item--submenu">
-                                            <a href="{{ path(child.type|lower, {'alias': child.alias }) }}" class="nav__link--submenu">
-                                                {{ child.langCurrent.name }}
-                                            </a>
-                                        </li>
+                                        {% if child.langCurrent is not empty %}
+                                            <li class="nav__item--submenu">
+                                                <a href="{{ path(child.type|lower, {'alias': child.alias }) }}" class="nav__link--submenu">
+                                                    {{ child.langCurrent.name }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                             {% endif %}

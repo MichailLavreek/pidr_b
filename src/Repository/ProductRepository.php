@@ -115,7 +115,7 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         $products = $products
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'DESC')
             ->setMaxResults($itemsInPage)
             ->getQuery()
             ->getResult();

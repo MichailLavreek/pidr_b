@@ -3,31 +3,40 @@ easy_admin:
     entities:
         Product:
             class: App\Entity\Product
-            label: 'Product'
             list:
+                title: 'Продукты'
                 fields:
                     - id
-                    - structure
+                    - { property: 'structure', label: 'Привязан к структуре:' }
+                    - { property: 'langCurrent.name', label: 'Название' }
+                    - { property: 'price', label: 'Цена' }
 
             new:
+                title: 'Добавление продукта'
                 fields:
-                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
-                    - { property: 'structure', type: 'entity', type_options: {query_builder: 'App\Repository\StructureRepository::getForProduct'} }
-                    - isActive
-                    - alias
-                    - code
-                    - price
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
+                    - { property: 'structure', label: 'Привязать к структуре:', type: 'entity', type_options: {query_builder: 'App\Repository\StructureRepository::getForProduct'} }
+                    - { property: 'isActive', label: 'Отображать на сайте' }
+                    - { property: 'alias', label: 'Алиас' }
+                    - { property: 'code', label: 'Артикул' }
+                    - { property: 'price', label: 'Цена' }
 #                    - { property: 'images', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductImageEmbeddedForm'} }
-                    - { property: 'productAttributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
-                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}
+#                    - { property: 'productAttributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
+#                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}
             edit:
                 fields:
-                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Основное', icon: 'pencil' }
                     - { property: 'structure', type: 'entity', type_options: {query_builder: 'App\Repository\StructureRepository::getForProduct'} }
-                    - isActive
-                    - alias
-                    - code
-                    - price
-                    - { property: 'images', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductImageEmbeddedForm'} }
-                    - { property: 'productAttributesValues', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}
-                    - { property: 'lang', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}
+                    - { property: 'isActive', label: 'Отображать на сайте' }
+                    - { property: 'alias', label: 'Алиас' }
+                    - { property: 'code', label: 'Артикул' }
+                    - { property: 'price', label: 'Цена' }
+
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Изображения', icon: 'pencil' }
+                    - { property: 'images', label: 'Изображения продукта', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductImageEmbeddedForm'} }
+
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Языковые версии', icon: 'pencil' }
+                    - { property: 'lang', label: 'Языковые версии', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductLangEmbeddedForm'}}
+
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Аттрибуты товара', icon: 'pencil' }
+                    - { property: 'productAttributesValues', label: 'Аттрибуты товара', type: 'collection', type_options: {entry_type: 'App\CMSBundle\Form\ProductAttributeValueEmbeddedForm'}}

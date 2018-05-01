@@ -23,7 +23,7 @@ class Structure extends BaseEntity
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="children", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Structure", inversedBy="children")
      * @ORM\JoinColumn(name="parent", referencedColumnName="id", nullable=true)
      */
     protected $parent;
@@ -45,7 +45,7 @@ class Structure extends BaseEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="StructureType")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     protected $type;
 

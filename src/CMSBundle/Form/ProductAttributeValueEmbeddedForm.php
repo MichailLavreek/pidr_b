@@ -59,9 +59,10 @@ class ProductAttributeValueEmbeddedForm extends AbstractType
                 'attr' => array('class' => 'forced-hidden-data-field')
             ])
             ->add('attribute', EntityType::class, [
+                'label' => 'Аттрибут',
                 'class' => Attribute::class
             ])
-            ->add('value', TextType::class, [])
+            ->add('value', TextType::class, ['label' => 'Значение аттрибута'])
     ;
     }
 

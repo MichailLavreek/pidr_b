@@ -35,7 +35,7 @@ class Content extends BaseEntity
     private $isActive = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="ContentLanguage", mappedBy="content", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ContentLanguage", mappedBy="content", cascade={"all"})
      * @ORM\JoinColumn(referencedColumnName="content_id")
      */
     protected $lang;
