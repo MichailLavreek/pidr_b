@@ -41,7 +41,7 @@ class ContactsController extends BaseController
     /**
      * @Route("/{_locale}/feedback/{alias}", name="contacts-post", requirements={"_locale"="ua|en|ru"}, methods={"post"})
      */
-    public function postAction(Request $request)
+    public function postAction(Request $request, \Swift_Mailer $mailer)
     {
         $data = [];
         $data['name'] = $request->request->get('name');
@@ -67,7 +67,36 @@ class ContactsController extends BaseController
         $em->persist($feedback);
         $em->flush($feedback);
 
+        $this->sendMail($feedback, $mailer);
+
         return new JsonResponse(['success' => true]);
+    }
+
+    protected function sendMail(Feedback $feedback, \Swift_Mailer $mailer)
+    {
+//        $message = (new \Swift_Message('Новое письмо с на сайте: Форма контактов'))
+//            ->setFrom('site@pidrahuy.com.ua')
+//            ->setTo('michail.lavreek@gmail.com')
+//            ->setBody(
+//                $this->renderView(
+//                    'emails/feedback.html.twig',
+//                    ['feedback' => $feedback]
+//                ),
+//                'text/html'
+//            )
+//        ;
+//
+//        $mailer->send($message);
+
+        mail(
+            'laminat_chernigiv@ukr.net',
+            'Новое письмо на сайте: Форма контактов',
+            $this->renderView(
+                    'emails/feedback.html.twig',
+                    ['feedback' => $feedback]
+            ),
+            "Content-type:text/html;charset=UTF-8" . "\r\n" . "From: <site@pidrahuy.com.ua>" . "\r\n"
+        );
     }
 
     public function validate($data)

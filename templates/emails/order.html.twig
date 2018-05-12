@@ -1,0 +1,58 @@
+
+<h2>На сайте был сделан заказ монтажа</h2>
+
+<table bgcolor="#ACD13C" cellpadding="2" cellspacing="0">
+    <tr>
+        <td>
+            <table bgcolor="#ffffff" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th  style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Имя
+                    </th>
+                    <th  style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Телефон
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Адресс
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Заказанная дата
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Заказанная очередь
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Дата заполнения
+                    </th>
+                </tr>
+                <tr>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.clientName }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.clientPhone }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.clientAddress }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.orderDate|date('d-m-Y') }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.orderQueue }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ order.createdAt|date('H:i d-m-Y') }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<b>
+    <a href="http://pidrahuy.com.ua/cms?entity=Order&action=show&menuIndex=3&submenuIndex=0&id={{ order.id }}">
+        Подробнее в системе управления ->
+    </a>
+</b>
+

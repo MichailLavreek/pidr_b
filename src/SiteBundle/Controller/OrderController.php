@@ -94,7 +94,22 @@ class OrderController extends BaseController
         $em->persist($order);
         $em->flush($order);
 
+        $this->sendMail($order);
+
         return new JsonResponse(['success' => true]);
+    }
+
+    protected function sendMail(Order $order)
+    {
+        mail(
+            'laminat_chernigiv@ukr.net',
+            'Новое письмо на сайте: Заказ монтажа',
+            $this->renderView(
+                'emails/order.html.twig',
+                ['order' => $order]
+            ),
+            "Content-type:text/html;charset=UTF-8" . "\r\n" . "From: <site@pidrahuy.com.ua>" . "\r\n"
+        );
     }
 
     private function validate($data)

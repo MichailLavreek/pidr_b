@@ -1,0 +1,46 @@
+
+<h2>На сайте была заполнена форма на странице контактов</h2>
+
+<table bgcolor="#ACD13C" cellpadding="2" cellspacing="0">
+    <tr>
+        <td>
+            <table bgcolor="#ffffff" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th  style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Имя
+                    </th>
+                    <th  style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Email
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Сообщение
+                    </th>
+                    <th style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        Дата заполнения
+                    </th>
+                </tr>
+                <tr>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ feedback.name }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ feedback.email }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ feedback.message }}
+                    </td>
+                    <td style="font-weight: normal; font-size: 0.9em; color: #000000; font-family: Arial,helvetica,sans; padding:5px; text-align:left;">
+                        {{ feedback.createdAt|date('H:i d-m-Y') }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<b>
+    <a href="http://pidrahuy.com.ua/cms?entity=Feedback&action=show&menuIndex=3&submenuIndex=1&id={{ feedback.id }}">
+        Подробнее в системе управления ->
+    </a>
+</b>
+
