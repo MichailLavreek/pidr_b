@@ -3,11 +3,13 @@
 namespace App\CMSBundle\Controller;
 
 use App\Entity\Content;
+use App\Entity\ContentLanguage;
 use App\Entity\Language;
 use App\Entity\Meta;
 use App\Entity\MetaLanguage;
 use App\Entity\Product;
 use App\Entity\ProductImage;
+use App\Entity\ProductLanguage;
 use App\Entity\Structure;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdminController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -85,6 +87,7 @@ class AdminController extends EasyAdminController
     protected function prePersistContentEntity($entity)
     {
         $this->checkAndGenerateMeta($entity);
+        $this->checkAndGenerateLang($entity);
         $this->prePersistEntity($entity);
     }
 
@@ -95,6 +98,29 @@ class AdminController extends EasyAdminController
     protected function preUpdateContentEntity($entity)
     {
         $this->checkAndGenerateMeta($entity);
+        $this->checkAndGenerateLang($entity);
+        $this->preUpdateEntity($entity);
+    }
+
+    /**
+     * @param $entity
+     * @throws \Doctrine\ORM\ORMException
+     */
+    protected function prePersistProductEntity($entity)
+    {
+        $this->checkAndGenerateMeta($entity);
+        $this->checkAndGenerateLang($entity);
+        $this->prePersistEntity($entity);
+    }
+
+    /**
+     * @param $entity
+     * @throws \Doctrine\ORM\ORMException
+     */
+    protected function preUpdateProductEntity($entity)
+    {
+        $this->checkAndGenerateMeta($entity);
+        $this->checkAndGenerateLang($entity);
         $this->preUpdateEntity($entity);
     }
 
@@ -145,6 +171,56 @@ class AdminController extends EasyAdminController
 
                     $this->em->persist($metaLanguage);
                 }
+            }
+        }
+
+        if ($isEntitiesChanged) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @var Content|Product $entity
+     * @throws \Doctrine\ORM\ORMException
+     */
+    protected function checkAndGenerateLang($entity)
+    {
+        if (!method_exists($entity, 'getLang') || !method_exists($entity, 'setMeta')) {
+            return;
+        }
+
+        $isEntitiesChanged = false;
+
+        $entityLang = $entity->getLang() ?? [];
+        $lang = $this->em->getRepository(Language::class)->findAll();
+
+        if (count($entityLang) === count($lang)) {
+            return;
+        }
+
+        foreach ($lang as $language) {
+            $entityLangExists = false;
+
+            foreach ($entityLang as $entityLanguage) {
+                if ($entityLanguage->getLanguage() === $language->getIso2()) {
+                    $entityLangExists = true;
+                    break;
+                }
+            }
+
+            if (!$entityLangExists) {
+                if (method_exists($entity, 'getPrice')) {
+                    $entityLanguage = new ProductLanguage();
+                    $entityLanguage->setProduct($entity);
+                } else {
+                    $entityLanguage = new ContentLanguage();
+                    $entityLanguage->setContent($entity);
+                }
+
+                $entityLanguage->setLanguage($language);
+                $isEntitiesChanged = true;
+
+                $this->em->persist($entityLanguage);
             }
         }
 
