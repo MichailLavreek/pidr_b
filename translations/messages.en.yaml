@@ -45,7 +45,7 @@ send: Send
 'контакт-центру': 'contact center'
 'Самовивіз - Бескоштовно': 'Pickup - Free'
 'Способи розрахунку': 'Methods of payment'
-'готівковий, безготівковий, при отриманні товару': 'cash, credit-cards, upon receipt of the goods'
+'готівковий, безготівковий': 'cash, credit-cards'
 'Опис товару': 'Description of the product'
 'Характеристики': 'Characteristics'
 'Вигідні пропозиції': 'Beneficial offers'

@@ -37,9 +37,11 @@
                                     <div class="slick-slide slick-slide--small" style="background: url('{{ vich_uploader_asset(image, 'imageFile') }}') no-repeat center;"></div>
                                 {% endfor %}
                             </div>
-                            <div class="product-content__register product-content__register--after-slider" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
-                                {{ 'Реєстрація на монтаж'|trans }}
-                            </div>
+                            {% if product.structure.alias == 'laminate' %}
+                                <div class="product-content__register product-content__register--after-slider" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
+                                    {{ 'Реєстрація на монтаж'|trans }}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="product-content__description">
@@ -54,10 +56,11 @@
                                 </div>
                             </div>
 
-                            <div class="product-content__register" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
-                                {{ 'Реєстрація на монтаж'|trans }}
-                            </div>
-
+                            {% if product.structure.alias == 'laminate' %}
+                                <div class="product-content__register" data-href="{{ path('order', {'_locale': currentLanguage.iso2}) }}">
+                                    {{ 'Реєстрація на монтаж'|trans }}
+                                </div>
+                            {% endif %}
 
                             <div class="product-content__delivery">
                                 {{ include('includes/delivery-text.html.twig') }}
