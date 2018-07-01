@@ -46,7 +46,8 @@
 
                             <div class="product-content__basics">
                                 <div class="product-content__price">
-                                    {{ product.price }} <pre class="product-content__price-cod">{{ 'грн/м2'|trans }}</pre>
+                                    {{ product.price }}
+                                    <pre class="product-content__price-cod">{{ priceDescription|trans }}</pre>
                                 </div>
                                 <div class="product-content__article">
                                     {{ product.code }}

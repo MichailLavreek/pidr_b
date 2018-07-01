@@ -22,6 +22,7 @@ class ProductController extends BaseController
     {
         $this->setup($request);
 
+        /** @var Product $product */
         $product = $this
             ->em
             ->getRepository(Product::class)
@@ -30,6 +31,12 @@ class ProductController extends BaseController
         if (empty($product)) throw new NotFoundHttpException('Product not Fond!');
 
         $this->responseData['product'] = $product;
+        $this->responseData['priceDescription'] = 'грн';
+
+        if ($product->getStructure()->getAlias() === 'laminate') {
+            $this->responseData['priceDescription'] = 'грн/м2';
+        }
+
         $this->setupMeta($product);
 
         return $this->render('page/product.html.twig', $this->responseData);
