@@ -155,7 +155,7 @@ class AdminController extends EasyAdminController
 
     protected function updateEntity($entity)
     {
-        if (method_exists($entity, 'getLang') && count($entity->getLang()) > 0) {
+        if (method_exists($entity, 'getLang') && count($entity->getLang()) > 0 && $entity->getLang()[0]) {
             $langs = $this
                 ->em
                 ->getRepository($entity->getLang()[0]->getClassName())
