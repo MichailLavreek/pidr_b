@@ -1,0 +1,35 @@
+<div class="add-customer" [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput required [matDatepicker]="picker" placeholder="Дата" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput required placeholder="Адрес" formControlName="address">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput required placeholder="Описание заказа" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput required placeholder="Телефоны" name="phones" formControlName="phones">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput required placeholder="Имя клиента" formControlName="name">
+  </mat-form-field>
+
+  <mat-checkbox [value]="false" formControlName="processed">Обработано (созвонились)</mat-checkbox>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Заметки, оценка клиента, жалобы, пожелания" formControlName="processedDescription"></textarea>
+  </mat-form-field>
+
+  <div class="example-button-row">
+    <button type="button" mat-raised-button (click)="cancel()">Отмена</button>
+    <button type="button" mat-raised-button color="primary" (click)="submit()">Сохранить</button>
+  </div>
+</div>

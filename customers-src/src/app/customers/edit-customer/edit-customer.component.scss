@@ -1,0 +1,17 @@
+.add-customer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding-top: 20px;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+  margin-top: 20px;
+}
+
+mat-checkbox {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}

@@ -1,0 +1,31 @@
+.zui-table {
+  border: solid 1px rgba(0, 0, 0, 0.41);
+  border-collapse: collapse;
+  border-spacing: 0;
+  font: normal 13px Arial, sans-serif;
+}
+.zui-table thead th {
+  background-color: rgba(7, 0, 29, 0.16);
+  border: solid 1px rgba(0, 0, 0, 0.41);
+  color: black;
+  padding: 10px;
+  text-align: left;
+}
+.zui-table tbody td {
+  border: solid 1px rgba(0, 0, 0, 0.41);
+  color: black;
+  padding: 10px;
+}
+
+.customers {
+  padding-top: 20px;
+
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .table-button {
+    cursor: pointer;
+  }
+}

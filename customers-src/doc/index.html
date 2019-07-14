@@ -1,0 +1,63 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .not-found {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a class="doc-link" href="client/index.html">Документация клиентской части</a>
+    </div>
+
+    <script>
+        let elems = document.getElementsByClassName('doc-link');
+
+        for (let elem of elems) {
+            checkExists(elem);
+        }
+
+        function checkExists(elem) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = handler;
+            xhr.open('HEAD', elem.href);
+            xhr.send(null);
+        }
+
+        function handler(event) {
+            if (event.target.readyState === 4 && event.target.status === 404) {
+                for (let elem of elems) {
+                    if (elem.href === event.target.responseURL) {
+                        changeElem(elem);
+                    }
+                }
+            }
+        }
+
+        function changeElem(elem) {
+            setWarning();
+            
+            elem.href = '#';
+            elem.innerText += ' - Документация не найдена';
+            elem.classList.add('not-found');
+        }
+        
+        function setWarning() {
+            let warningElem = document.getElementsByClassName('warning')[0];
+            if (warningElem) {
+                return;
+            }
+
+            warningElem = document.createElement('h3');
+            warningElem.classList.add('warning');
+            warningElem.innerText = 'Одна или несколько документаций не сгенерированы, выполните в терминале команду  npm run doc-gen'
+            document.body.appendChild(warningElem);
+        }
+    </script>
+</body>
+</html>

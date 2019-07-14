@@ -1,0 +1,9 @@
+client
+node_modules
+doc/client
+.idea
+.DS_Store
+npm-debug.log
+.sshDeployServerPassword
+.sshDeployServerPassword38
+proxy.conf.json

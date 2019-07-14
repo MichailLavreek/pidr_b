@@ -1,0 +1,19 @@
+{
+  "/api": {
+    "target": "http://127.0.0.1:9010",
+    "secure": false
+  },
+  "/auth": {
+    "target": "http://127.0.0.1:9010",
+    "secure": false
+  },
+  "/tera": {
+    "target": "http://127.0.0.1:9010",
+    "secure": false
+  },
+  "/ws": {
+    "target": "http://127.0.0.1:9085",
+    "secure": false,
+    "ws": true
+  }
+}
