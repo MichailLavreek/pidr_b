@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 use App\Kernel;
 use Symfony\Component\Debug\Debug;
