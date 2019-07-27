@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import moment = require("moment");
 import {CustomersService} from "../customers.service";
 
@@ -18,6 +18,7 @@ export class AddCustomerComponent implements OnInit {
         phones: new FormControl(),
         name: new FormControl(),
         processed: new FormControl(),
+        rating: new FormControl("", [Validators.max(10), Validators.min(0), Validators.pattern(new RegExp('^[0-9]+$'))]),
         processedDescription: new FormControl(),
     });
 

@@ -22,10 +22,14 @@
     <input matInput required placeholder="Имя клиента" formControlName="name">
   </mat-form-field>
 
-  <mat-checkbox [value]="false" formControlName="processed">Обработано (созвонились)</mat-checkbox>
+  <mat-checkbox class="check-box-processed" [value]="false" formControlName="processed">Обработано (созвонились)</mat-checkbox>
 
   <mat-form-field>
-    <textarea matInput placeholder="Заметки, оценка клиента, жалобы, пожелания" formControlName="processedDescription"></textarea>
+    <input matInput min="0" max="10" type="number" placeholder="Оценка клиента, от 0 до 10" formControlName="rating">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Заметки, жалобы, пожелания" formControlName="processedDescription"></textarea>
   </mat-form-field>
 
   <div class="example-button-row">

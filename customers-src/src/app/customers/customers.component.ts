@@ -14,7 +14,7 @@ import {DialogContentComponent} from "./dialog-content/dialog-content.component"
 })
 export class CustomersComponent implements OnInit {
     public customers: any;
-    displayedColumns: string[] = ['date', 'address', 'description', 'phones', 'name', 'processed', 'processedDescription', 'deleteButton', 'editButton'];
+    displayedColumns: string[] = ['date', 'address', 'description', 'phones', 'name', 'processed', 'rating', 'processedDescription', 'deleteButton', 'editButton'];
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
 

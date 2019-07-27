@@ -34,6 +34,11 @@ class Customer
     public $description;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    public $rating;
+
+    /**
      * @ORM\Column(type="string")
      */
     public $name;
@@ -179,5 +184,21 @@ class Customer
     public function setAddress($address): void
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating): void
+    {
+        $this->rating = $rating;
     }
 }

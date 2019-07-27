@@ -35,6 +35,11 @@
             <td mat-cell *matCellDef="let element">{{element.processed ? '✔' : '❌'}}</td>
         </ng-container>
 
+        <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Оценка</th>
+            <td mat-cell *matCellDef="let element">{{element.rating}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="processedDescription">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Заметки </th>
             <td mat-cell *matCellDef="let element"> {{element.processedDescription}} </td>

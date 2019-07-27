@@ -99,6 +99,7 @@ class CustomersController extends EasyAdminController
         $entity->setPhones($customerFromRequest['phones']);
         $processed = $customerFromRequest['processed'] ? 1 : 0;
         $entity->setProcessed($processed);
+        $entity->setRating(+$customerFromRequest['rating'] ? +$customerFromRequest['rating'] : null);
         $entity->setProcessedDescription($customerFromRequest['processedDescription']);
 
         $em->persist($entity);
