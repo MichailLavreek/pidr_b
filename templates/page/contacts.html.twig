@@ -41,21 +41,28 @@
                                     {{ 'contacts-phones-title'|trans }}:
                                 </h3>
                                 <ul class="info__contact-items info__contact-items--phones">
-                                    <li class="info__contact-item">
-                                        <a href="tel:+38{{ variables.phone_1 }}">
-                                            +38{{ variables.phone_1 }}
-                                        </a>
-                                    </li>
-                                    <li class="info__contact-item">
-                                        <a href="tel:+38{{ variables.phone_2 }}">
-                                            +38{{ variables.phone_2 }}
-                                        </a>
-                                    </li>
-                                    <li class="info__contact-item">
-                                        <a href="tel:+38{{ variables.phone_3 }}">
-                                            +38{{ variables.phone_3 }}
-                                        </a>
-                                    </li>
+
+                                    {% if variables.phone_1 is defined %}
+                                        <li class="info__contact-item">
+                                            <a href="tel:+38{{ variables.phone_1 }}">
+                                                +38{{ variables.phone_1 }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if variables.phone_2 is defined %}
+                                        <li class="info__contact-item">
+                                            <a href="tel:+38{{ variables.phone_2 }}">
+                                                +38{{ variables.phone_2 }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if variables.phone_3 is defined %}
+                                        <li class="info__contact-item">
+                                            <a href="tel:+38{{ variables.phone_3 }}">
+                                                +38{{ variables.phone_3 }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>

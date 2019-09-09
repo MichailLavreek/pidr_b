@@ -67,9 +67,17 @@
             </div>
             <div class="contacts__items contacts__items--phone">
                 <div class="contacts__icon icon-phone-receiver"></div>
-                <a href="telto:{{ variables.phone_1 }}" class="contacts__item">{{ variables.phone_1 }}</a>
-                <a href="telto:{{ variables.phone_2 }}" class="contacts__item">{{ variables.phone_2 }}</a>
-                <a href="telto:{{ variables.phone_3 }}" class="contacts__item">{{ variables.phone_3 }}</a>
+                {% if variables.phone_1 is defined %}
+                    <a href="telto:{{ variables.phone_1 }}" class="contacts__item">{{ variables.phone_1 }}</a>
+                {% endif %}
+
+                {% if variables.phone_2 is defined %}
+                    <a href="telto:{{ variables.phone_2 }}" class="contacts__item">{{ variables.phone_2 }}</a>
+                {% endif %}
+
+                {% if variables.phone_3 is defined %}
+                    <a href="telto:{{ variables.phone_3 }}" class="contacts__item">{{ variables.phone_3 }}</a>
+                {% endif %}
             </div>
             <div class="contacts__items contacts__items--email">
                 <div class="contacts__icon icon-close-envelope"></div>
