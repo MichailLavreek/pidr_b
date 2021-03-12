@@ -41,7 +41,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-moment-timezone": "^1.7.1",
     "html2canvas": "^1.0.0-rc.3",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "ng-block-ui": "^2.1.1",
     "ng6-sticky": "^1.0.4",
     "ngx-cookie-service": "^2.0.0",
